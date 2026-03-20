@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>健康體態目標達成儀 Pro+</title>
-    
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2738/2738658.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>健康體態目標達成儀 Pro+ (詳細活動量版)</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -30,27 +26,17 @@
         .dark body { background-color: #0f172a; color: #f1f5f9; }
         .card { background: white; border-radius: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .dark .card { background: #1e293b; border: 1px solid #334155; }
-        
         input, select { background-color: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; font-weight: 600; }
         .dark input, .dark select { background-color: #334155; color: #f1f5f9; border-color: #475569; }
-        
-        .food-chip { cursor: pointer; border: 1px solid #e2e8f0; background: white; white-space: nowrap; font-size: 11px; padding: 6px 12px; border-radius: 99px; font-weight: bold; }
-        .dark .food-chip { background: #334155; border-color: #475569; color: #cbd5e1; }
-        
         .progress-bar { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-
         .suggestion-box {
-            position: absolute; width: 100%; max-height: 250px; overflow-y: auto;
+            position: absolute; width: 100%; max-height: 280px; overflow-y: auto;
             background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            z-index: 50; margin-top: 4px; border: 1px solid #e2e8f0;
+            z-index: 100; margin-top: 4px; border: 1px solid #e2e8f0;
         }
         .dark .suggestion-box { background: #1e293b; border-color: #475569; }
         .suggestion-item { padding: 12px; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
         .dark .suggestion-item { border-bottom-color: #334155; }
-        .suggestion-item:last-child { border-bottom: none; }
-        .suggestion-item:hover { background: #f8fafc; }
-        .dark .suggestion-item:hover { background: #334155; }
     </style>
 </head>
 <body class="px-5">
@@ -58,57 +44,47 @@
     <div class="max-w-xl mx-auto">
         <header class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">體態目標 <span class="text-blue-600">Pro+</span></h1>
-            <button onclick="toggleDarkMode()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 active:scale-90 transition">
+            <button onclick="toggleDarkMode()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white dark:bg-gray-800 shadow-lg active:scale-90 transition">
                 <span id="darkBtnIcon" class="text-2xl">🌙</span>
             </button>
         </header>
 
         <div class="card p-6 mb-6 border-t-4 border-blue-500">
-            <h2 class="text-xs font-black mb-4 opacity-50 uppercase tracking-widest text-gray-800 dark:text-gray-400">👤 身體數據設定</h2>
+            <h2 class="text-xs font-black mb-4 opacity-50 tracking-widest text-gray-800 dark:text-gray-400">👤 數據設定</h2>
             <div class="grid grid-cols-2 gap-3 text-sm">
-                <div><label class="block text-[10px] mb-1 font-bold opacity-60">目前體重 (kg)</label><input id="weight" type="number" step="0.1" class="w-full p-2.5 rounded-xl text-blue-600 outline-none"></div>
-                <div><label class="block text-[10px] mb-1 font-bold opacity-60">目標體重 (kg)</label><input id="targetWeight" type="number" step="0.1" class="w-full p-2.5 rounded-xl text-orange-600 outline-none"></div>
+                <div><label class="block text-[10px] mb-1 font-bold opacity-60">目前體重 (kg)</label><input id="weight" type="number" step="0.1" class="w-full p-2.5 rounded-xl outline-none"></div>
+                <div><label class="block text-[10px] mb-1 font-bold opacity-60">目標體重 (kg)</label><input id="targetWeight" type="number" step="0.1" class="w-full p-2.5 rounded-xl outline-none"></div>
                 <div><label class="block text-[10px] mb-1 font-bold opacity-60">身高 (cm)</label><input id="height" type="number" class="w-full p-2.5 rounded-xl outline-none"></div>
                 <div><label class="block text-[10px] mb-1 font-bold opacity-60">年齡</label><input id="age" type="number" class="w-full p-2.5 rounded-xl outline-none"></div>
                 <div class="col-span-2">
-                    <label class="block text-[10px] mb-1 font-bold opacity-60">日常活動量</label>
+                    <label class="block text-[10px] mb-1 font-bold opacity-60">日常活動量 (每週運動次數)</label>
                     <select id="activity" class="w-full p-2.5 rounded-xl outline-none">
-                        <option value="1.2">久坐 (無運動、辦公室工作)</option>
-                        <option value="1.375">輕度 (每週運動 1-3 天)</option>
-                        <option value="1.55">中度 (每週運動 3-5 天)</option>
-                        <option value="1.725">重度 (每週運動 6-7 天)</option>
+                        <option value="1.2">久坐 (幾乎不運動、辦公室工作)</option>
+                        <option value="1.375">輕度 (每週運動 1 - 3 天)</option>
+                        <option value="1.55">中度 (每週運動 3 - 5 天)</option>
+                        <option value="1.725">重度 (每週運動 6 - 7 天)</option>
+                        <option value="1.9">極限 (運動員、高強度體力活)</option>
                     </select>
                 </div>
                 <div><label class="block text-[10px] mb-1 font-bold opacity-60">性別</label>
-                    <select id="gender" class="w-full p-2.5 rounded-xl outline-none">
-                        <option value="male">男性</option><option value="female">女性</option>
-                    </select>
+                    <select id="gender" class="w-full p-2.5 rounded-xl outline-none"><option value="male">男性</option><option value="female">女性</option></select>
                 </div>
-                <div class="flex flex-col justify-end pb-1 px-1">
-                    <div class="flex justify-between text-[11px] font-black italic">
-                        <span class="text-blue-500">BMI: <span id="bmiVal">--</span></span>
-                        <span class="text-purple-500">TDEE: <span id="tdeeVal">--</span></span>
-                    </div>
+                <div class="flex flex-col justify-end text-[11px] font-black italic">
+                    <span class="text-blue-500">BMI: <span id="bmiVal">--</span></span>
+                    <span class="text-purple-500">TDEE: <span id="tdeeVal">--</span></span>
                 </div>
-                <div class="col-span-2">
-                    <button onclick="saveUserDetail()" class="w-full mt-2 bg-blue-600 text-white py-3.5 rounded-xl font-black shadow-lg active:scale-95 transition">紀錄並更新數據</button>
-                </div>
+                <button onclick="saveUserDetail()" class="col-span-2 mt-2 bg-blue-600 text-white py-3.5 rounded-xl font-black shadow-lg active:scale-95 transition">紀錄並更新</button>
             </div>
         </div>
 
         <div class="card p-6 mb-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="font-black text-sm text-gray-800 dark:text-white">今日熱量與比例</h2>
-                <span id="remainingCal" class="text-[10px] font-black px-3 py-1 rounded-full">--</span>
-            </div>
-            <div class="flex flex-row gap-4 items-center mb-6">
+            <div class="flex justify-between items-center mb-4"><h2 class="font-black text-sm">今日進度</h2><span id="remainingCal" class="text-[10px] font-black px-3 py-1 rounded-full">--</span></div>
+            <div class="flex flex-row gap-4 items-center">
                 <div class="w-24 h-24 flex-shrink-0"><canvas id="macroPieChart"></canvas></div>
                 <div class="flex-grow">
-                    <div class="w-full bg-gray-100 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden mb-4">
-                        <div id="calProgress" class="progress-bar bg-green-500 h-full w-0"></div>
-                    </div>
+                    <div class="w-full bg-gray-100 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden mb-4"><div id="calProgress" class="progress-bar bg-green-500 h-full w-0"></div></div>
                     <div class="grid grid-cols-4 gap-1.5 text-center">
-                        <div class="bg-blue-50 dark:bg-blue-900/20 py-2 rounded-xl"><p class="text-[8px] font-bold text-blue-500">卡路里</p><p id="totalCal" class="text-xs font-black">0</p></div>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 py-2 rounded-xl"><p class="text-[8px] font-bold text-blue-500">熱量</p><p id="totalCal" class="text-xs font-black">0</p></div>
                         <div class="bg-red-50 dark:bg-red-900/20 py-2 rounded-xl"><p class="text-[8px] font-bold text-red-500">蛋白</p><p id="totalP" class="text-xs font-black">0</p></div>
                         <div class="bg-green-50 dark:bg-green-900/20 py-2 rounded-xl"><p class="text-[8px] font-bold text-green-600">碳水</p><p id="totalC" class="text-xs font-black">0</p></div>
                         <div class="bg-yellow-50 dark:bg-yellow-900/20 py-2 rounded-xl"><p class="text-[8px] font-bold text-yellow-600">脂肪</p><p id="totalF" class="text-xs font-black">0</p></div>
@@ -118,66 +94,60 @@
         </div>
 
         <div class="card p-6 mb-6">
-            <h2 class="text-xs font-black mb-4 opacity-50 uppercase tracking-widest text-gray-800 dark:text-gray-400">🍎 飲食日誌</h2>
-            
+            <h2 class="text-xs font-black mb-4 opacity-50 tracking-widest">🍎 飲食日誌</h2>
             <div class="relative mb-3">
-                <input id="foodName" type="text" placeholder="輸入食物、水果或堅果名稱..." class="w-full p-3 rounded-xl text-sm outline-none" oninput="handleFoodInput(this.value)">
+                <input id="foodName" type="text" placeholder="搜尋食物..." class="w-full p-3 rounded-xl text-sm outline-none" oninput="handleFoodInput(this.value)">
                 <div id="suggestionBox" class="suggestion-box hidden"></div>
             </div>
-
             <div class="grid grid-cols-3 gap-2 mb-3">
-                <input id="pInput" type="number" placeholder="蛋白(g)" class="p-3 rounded-xl text-sm outline-none">
-                <input id="cInput" type="number" placeholder="碳水(g)" class="p-3 rounded-xl text-sm outline-none">
-                <input id="fInput" type="number" placeholder="脂肪(g)" class="p-3 rounded-xl text-sm outline-none">
+                <input id="pInput" type="number" placeholder="蛋白" class="p-3 rounded-xl text-sm outline-none">
+                <input id="cInput" type="number" placeholder="碳水" class="p-3 rounded-xl text-sm outline-none">
+                <input id="fInput" type="number" placeholder="脂肪" class="p-3 rounded-xl text-sm outline-none">
             </div>
-            
-            <div class="grid grid-cols-2 gap-2 mb-3">
-                <button onclick="addWater(250)" class="p-3 rounded-xl text-xs font-black bg-cyan-500 text-white active:scale-95 transition">水 +250ml (<span id="waterText">0</span>)</button>
-                <button onclick="addEntry()" class="bg-gray-900 dark:bg-blue-600 text-white p-3 rounded-xl font-black active:scale-95 transition text-sm">加入紀錄</button>
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="addWater(250)" class="p-3 rounded-xl text-xs font-black bg-cyan-500 text-white">水 +250ml (<span id="waterText">0</span>)</button>
+                <button onclick="addEntry()" class="bg-blue-600 text-white p-3 rounded-xl font-black text-sm">加入紀錄</button>
             </div>
         </div>
 
         <div class="card p-6 mb-6">
-            <div class="flex justify-between items-center mb-4"><span class="text-xs font-bold opacity-60">今日紀錄清單</span><button onclick="clearAll()" class="text-[10px] text-red-500 font-bold">清空日誌</button></div>
-            <ul id="logList" class="space-y-3 max-h-[250px] overflow-y-auto pr-1"></ul>
+            <ul id="logList" class="space-y-3 max-h-[200px] overflow-y-auto"></ul>
+            <button onclick="clearAll()" class="w-full text-center text-red-500 text-[10px] mt-4 font-bold opacity-60 hover:opacity-100 transition">清空今日紀錄</button>
         </div>
-
-        <div class="card p-5 mb-6"><h2 class="text-[10px] font-black opacity-40 mb-3 uppercase tracking-widest">📉 體重變化</h2><div class="h-[150px]"><canvas id="weightChart"></canvas></div></div>
-        <div class="card p-5 mb-10"><h2 class="text-[10px] font-black opacity-40 mb-3 uppercase tracking-widest">🔥 熱量趨勢</h2><div class="h-[150px]"><canvas id="trendChart"></canvas></div></div>
+        
+        <div class="card p-5 mb-6 h-[180px]"><canvas id="weightChart"></canvas></div>
+        <div class="card p-5 mb-10 h-[180px]"><canvas id="trendChart"></canvas></div>
     </div>
 
     <script>
         const commonFoods = [
-            // 基礎蛋白質 & 外食 (保留)
-            { name: "雞胸肉 (100g)", p: 31, c: 0, f: 3.6 }, { name: "雞蛋 (一顆)", p: 7, c: 0.6, f: 5 },
-            { name: "白飯 (一碗)", p: 4, c: 60, f: 0.6 }, { name: "牛肉麵 (一碗)", p: 35, c: 75, f: 20 },
-            { name: "無糖豆漿 (400ml)", p: 13, c: 7, f: 8 },
-
-            // 🍎 水果類 (新加入)
-            { name: "蘋果 (一顆/中)", p: 0.5, c: 25, f: 0.3 },
-            { name: "香蕉 (一根/中)", p: 1.3, c: 27, f: 0.4 },
-            { name: "藍莓 (100g)", p: 0.7, c: 14, f: 0.3 },
-            { name: "酪梨 (半顆)", p: 2, c: 8.5, f: 15 },
-            { name: "奇異果 (一顆)", p: 1.1, c: 15, f: 0.5 },
-            { name: "芭樂 (一顆/中)", p: 2.6, c: 14, f: 1 },
-            { name: "葡萄 (10顆)", p: 0.6, c: 16, f: 0.2 },
-            { name: "小番茄 (10顆)", p: 0.9, c: 4, f: 0.2 },
-            { name: "木瓜 (200g)", p: 1, c: 22, f: 0.4 },
-
-            // 🥜 堅果與種子類 (新加入)
-            { name: "綜合堅果 (一小把/20g)", p: 4, c: 4, f: 11 },
-            { name: "杏仁果 (10顆)", p: 2.5, c: 2.5, f: 6 },
-            { name: "腰果 (10顆)", p: 2, c: 4, f: 5.5 },
-            { name: "核桃 (2顆/完整)", p: 1.5, c: 1, f: 6.5 },
-            { name: "花生 (20顆)", p: 5, c: 3, f: 9.5 },
-            { name: "開心果 (20顆)", p: 3, c: 4, f: 7 },
-            { name: "南瓜子 (20g)", p: 6, c: 3, f: 9 },
-            { name: "黑芝麻 (一湯匙/10g)", p: 1.8, c: 1.5, f: 5 }
+            // --- 蛋白質類 ---
+            { name: "雞胸肉 (100g)", p: 31, c: 0, f: 3.6 }, { name: "雞腿肉 (100g/去皮)", p: 24, c: 0, f: 8 }, { name: "雞蛋 (一顆)", p: 7, c: 0.6, f: 5 },
+            { name: "荷包蛋 (一顆/油煎)", p: 7, c: 0.6, f: 8 }, { name: "牛腱 (100g)", p: 26, c: 0, f: 4 }, { name: "牛排 (100g/瘦肉)", p: 25, c: 0, f: 12 },
+            { name: "豬里肌 (100g)", p: 22, c: 0, f: 7 }, { name: "鮭魚 (100g)", p: 20, c: 0, f: 13 }, { name: "鱈魚 (100g)", p: 18, c: 0, f: 1 },
+            { name: "鯛魚片 (100g)", p: 20, c: 0, f: 1.5 }, { name: "蝦子 (100g)", p: 22, c: 1, f: 1 }, { name: "蛤蜊 (100g)", p: 12, c: 2, f: 0.5 },
+            { name: "板豆腐 (100g)", p: 8.5, c: 2.5, f: 4.5 }, { name: "嫩豆腐 (150g)", p: 7, c: 3, f: 3 }, { name: "滷豆腐 (一塊)", p: 5, c: 2, f: 4 },
+            { name: "無糖豆漿 (400ml)", p: 13, c: 7, f: 8 }, { name: "乳清蛋白 (一匙)", p: 25, c: 2, f: 1.5 },
+            // --- 碳水主食 ---
+            { name: "白飯 (一碗/160g)", p: 4, c: 60, f: 0.6 }, { name: "糙米飯 (一碗/160g)", p: 5, c: 55, f: 1.5 }, { name: "地瓜 (中/150g)", p: 2, c: 30, f: 0.2 },
+            { name: "馬鈴薯 (150g)", p: 3, c: 26, f: 0.2 }, { name: "義大利麵 (100g/熟)", p: 5, c: 30, f: 1 }, { name: "烏龍麵 (200g/一份)", p: 6, c: 45, f: 0.5 },
+            { name: "全麥吐司 (一片)", p: 5, c: 22, f: 1.5 }, { name: "白饅頭 (一顆/中)", p: 8, c: 50, f: 1 }, { name: "燕麥片 (50g/乾)", p: 6, c: 33, f: 3.5 },
+            { name: "水煎包 (一顆/肉)", p: 6, c: 25, f: 10 }, { name: "甜玉米 (一根)", p: 5, c: 32, f: 2 }, { name: "便利商店飯糰", p: 5, c: 40, f: 2 },
+            // --- 水果類 ---
+            { name: "蘋果 (一顆/中)", p: 0.5, c: 25, f: 0.3 }, { name: "香蕉 (一根/中)", p: 1.3, c: 27, f: 0.4 }, { name: "藍莓 (100g)", p: 0.7, c: 14, f: 0.3 },
+            { name: "奇異果 (一顆)", p: 1.1, c: 15, f: 0.5 }, { name: "芭樂 (一顆/中)", p: 2.6, c: 14, f: 1 },
+            // --- 堅果與油脂 ---
+            { name: "綜合堅果 (一小把/20g)", p: 4, c: 4, f: 11 }, { name: "杏仁果 (10顆)", p: 2.5, c: 2.5, f: 6 }, { name: "核桃 (2顆/完整)", p: 1.5, c: 1, f: 6.5 },
+            { name: "橄欖油 (一湯匙/15ml)", p: 0, c: 0, f: 14 }, { name: "花生醬 (一湯匙/15g)", p: 4, c: 3, f: 8 }, { name: "酪梨 (半顆)", p: 2, c: 8.5, f: 15 },
+            // --- 蔬菜與外食 ---
+            { name: "花椰菜 (100g)", p: 3, c: 5, f: 0.3 }, { name: "秋葵 (100g)", p: 2, c: 7, f: 0.2 }, { name: "黑木耳 (100g)", p: 1, c: 6, f: 0.2 },
+            { name: "燙青菜 (一盤/含油)", p: 1.5, c: 4, f: 5 }, { name: "高麗菜 (100g)", p: 1.3, c: 5, f: 0.1 }, { name: "滷肉飯 (一碗)", p: 12, c: 65, f: 25 },
+            { name: "牛肉麵 (一碗)", p: 35, c: 75, f: 20 }, { name: "水餃 (一顆/豬肉)", p: 2, c: 5, f: 3.5 }, { name: "便利商店雞肉沙拉", p: 15, c: 10, f: 8 }
         ];
 
-        let historyData = JSON.parse(localStorage.getItem('dietV29')) || {};
-        let weightHistory = JSON.parse(localStorage.getItem('weightV29')) || [];
-        let userDetail = JSON.parse(localStorage.getItem('userV29')) || { gender:'male', age:25, weight:70, targetWeight:70, height:170, activity:1.2, tdee: 2000 };
+        let historyData = JSON.parse(localStorage.getItem('dietV45')) || {};
+        let weightHistory = JSON.parse(localStorage.getItem('weightV45')) || [];
+        let userDetail = JSON.parse(localStorage.getItem('userV45')) || { gender:'male', age:25, weight:70, targetWeight:70, height:170, activity:1.2, tdee: 2000 };
         let today = new Date().toLocaleDateString();
         let logs = historyData[today]?.logs || [];
         let water = historyData[today]?.water || 0;
@@ -188,37 +158,26 @@
             if (!val) { box.classList.add('hidden'); return; }
             const matches = commonFoods.filter(f => f.name.toLowerCase().includes(val.toLowerCase()));
             if (matches.length > 0) {
-                box.innerHTML = matches.map(f => `
-                    <div class="suggestion-item" onclick="selectFood('${f.name}', ${f.p}, ${f.c}, ${f.f})">
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-sm">${f.name}</span>
-                            <span class="text-[10px] text-blue-500 font-black">${Math.round(f.p*4 + f.c*4 + f.f*9)} kcal</span>
-                        </div>
-                    </div>
-                `).join('');
+                box.innerHTML = matches.map(f => `<div class="suggestion-item" onclick="selectFood('${f.name}', ${f.p}, ${f.c}, ${f.f})"><div class="flex justify-between"><span>${f.name}</span><span class="text-blue-500 font-bold">${Math.round(f.p*4+f.c*4+f.f*9)} kcal</span></div></div>`).join('');
                 box.classList.remove('hidden');
             } else { box.classList.add('hidden'); }
         }
 
         function selectFood(n, p, c, f) {
-            document.getElementById('foodName').value = n;
-            document.getElementById('pInput').value = p;
-            document.getElementById('cInput').value = c;
-            document.getElementById('fInput').value = f;
+            document.getElementById('foodName').value = n; document.getElementById('pInput').value = p;
+            document.getElementById('cInput').value = c; document.getElementById('fInput').value = f;
             document.getElementById('suggestionBox').classList.add('hidden');
         }
 
         function toggleDarkMode() {
             const isDark = document.documentElement.classList.toggle('dark');
             localStorage.theme = isDark ? 'dark' : 'light';
-            document.getElementById('darkBtnIcon').innerText = isDark ? '☀️' : '🌙';
-            location.reload(); 
+            location.reload();
         }
 
         function saveUserDetail() {
             ['weight','targetWeight','height','age','activity','gender'].forEach(id => {
-                const el = document.getElementById(id);
-                userDetail[id] = isNaN(parseFloat(el.value)) ? el.value : parseFloat(el.value);
+                const el = document.getElementById(id); userDetail[id] = isNaN(parseFloat(el.value)) ? el.value : parseFloat(el.value);
             });
             let bmr = (10 * userDetail.weight) + (6.25 * userDetail.height) - (5 * userDetail.age);
             bmr = (userDetail.gender === 'male') ? bmr + 5 : bmr - 161;
@@ -229,81 +188,61 @@
         }
 
         function updateUI() {
+            // 熱量邏輯：目標體重等於目前體重時使用 TDEE
             let goalCal = userDetail.weight === userDetail.targetWeight ? userDetail.tdee : (userDetail.targetWeight > userDetail.weight ? userDetail.tdee + 300 : userDetail.tdee - 500);
-            const bmi = (userDetail.weight / ((userDetail.height/100)**2)).toFixed(1);
             document.getElementById('tdeeVal').innerText = userDetail.tdee;
-            document.getElementById('bmiVal').innerText = bmi;
+            document.getElementById('bmiVal').innerText = (userDetail.weight / ((userDetail.height/100)**2)).toFixed(1);
             let tCal = 0, tP = 0, tC = 0, tF = 0;
-            const list = document.getElementById('logList');
-            list.innerHTML = '';
+            const list = document.getElementById('logList'); list.innerHTML = '';
             logs.forEach((item, index) => {
-                const cal = (item.p*4) + (item.c*4) + (item.f*9);
-                tCal += cal; tP += item.p; tC += item.c; tF += item.f;
-                list.innerHTML += `<li class="flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 p-3 rounded-xl"><span class="font-bold text-xs">${item.name}</span><span class="text-xs font-black text-blue-500">${Math.round(cal)} kcal <button onclick="deleteItem(${index})" class="ml-2">✕</button></span></li>`;
+                const cal = (item.p*4) + (item.c*4) + (item.f*9); tCal += cal; tP += item.p; tC += item.c; tF += item.f;
+                list.innerHTML += `<li class="flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 p-3 rounded-xl text-xs font-bold"><span>${item.name}</span><span>${Math.round(cal)} kcal <button onclick="deleteItem(${index})" class="ml-2 text-red-500">✕</button></span></li>`;
             });
             document.getElementById('totalCal').innerText = Math.round(tCal);
-            document.getElementById('totalP').innerText = Math.round(tP);
-            document.getElementById('totalC').innerText = Math.round(tC);
-            document.getElementById('totalF').innerText = Math.round(tF);
+            document.getElementById('totalP').innerText = Math.round(tP); document.getElementById('totalC').innerText = Math.round(tC); document.getElementById('totalF').innerText = Math.round(tF);
             document.getElementById('waterText').innerText = water;
             const remain = goalCal - tCal;
-            document.getElementById('remainingCal').innerText = remain >= 0 ? `可攝取 ${Math.round(remain)}` : `超標 ${Math.abs(Math.round(remain))}`;
+            document.getElementById('remainingCal').innerText = remain >= 0 ? `剩餘 ${Math.round(remain)}` : `超標 ${Math.abs(Math.round(remain))}`;
             document.getElementById('remainingCal').className = `text-[10px] font-black px-3 py-1 rounded-full ${remain >= 0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`;
             document.getElementById('calProgress').style.width = Math.min((tCal/goalCal)*100, 100) + '%';
-            if((tP*4 + tC*4 + tF*9) > 0) {
-                const totalMacros = (tP * 4) + (tC * 4) + (tF * 9);
-                macroPieChart.data.datasets[0].data = [Math.round((tP*4/totalMacros)*100), Math.round((tC*4/totalMacros)*100), Math.round((tF*9/totalMacros)*100)];
-                macroPieChart.update();
-            }
-            const calData = []; const dayLabels = [];
+            if((tP+tC+tF) > 0) { macroPieChart.data.datasets[0].data = [tP*4, tC*4, tF*9]; macroPieChart.update(); }
+            const labels = []; const cals = [];
             for(let i=6; i>=0; i--) {
-                let d = new Date(); d.setDate(d.getDate() - i);
-                calData.push(historyData[d.toLocaleDateString()]?.tCal || 0);
-                dayLabels.push(d.getDate() + '日');
+                let d = new Date(); d.setDate(d.getDate() - i); labels.push(d.getDate() + '日');
+                cals.push(historyData[d.toLocaleDateString()]?.tCal || 0);
             }
-            trendChart.data.labels = dayLabels; trendChart.data.datasets[0].data = calData;
-            trendChart.data.datasets[1].data = new Array(7).fill(goalCal); trendChart.update();
-            weightChart.data.labels = weightHistory.map(h => h.date.split('/')[2] + '日');
-            weightChart.data.datasets[0].data = weightHistory.map(h => h.val);
-            weightChart.update();
+            trendChart.data.labels = labels; trendChart.data.datasets[0].data = cals; trendChart.data.datasets[1].data = new Array(7).fill(goalCal); trendChart.update();
+            weightChart.data.labels = weightHistory.map(h => h.date.split('/')[2] + '日'); weightChart.data.datasets[0].data = weightHistory.map(h => h.val); weightChart.update();
             historyData[today] = { logs, water, tCal };
-            localStorage.setItem('dietV29', JSON.stringify(historyData));
-            localStorage.setItem('weightV29', JSON.stringify(weightHistory));
-            localStorage.setItem('userV29', JSON.stringify(userDetail));
+            localStorage.setItem('dietV45', JSON.stringify(historyData)); localStorage.setItem('weightV45', JSON.stringify(weightHistory)); localStorage.setItem('userV45', JSON.stringify(userDetail));
         }
 
         function initCharts() {
-            const isDark = document.documentElement.classList.contains('dark');
-            const color = isDark ? '#94a3b8' : '#64748b';
-            macroPieChart = new Chart(document.getElementById('macroPieChart'), {
-                type: 'doughnut', data: { labels: ['蛋白', '碳水', '脂肪'], datasets: [{ data: [33, 33, 34], backgroundColor: ['#ef4444', '#22c55e', '#facc15'], borderWidth: 0 }] },
-                options: { cutout: '70%', plugins: { legend: { display: false } } }
-            });
-            const lineConfig = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x:{ grid:{display:false}, ticks:{color, font:{size:10}} }, y:{ grid:{color:isDark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)'}, ticks:{color, font:{size:10}} } } };
-            trendChart = new Chart(document.getElementById('trendChart'), { type: 'line', data: { labels: [], datasets: [{ label: '攝取', data: [], borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.4 }, { label: '目標', data: [], borderColor: '#f43f5e', borderDash: [5, 5], pointRadius: 0 }] }, options: lineConfig });
-            weightChart = new Chart(document.getElementById('weightChart'), { type: 'line', data: { labels: [], datasets: [{ label: 'kg', data: [], borderColor: '#8b5cf6', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#8b5cf6' }] }, options: lineConfig });
+            const isDark = document.documentElement.classList.contains('dark'); const color = isDark ? '#94a3b8' : '#64748b';
+            macroPieChart = new Chart(document.getElementById('macroPieChart'), { type: 'doughnut', data: { datasets: [{ data: [1,1,1], backgroundColor: ['#ef4444', '#22c55e', '#facc15'], borderWidth: 0 }] }, options: { cutout: '75%', plugins: { legend: { display: false } } } });
+            const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color, font: { size: 9 } } }, y: { grid: { color: isDark ? '#334155' : '#e2e8f0' }, ticks: { color, font: { size: 9 } } } } };
+            trendChart = new Chart(document.getElementById('trendChart'), { type: 'line', data: { datasets: [{ data: [], borderColor: '#3b82f6', fill: true, backgroundColor: 'rgba(59,130,246,0.1)', tension: 0.4 }, { data: [], borderColor: '#ef4444', borderDash: [5,5], pointRadius: 0 }] }, options: cfg });
+            weightChart = new Chart(document.getElementById('weightChart'), { type: 'line', data: { datasets: [{ data: [], borderColor: '#8b5cf6', tension: 0.4 }] }, options: cfg });
         }
 
         function addEntry() {
-            const n = document.getElementById('foodName').value || "食物";
+            const n = document.getElementById('foodName').value || "自定義食物";
             const p = parseFloat(document.getElementById('pInput').value) || 0;
             const c = parseFloat(document.getElementById('cInput').value) || 0;
             const f = parseFloat(document.getElementById('fInput').value) || 0;
             if(p+c+f > 0) { logs.push({name:n, p, c, f}); updateUI(); }
             ['foodName','pInput','cInput','fInput'].forEach(id => document.getElementById(id).value = '');
-            document.getElementById('suggestionBox').classList.add('hidden');
         }
 
         function addWater(a) { water += a; updateUI(); }
         function deleteItem(i) { logs.splice(i, 1); updateUI(); }
-        function clearAll() { if(confirm("確定清空嗎？")) { logs = []; water = 0; updateUI(); } }
+        function clearAll() { if(confirm("確定清空今天的所有飲食紀錄？")) { logs = []; water = 0; updateUI(); } }
 
         window.onload = () => {
-            ['weight','targetWeight','height','age','activity','gender'].forEach(id => document.getElementById(id).value = userDetail[id] || '');
+            ['weight','targetWeight','height','age','activity','gender'].forEach(id => document.getElementById(id).value = userDetail[id]);
+            document.getElementById('darkBtnIcon').innerText = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
             initCharts(); updateUI();
-            document.addEventListener('click', (e) => {
-                if(e.target.id !== 'foodName') document.getElementById('suggestionBox').classList.add('hidden');
-            });
+            document.addEventListener('click', (e) => { if(e.target.id !== 'foodName') document.getElementById('suggestionBox').classList.add('hidden'); });
         };
     </script>
 </body>
