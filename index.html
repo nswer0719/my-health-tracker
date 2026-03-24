@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Diet Omni">
+    <meta name="apple-mobile-web-app-title" content="OmniFit">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
     
-    <title>Diet Omni - 雙效合一版</title>
+    <title>OmniFit</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -47,7 +47,7 @@
 <body class="px-6">
     <div class="max-w-2xl mx-auto">
         <header class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-black tracking-tighter">Diet <span class="text-blue-600">Omni</span></h1>
+            <h1 class="text-3xl font-black tracking-tighter">Omni<span class="text-blue-600">Fit</span></h1>
             <button onclick="toggleDarkMode()" class="p-4 rounded-2xl bg-white dark:bg-gray-800 shadow-lg text-xl">🌙</button>
         </header>
 
@@ -212,7 +212,7 @@
             {name:"白飯(碗/200g)",p:5,c:56,f:0.6}, {name:"糙米飯(碗/200g)",p:5,c:52,f:1.6}, {name:"地瓜(150g)",p:2,c:36,f:0.3}, {name:"馬鈴薯(150g)",p:3,c:26,f:0.2}, {name:"全麥吐司(片)",p:4,c:15,f:1}, {name:"白吐司(片)",p:3,c:14,f:1}, {name:"燕麥片(50g)",p:6,c:33,f:3.5}, {name:"義大利麵(100g乾)",p:12,c:75,f:1.5}, {name:"玉米(根)",p:4,c:25,f:1.5}, {name:"烏龍麵(200g)",p:5,c:45,f:1},
             {name:"雞胸肉(100g)",p:31,c:0,f:3.6}, {name:"雞腿肉(100g/去皮)",p:24,c:0,f:8}, {name:"雞蛋(顆)",p:7,c:0.6,f:5}, {name:"豬里肌(100g)",p:22,c:0,f:4}, {name:"豬梅花(100g)",p:18,c:0,f:17}, {name:"牛腱(100g)",p:26,c:0,f:4}, {name:"牛小排(100g)",p:15,c:0,f:28}, {name:"培根(片)",p:3,c:0.5,f:10}, {name:"鴨肉(100g)",p:18,c:0,f:15}, {name:"羊肉(100g)",p:20,c:0,f:12},
             {name:"鯛魚片(100g)",p:18,c:0,f:1.5}, {name:"鮭魚(100g)",p:20,c:0,f:14}, {name:"鱈魚(100g)",p:16,c:0,f:1}, {name:"蝦子(100g/約8隻)",p:21,c:1,f:1}, {name:"蛤蜊(100g肉)",p:13,c:3,f:0.6}, {name:"小卷(100g)",p:16,c:1,f:1}, {name:"鮪魚罐頭(水煮/100g)",p:24,c:0,f:0.8}, {name:"蟹肉棒(5條)",p:6,c:10,f:0.5}, {name:"生蠔(100g)",p:9,c:5,f:2}, {name:"鯖魚(100g)",p:19,c:0,f:18},
-            {name:"嫩豆腐(半盒/150g)",p:7,c:3,f:4}, {name:"板豆腐(100g)",p:9,c:2,f:5}, {name:"無糖豆漿(400ml)",p:13,c:4,f:8}, {name:"低脂牛奶(240ml)",p:8,c:12,f:3}, {name:"全脂牛奶(240ml)",p:8,c:12,f:8}, {name:"希臘優格(100g)",p:10,c:4,f:0.5}, {name:"起司片(片)",p:5,c:1,f:6}, {name:"豆干(2塊)",p:10,c:2,f:6}, {name:"納豆(盒)",p:7,c:5,f:4}, {name:"毛豆(100g)",p:12,c:10,f:5},
+            {name:"嫩豆腐(半盒/150g)",p:7,c:3,f:4}, {name:"板豆腐(100g)",p:9,c:2,f:5}, {name:"無糖豆漿(400ml)",p:13,c:4,f:8}, {name:"低脂牛奶(240ml)",p:8,c:12,f:3}, {name:"全脂牛奶(240ml)",p:8,c:12,f:8}, {name:"希臘優格(100g)",p:10,c:4,f:0.5}, {name:"起司片(片)",p:5,c:1,f:6}, {name:"起司條(條)",p:7,c:1,f:5}, {name:"豆干(2塊)",p:10,c:2,f:6}, {name:"納豆(盒)",p:7,c:5,f:4}, {name:"毛豆(100g)",p:12,c:10,f:5},
             {name:"青江菜(100g)",p:1.5,c:2,f:0.2}, {name:"高麗菜(100g)",p:1.3,c:5,f:0.2}, {name:"花椰菜(100g)",p:3,c:5,f:0.4}, {name:"菠菜(100g)",p:2.5,c:3,f:0.4}, {name:"空心菜(100g)",p:2,c:3,f:0.3}, {name:"大白菜(100g)",p:1,c:3,f:0.1}, {name:"洋蔥(100g)",p:1,c:9,f:0.1}, {name:"胡蘿蔔(100g)",p:1,c:9,f:0.2}, {name:"小黃瓜(100g)",p:1,c:3,f:0.1}, {name:"番茄(中顆)",p:1,c:4,f:0.2},
             {name:"香菇(100g)",p:3,c:4,f:0.3}, {name:"金針菇(100g)",p:2.5,c:6,f:0.4}, {name:"杏鮑菇(100g)",p:2.5,c:5,f:0.3}, {name:"苦瓜(100g)",p:1,c:4,f:0.1}, {name:"茄子(100g)",p:1,c:6,f:0.2}, {name:"青椒(100g)",p:1,c:5,f:0.2}, {name:"竹筍(100g)",p:2,c:4,f:0.2}, {name:"蘆筍(100g)",p:2.2,c:4,f:0.2}, {name:"南瓜(100g)",p:1.7,c:15,f:0.2}, {name:"冬瓜(100g)",p:0.5,c:2,f:0.1},
             {name:"香蕉(根)",p:1.1,c:27,f:0.3}, {name:"蘋果(中顆)",p:0.5,c:25,f:0.4}, {name:"奇異果(顆)",p:1,c:15,f:0.5}, {name:"芭樂(中顆)",p:2,c:24,f:0.7}, {name:"葡萄(10顆)",p:0.5,c:15,f:0.2}, {name:"柳丁(顆)",p:1,c:12,f:0.2}, {name:"木瓜(1/4個)",p:1,c:15,f:0.2}, {name:"西瓜(片)",p:1,c:12,f:0.2}, {name:"鳳梨(100g)",p:0.5,c:13,f:0.1}, {name:"草莓(10顆)",p:0.7,c:8,f:0.3},
