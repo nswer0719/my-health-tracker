@@ -34,7 +34,6 @@
         .meal-section-title::after { content: ""; flex: 1; height: 1px; background: rgba(0,0,0,0.1); }
         .dark .meal-section-title::after { background: rgba(255,255,255,0.1); }
         
-        /* 訓練標籤顏色 */
         .tag-chest { background: #fee2e2; color: #ef4444; } .dark .tag-chest { background: #7f1d1d; color: #fca5a5; }
         .tag-back { background: #e0e7ff; color: #3b82f6; } .dark .tag-back { background: #1e3a8a; color: #93c5fd; }
         .tag-legs { background: #dcfce7; color: #22c55e; } .dark .tag-legs { background: #14532d; color: #86efac; }
@@ -60,7 +59,6 @@
             </div>
 
             <div id="subContent-today" class="meal-sub-content">
-                
                 <div class="card p-6 mb-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white border-none flex justify-between items-center shadow-lg">
                     <div>
                         <h3 class="font-black text-sm opacity-90">今日建議攝取 (基於目標)</h3>
@@ -153,29 +151,17 @@
         <div id="gymTab" class="tab-content">
             <div class="card p-8 mb-8 border-b-8 border-indigo-500">
                 <h2 class="text-xs font-black opacity-40 uppercase mb-4 tracking-widest">新增訓練項目</h2>
-                
                 <div class="flex gap-4 mb-4">
                     <select id="gMuscle" class="w-1/3 p-5 text-sm outline-none">
-                        <option value="chest">胸部</option>
-                        <option value="back">背部</option>
-                        <option value="legs">腿部</option>
-                        <option value="shoulders">肩部</option>
-                        <option value="arms">手部</option>
-                        <option value="core">核心</option>
+                        <option value="chest">胸部</option><option value="back">背部</option><option value="legs">腿部</option><option value="shoulders">肩部</option><option value="arms">手部</option><option value="core">核心</option>
                     </select>
                     <input id="gName" type="text" placeholder="動作名稱 (例: 臥推)" class="w-2/3 p-5 outline-none">
                 </div>
-                
                 <div class="grid grid-cols-3 gap-4 mb-6">
-                    <input id="gW" type="number" placeholder="重量 KG" class="p-4 text-center">
-                    <input id="gS" type="number" placeholder="組數" class="p-4 text-center">
-                    <input id="gR" type="number" placeholder="次數" class="p-4 text-center">
+                    <input id="gW" type="number" placeholder="重量 KG" class="p-4 text-center"><input id="gS" type="number" placeholder="組數" class="p-4 text-center"><input id="gR" type="number" placeholder="次數" class="p-4 text-center">
                 </div>
-                <button onclick="addGym()" class="w-full bg-indigo-600 text-white p-5 rounded-2xl font-black shadow-xl flex justify-center items-center gap-2">
-                    <span>紀錄動作</span>
-                </button>
+                <button onclick="addGym()" class="w-full bg-indigo-600 text-white p-5 rounded-2xl font-black shadow-xl flex justify-center items-center gap-2"><span>紀錄動作</span></button>
             </div>
-            
             <div class="flex justify-between items-end mb-4 px-2">
                 <h3 class="font-black text-lg">今日訓練清單</h3>
                 <p class="text-[10px] font-black opacity-50 uppercase">總容量: <span id="dailyVolume" class="text-indigo-500 text-sm">0</span> KG</p>
@@ -194,18 +180,16 @@
                     <div><p class="text-[10px] font-black opacity-40 mb-2">年齡</p><input id="uA" type="number" class="w-full p-4"></div>
                     <div><p class="text-[10px] font-black opacity-40 mb-2">身高 CM</p><input id="uH" type="number" class="w-full p-4"></div>
                 </div>
-                <select id="uAct" class="w-full p-4 mb-8 text-sm"><option value="1.2">久坐</option><option value="1.375">輕度</option><option value="1.55">中度</option><option value="1.725">高度</option><option value="1.9">極高</option></select>
+                <p class="text-[10px] font-black opacity-40 mb-2">每日活動量 (PAL)</p>
+                <select id="uAct" class="w-full p-4 mb-8 text-sm leading-relaxed">
+                    <option value="1.2">久坐 / 無運動 (辦公族、幾乎不運動)</option><option value="1.375">輕度活動 (每週運動 1-3 天)</option><option value="1.55">中度活動 (每週運動 3-5 天)</option><option value="1.725">高度活動 (每週運動 6-7 天)</option><option value="1.9">極高活動 (每日劇烈運動、體力勞動工作)</option>
+                </select>
                 <button onclick="updateUser()" class="w-full bg-blue-600 text-white p-5 rounded-2xl font-black mb-6 shadow-lg">同步並更新目標</button>
-                
                 <div class="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-black dark:to-gray-900 text-white p-6 rounded-2xl mb-6 shadow-xl">
                     <p class="text-[10px] font-black text-gray-400 mb-1 uppercase tracking-widest">系統計算建議攝取</p>
-                    <div class="flex items-end gap-2 mb-2">
-                        <span id="statGoalKcal" class="text-4xl font-black text-blue-400">0</span>
-                        <span class="text-sm font-bold text-gray-400 pb-1">kcal / 日</span>
-                    </div>
+                    <div class="flex items-end gap-2 mb-2"><span id="statGoalKcal" class="text-4xl font-black text-blue-400">0</span><span class="text-sm font-bold text-gray-400 pb-1">kcal / 日</span></div>
                     <p id="statGoalLogic" class="text-xs font-bold text-gray-300 bg-white/10 inline-block px-3 py-1 rounded-lg">請先同步數據</p>
                 </div>
-
                 <div class="grid grid-cols-3 gap-2">
                     <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl text-center"><p class="text-[9px] font-black opacity-40">TDEE (維持)</p><p id="dispTdee" class="text-lg font-black text-gray-600 dark:text-gray-300">--</p></div>
                     <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl text-center"><p class="text-[9px] font-black opacity-40">BMI</p><p id="dispBmi" class="text-lg font-black text-gray-600 dark:text-gray-300">--</p></div>
@@ -224,13 +208,19 @@
     </nav>
 
     <script>
-        // 資料庫完整保留，絕不刪除
         const baseDB = [
-            {name:"雞胸肉(100g)",p:31,c:0,f:3.6}, {name:"鯛魚片(100g)",p:18,c:0,f:1.5},
-            {name:"白飯(碗)",p:4,c:60,f:0.5}, {name:"全脂牛奶(240ml)",p:8,c:12,f:8},
-            {name:"雞蛋(顆)",p:7,c:0.6,f:5}, {name:"香蕉",p:1.1,c:27,f:0.3}
+            {name:"白飯(碗/200g)",p:5,c:56,f:0.6}, {name:"糙米飯(碗/200g)",p:5,c:52,f:1.6}, {name:"地瓜(150g)",p:2,c:36,f:0.3}, {name:"馬鈴薯(150g)",p:3,c:26,f:0.2}, {name:"全麥吐司(片)",p:4,c:15,f:1}, {name:"白吐司(片)",p:3,c:14,f:1}, {name:"燕麥片(50g)",p:6,c:33,f:3.5}, {name:"義大利麵(100g乾)",p:12,c:75,f:1.5}, {name:"玉米(根)",p:4,c:25,f:1.5}, {name:"烏龍麵(200g)",p:5,c:45,f:1},
+            {name:"雞胸肉(100g)",p:31,c:0,f:3.6}, {name:"雞腿肉(100g/去皮)",p:24,c:0,f:8}, {name:"雞蛋(顆)",p:7,c:0.6,f:5}, {name:"豬里肌(100g)",p:22,c:0,f:4}, {name:"豬梅花(100g)",p:18,c:0,f:17}, {name:"牛腱(100g)",p:26,c:0,f:4}, {name:"牛小排(100g)",p:15,c:0,f:28}, {name:"培根(片)",p:3,c:0.5,f:10}, {name:"鴨肉(100g)",p:18,c:0,f:15}, {name:"羊肉(100g)",p:20,c:0,f:12},
+            {name:"鯛魚片(100g)",p:18,c:0,f:1.5}, {name:"鮭魚(100g)",p:20,c:0,f:14}, {name:"鱈魚(100g)",p:16,c:0,f:1}, {name:"蝦子(100g/約8隻)",p:21,c:1,f:1}, {name:"蛤蜊(100g肉)",p:13,c:3,f:0.6}, {name:"小卷(100g)",p:16,c:1,f:1}, {name:"鮪魚罐頭(水煮/100g)",p:24,c:0,f:0.8}, {name:"蟹肉棒(5條)",p:6,c:10,f:0.5}, {name:"生蠔(100g)",p:9,c:5,f:2}, {name:"鯖魚(100g)",p:19,c:0,f:18},
+            {name:"嫩豆腐(半盒/150g)",p:7,c:3,f:4}, {name:"板豆腐(100g)",p:9,c:2,f:5}, {name:"無糖豆漿(400ml)",p:13,c:4,f:8}, {name:"低脂牛奶(240ml)",p:8,c:12,f:3}, {name:"全脂牛奶(240ml)",p:8,c:12,f:8}, {name:"希臘優格(100g)",p:10,c:4,f:0.5}, {name:"起司片(片)",p:5,c:1,f:6}, {name:"豆干(2塊)",p:10,c:2,f:6}, {name:"納豆(盒)",p:7,c:5,f:4}, {name:"毛豆(100g)",p:12,c:10,f:5},
+            {name:"青江菜(100g)",p:1.5,c:2,f:0.2}, {name:"高麗菜(100g)",p:1.3,c:5,f:0.2}, {name:"花椰菜(100g)",p:3,c:5,f:0.4}, {name:"菠菜(100g)",p:2.5,c:3,f:0.4}, {name:"空心菜(100g)",p:2,c:3,f:0.3}, {name:"大白菜(100g)",p:1,c:3,f:0.1}, {name:"洋蔥(100g)",p:1,c:9,f:0.1}, {name:"胡蘿蔔(100g)",p:1,c:9,f:0.2}, {name:"小黃瓜(100g)",p:1,c:3,f:0.1}, {name:"番茄(中顆)",p:1,c:4,f:0.2},
+            {name:"香菇(100g)",p:3,c:4,f:0.3}, {name:"金針菇(100g)",p:2.5,c:6,f:0.4}, {name:"杏鮑菇(100g)",p:2.5,c:5,f:0.3}, {name:"苦瓜(100g)",p:1,c:4,f:0.1}, {name:"茄子(100g)",p:1,c:6,f:0.2}, {name:"青椒(100g)",p:1,c:5,f:0.2}, {name:"竹筍(100g)",p:2,c:4,f:0.2}, {name:"蘆筍(100g)",p:2.2,c:4,f:0.2}, {name:"南瓜(100g)",p:1.7,c:15,f:0.2}, {name:"冬瓜(100g)",p:0.5,c:2,f:0.1},
+            {name:"香蕉(根)",p:1.1,c:27,f:0.3}, {name:"蘋果(中顆)",p:0.5,c:25,f:0.4}, {name:"奇異果(顆)",p:1,c:15,f:0.5}, {name:"芭樂(中顆)",p:2,c:24,f:0.7}, {name:"葡萄(10顆)",p:0.5,c:15,f:0.2}, {name:"柳丁(顆)",p:1,c:12,f:0.2}, {name:"木瓜(1/4個)",p:1,c:15,f:0.2}, {name:"西瓜(片)",p:1,c:12,f:0.2}, {name:"鳳梨(100g)",p:0.5,c:13,f:0.1}, {name:"草莓(10顆)",p:0.7,c:8,f:0.3},
+            {name:"火龍果(100g)",p:1,c:12,f:0.5}, {name:"酪梨(100g)",p:2,c:8,f:15}, {name:"藍莓(100g)",p:0.7,c:14,f:0.3}, {name:"芒果(100g)",p:0.6,c:15,f:0.4}, {name:"櫻桃(10顆)",p:1,c:12,f:0.3},
+            {name:"綜合堅果(20g)",p:4,c:4,f:11}, {name:"花生(20g)",p:5,c:3,f:10}, {name:"腰果(20g)",p:4,c:6,f:9}, {name:"黑巧克力(85%/20g)",p:2,c:4,f:10}, {name:"蘇打餅乾(3片)",p:2,c:15,f:3}, {name:"紅豆湯(碗)",p:6,c:40,f:1}, {name:"茶葉蛋(顆)",p:7,c:1,f:5}, {name:"地瓜球(10顆)",p:1,c:45,f:15}, {name:"雞蛋糕(5個)",p:4,c:30,f:6}, {name:"爆米花(小份)",p:3,c:30,f:12},
+            {name:"黑咖啡(大杯)",p:0.5,c:1,f:0}, {name:"無糖綠茶(500ml)",p:0,c:0,f:0}, {name:"拿鐵(無糖/大杯)",p:10,c:15,f:10}, {name:"珍珠奶茶(微糖/700ml)",p:5,c:80,f:25}, {name:"可樂(罐)",p:0,c:35,f:0}, {name:"柳橙汁(200ml)",p:1,c:22,f:0.2}, {name:"乳清蛋白粉(份)",p:20,c:3,f:1.5}, {name:"啤酒(罐)",p:1,c:13,f:0}, {name:"紅酒(杯)",p:0,c:4,f:0}, {name:"運動飲料(罐)",p:0,c:25,f:0},
+            {name:"麥香雞(個)",p:15,c:40,f:18}, {name:"大麥克(個)",p:25,c:45,f:30}, {name:"麥脆雞(塊)",p:18,c:15,f:25}, {name:"薯條(中)",p:3,c:40,f:15}, {name:"牛肉麵(碗)",p:30,c:65,f:20}, {name:"魯肉飯(碗)",p:10,c:50,f:25}, {name:"水餃(10顆)",p:15,c:55,f:20}, {name:"鍋貼(10顆)",p:18,c:60,f:35}, {name:"便利商店便當(個)",p:25,c:90,f:20}, {name:"三明治(個)",p:12,c:30,f:10}
         ];
-        for(let i=0; i<95; i++) baseDB.push({name:`食材庫-${i+1}`, p:Math.floor(Math.random()*20), c:Math.floor(Math.random()*40), f:Math.floor(Math.random()*10)});
 
         let today = new Date().toLocaleDateString();
         let currentPlanDate = today;
@@ -269,7 +259,7 @@
             const box = document.getElementById(boxes[mode]);
             if(!q) { box.classList.add('hidden'); return; }
             let pool = (mode === 'today' || mode === 'plan') ? [...recipes, ...baseDB] : [...baseDB];
-            const matches = pool.filter(f => f.name.includes(q)).slice(0, 10);
+            const matches = pool.filter(f => f.name.toLowerCase().includes(q.toLowerCase())).slice(0, 10);
             box.innerHTML = matches.map(f => {
                 let kcal = Math.round(f.p*4 + f.c*4 + f.f*9);
                 let typeLabel = f.isRecipe ? '🍱 食譜' : '🥦 食材';
@@ -318,7 +308,6 @@
             document.getElementById('sumC').innerHTML = `${sc.toFixed(1)}g <span class="text-[10px] text-gray-400 font-bold ml-1">(${cPct}%)</span>`;
             document.getElementById('sumF').innerHTML = `${sf.toFixed(1)}g <span class="text-[10px] text-gray-400 font-bold ml-1">(${fPct}%)</span>`;
             document.getElementById('sumKcal').innerText = totalKcal + ' kcal';
-            
             updateMacroChart(sp, sc, sf);
         }
 
@@ -359,12 +348,10 @@
                 });
                 container.innerHTML += html + `</div>`;
             });
-
             let planTotal = Math.round(pp*4 + pc*4 + pf*9);
             let ppPct = planTotal > 0 ? Math.round(((pp*4)/planTotal)*100) : 0;
             let cpPct = planTotal > 0 ? Math.round(((pc*4)/planTotal)*100) : 0;
             let fpPct = planTotal > 0 ? Math.round(((pf*9)/planTotal)*100) : 0;
-
             document.getElementById('planMacroStats').innerHTML = `<span class="mr-2">P: ${pp.toFixed(1)}g <span class="opacity-60">(${ppPct}%)</span></span><span class="mr-2">C: ${pc.toFixed(1)}g <span class="opacity-60">(${cpPct}%)</span></span><span>F: ${pf.toFixed(1)}g <span class="opacity-60">(${fpPct}%)</span></span>`;
             document.getElementById('planTotalKcal').innerText = planTotal;
         }
@@ -412,20 +399,16 @@
             let bmr = (10*user.w)+(6.25*user.h)-(5*user.a);
             bmr = user.gender === 'male' ? bmr+5 : bmr-161;
             let tdee = Math.round(bmr*user.act);
-            
             let goalKcal = tdee;
             let logicText = "維持體重 (與 TDEE 相同)";
             let logicLabel = "維持現狀";
-            
             if (user.targetW < user.w) { goalKcal = tdee - 300; logicText = "減重目標 (TDEE - 300 kcal)"; logicLabel = "減重期建議"; } 
             else if (user.targetW > user.w) { goalKcal = tdee + 300; logicText = "增重/增肌目標 (TDEE + 300 kcal)"; logicLabel = "增重期建議"; }
-
             document.getElementById('dispTdee').innerText = tdee;
             document.getElementById('statGoalKcal').innerText = goalKcal;
             document.getElementById('statGoalLogic').innerText = `📊 ${logicText}`;
             document.getElementById('dispBmi').innerText = (user.w / ((user.h/100)**2)).toFixed(1);
             document.getElementById('dispToTarget').innerText = (user.w - user.targetW).toFixed(1) + "kg";
-
             document.getElementById('todayGoalKcal').innerText = goalKcal;
             document.getElementById('todayGoalLabel').innerText = logicLabel;
         }
@@ -438,23 +421,17 @@
             weightChart = new Chart(document.getElementById('weightChart'), { type:'line', data:{ labels:(user.weights||[]).slice(-7).map(w=>w.d.split('/')[2]), datasets:[{data:(user.weights||[]).slice(-7).map(w=>w.v), borderColor:'#a855f7', fill:true, backgroundColor:'rgba(168,85,247,0.1)'}]}, options:{maintainAspectRatio:false, plugins:{legend:{display:false}}}});
         }
 
-        // --- 深度升級的健身模組邏輯 ---
         function addGym() {
             let name = document.getElementById('gName').value;
             let weight = parseFloat(document.getElementById('gW').value) || 0;
             let sets = parseInt(document.getElementById('gS').value) || 0;
             let reps = parseInt(document.getElementById('gR').value) || 0;
             let muscle = document.getElementById('gMuscle').value;
-            
             if(!name) return;
             if(!gym[today]) gym[today] = [];
-            
-            // 計算此組動作的容量 (Volume)
             let vol = weight * sets * reps;
-            
             gym[today].push({ n: name, w: weight, s: sets, r: reps, m: muscle, v: vol });
             localStorage.setItem('gym_vDual', JSON.stringify(gym));
-            
             document.getElementById('gName').value = ''; document.getElementById('gW').value = '';
             document.getElementById('gS').value = ''; document.getElementById('gR').value = '';
             renderGym();
@@ -462,24 +439,10 @@
 
         function renderGym() { 
             let dailyTotalVolume = 0;
-            
             document.getElementById('gymLogs').innerHTML = (gym[today]||[]).map((g, idx) => {
                 dailyTotalVolume += g.v;
-                return `
-                <div class="card p-5 mb-3 flex justify-between items-center border-l-4 border-indigo-500">
-                    <div>
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-[9px] font-black px-2 py-0.5 rounded-md tag-${g.m}">${MUSCLE_LABELS[g.m]}</span>
-                            <p class="font-black text-sm">${g.n}</p>
-                        </div>
-                        <p class="text-[10px] opacity-60 font-black uppercase tracking-wide">
-                            ${g.w}kg × ${g.s}組 × ${g.r}次 <span class="text-indigo-500 ml-1">(容量: ${g.v})</span>
-                        </p>
-                    </div>
-                    <button onclick="removeGym(${idx})" class="text-red-400 font-black px-2">✕</button>
-                </div>`;
+                return `<div class="card p-5 mb-3 flex justify-between items-center border-l-4 border-indigo-500"><div><div class="flex items-center gap-2 mb-1"><span class="text-[9px] font-black px-2 py-0.5 rounded-md tag-${g.m}">${MUSCLE_LABELS[g.m]}</span><p class="font-black text-sm">${g.n}</p></div><p class="text-[10px] opacity-60 font-black uppercase tracking-wide">${g.w}kg × ${g.s}組 × ${g.r}次 <span class="text-indigo-500 ml-1">(容量: ${g.v})</span></p></div><button onclick="removeGym(${idx})" class="text-red-400 font-black px-2">✕</button></div>`;
             }).join(''); 
-            
             document.getElementById('dailyVolume').innerText = dailyTotalVolume;
         }
 
@@ -489,9 +452,17 @@
             renderGym();
         }
 
-        function toggleDarkMode() { document.documentElement.classList.toggle('dark'); }
+        function toggleDarkMode() { 
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme_vDual', isDark ? 'dark' : 'light');
+        }
 
         window.onload = () => {
+            const savedTheme = localStorage.getItem('theme_vDual');
+            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+            else if (savedTheme === 'light') document.documentElement.classList.remove('dark');
+
             document.getElementById('uGender').value = user.gender; document.getElementById('uH').value = user.h;
             document.getElementById('uW').value = user.w; document.getElementById('uTargetW').value = user.targetW;
             document.getElementById('uA').value = user.a; document.getElementById('uAct').value = user.act;
