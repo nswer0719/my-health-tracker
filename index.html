@@ -10,21 +10,21 @@
     <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
     
-    <title>OmniFit - 終極美化版</title>
+    <title>OmniFit - 社群聯網準備版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap');
         
         :root { --sat: env(safe-area-inset-top); --sab: env(safe-area-inset-bottom); }
-        body { background-color: #f8fafc; color: #1e293b; padding-top: calc(4.5rem + var(--sat)); padding-bottom: calc(9rem + var(--sab)); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-family: 'Plus Jakarta Sans', 'PingFang TC', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #f8fafc; color: #1e293b; padding-top: calc(4.5rem + var(--sat)); padding-bottom: calc(7rem + var(--sab)); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-family: 'Plus Jakarta Sans', 'PingFang TC', sans-serif; -webkit-tap-highlight-color: transparent; }
         .dark body { background-color: #0f172a; color: #f1f5f9; }
         
         /* Premium Glassmorphism Cards */
         .card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .dark .card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3); }
         
-        input, select { background-color: #f1f5f9; color: #1e293b; border: 2px solid transparent; font-weight: 800; border-radius: 24px; transition: all 0.3s ease; outline: none; }
+        input, select { background-color: #f1f5f9; color: #0f172a; border: 2px solid transparent; font-weight: 800; border-radius: 24px; transition: all 0.3s ease; outline: none; }
         input:focus, select:focus { border-color: #3b82f6; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
         .dark input, .dark select { background-color: #334155; color: #f1f5f9; }
         .dark input:focus, .dark select:focus { border-color: #60a5fa; background-color: #1e293b; box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15); }
@@ -44,13 +44,21 @@
         .suggestion-box { position: absolute; width: 100%; max-height: 300px; overflow-y: auto; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 28px; z-index: 5000; margin-top: 12px; border: 1px solid #e2e8f0; box-shadow: 0 24px 50px rgba(0,0,0,0.15); }
         .dark .suggestion-box { background: rgba(30,41,59,0.95); border-color: #475569; box-shadow: 0 24px 50px rgba(0,0,0,0.4); }
         
-        .date-chip { flex: 0 0 auto; padding: 14px 24px; border-radius: 24px; background: #f1f5f9; font-weight: 900; font-size: 13px; cursor: pointer; transition: 0.3s; }
+        .date-chip { flex: 0 0 auto; padding: 14px 24px; border-radius: 24px; background: #f1f5f9; font-weight: 900; font-size: 13px; cursor: pointer; transition: 0.3s; color: #334155; }
         .date-chip.active { color: white; background: linear-gradient(135deg, #f97316, #f59e0b); box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3); border: none; }
-        .dark .date-chip { background: #334155; }
+        .dark .date-chip { background: #334155; color: #f1f5f9; }
         
         .meal-section-title { font-size: 13px; font-weight: 900; opacity: 0.4; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; margin-top: 32px; letter-spacing: 0.1em; }
         .meal-section-title::after { content: ""; flex: 1; height: 2px; background: rgba(0,0,0,0.05); border-radius: 2px; }
         .dark .meal-section-title::after { background: rgba(255,255,255,0.05); }
+        
+        .gym-tag { padding: 4px 12px; border-radius: 12px; font-size: 10px; font-weight: 900; letter-spacing: 1px; }
+        .tag-chest { background: #fee2e2; color: #ef4444; } .dark .tag-chest { background: rgba(127, 29, 29, 0.3); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.5); box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
+        .tag-back { background: #e0e7ff; color: #3b82f6; } .dark .tag-back { background: rgba(30, 58, 138, 0.3); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.5); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
+        .tag-legs { background: #dcfce7; color: #22c55e; } .dark .tag-legs { background: rgba(20, 83, 45, 0.3); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.5); box-shadow: 0 0 10px rgba(34, 197, 94, 0.2); }
+        .tag-shoulders { background: #fef3c7; color: #f59e0b; } .dark .tag-shoulders { background: rgba(120, 53, 15, 0.3); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.5); box-shadow: 0 0 10px rgba(245, 158, 11, 0.2); }
+        .tag-arms { background: #f3e8ff; color: #a855f7; } .dark .tag-arms { background: rgba(76, 29, 149, 0.3); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
+        .tag-core { background: #f1f5f9; color: #64748b; } .dark .tag-core { background: rgba(51, 65, 85, 0.3); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.5); box-shadow: 0 0 10px rgba(148, 163, 184, 0.2); }
         
         @keyframes pulsePR { 0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(251, 191, 36, 0); } 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); } }
         .pr-badge { animation: pulsePR 2s infinite; background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; }
@@ -58,16 +66,22 @@
         @keyframes floatTimer { 0% { transform: translate(-50%, -20px); opacity: 0; } 100% { transform: translate(-50%, 0); opacity: 1; } }
         .timer-popup { animation: floatTimer 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
         
-        /* 隱藏數字輸入框的上下箭頭 */
         input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .btn-press { transition: transform 0.1s ease; }
         .btn-press:active { transform: scale(0.96); }
 
-        /* 日曆選擇器美化 */
+        /* 日曆選擇器修復與美化 */
+        input[type="date"] { box-sizing: border-box; max-width: 100%; color: #0f172a; }
+        .dark input[type="date"] { color: #f1f5f9; }
         input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.6; transition: 0.2s; }
         input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
+        .dark input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
+        
+        /* 社群影片上傳美化 */
+        .video-upload-label { border: 2px dashed rgba(99, 102, 241, 0.5); background: rgba(99, 102, 241, 0.05); }
+        .dark .video-upload-label { border-color: rgba(99, 102, 241, 0.3); background: rgba(99, 102, 241, 0.1); }
     </style>
 </head>
 <body class="px-5">
@@ -82,9 +96,9 @@
         <header class="flex justify-between items-center mb-8 pt-4">
             <div class="flex flex-col">
                 <h1 class="text-4xl font-black tracking-tighter">Omni<span class="text-blue-600">Fit</span></h1>
-                <span class="text-[9px] font-black opacity-30 uppercase tracking-[0.2em] mt-1">Premium Edition</span>
+                <span class="text-[9px] font-black opacity-30 uppercase tracking-[0.2em] mt-1 text-slate-800 dark:text-gray-300">Premium Network Ready</span>
             </div>
-            <button onclick="toggleDarkMode()" id="themeBtn" class="w-14 h-14 rounded-full card flex items-center justify-center text-2xl btn-press">🌙</button>
+            <button onclick="toggleDarkMode()" id="themeBtn" class="w-14 h-14 rounded-full card flex items-center justify-center text-2xl btn-press text-slate-800 dark:text-white">🌙</button>
         </header>
 
         <div id="mealHubTab" class="tab-content active">
@@ -127,30 +141,30 @@
                 </div>
 
                 <div class="card p-6 mb-8 grid grid-cols-4 gap-2 text-center divide-x divide-gray-100 dark:divide-gray-800">
-                    <div><p class="text-[10px] font-black text-blue-500 uppercase mb-1">PRO</p><p id="sumP" class="text-sm font-black">0g</p></div>
-                    <div><p class="text-[10px] font-black text-green-500 uppercase mb-1">CARB</p><p id="sumC" class="text-sm font-black">0g</p></div>
-                    <div><p class="text-[10px] font-black text-yellow-500 uppercase mb-1">FAT</p><p id="sumF" class="text-sm font-black">0g</p></div>
-                    <div><p class="text-[10px] font-black text-purple-500 uppercase mb-1">KCAL</p><p id="sumKcal" class="text-sm font-black">0</p></div>
+                    <div><p class="text-[10px] font-black text-blue-500 uppercase mb-1">PRO</p><p id="sumP" class="text-sm font-black text-slate-800 dark:text-white">0g</p></div>
+                    <div><p class="text-[10px] font-black text-green-500 uppercase mb-1">CARB</p><p id="sumC" class="text-sm font-black text-slate-800 dark:text-white">0g</p></div>
+                    <div><p class="text-[10px] font-black text-yellow-500 uppercase mb-1">FAT</p><p id="sumF" class="text-sm font-black text-slate-800 dark:text-white">0g</p></div>
+                    <div><p class="text-[10px] font-black text-purple-500 uppercase mb-1">KCAL</p><p id="sumKcal" class="text-sm font-black text-slate-800 dark:text-white">0</p></div>
                 </div>
 
                 <div class="card p-8 mb-8 border-b-8 border-blue-500 relative z-20">
-                    <h3 class="font-black text-lg mb-6 flex items-center gap-2">🍽️ 新增飲食</h3>
+                    <h3 class="font-black text-lg mb-6 flex items-center gap-2 text-slate-800 dark:text-white">🍽️ 新增飲食</h3>
                     <select id="mealTime" class="w-full p-5 mb-5 text-sm">
                         <option value="breakfast">🌅 早餐時段</option><option value="lunch">☀️ 午餐時段</option><option value="dinner">🌙 晚餐時段</option><option value="snack">🍏 點心與其他</option>
                     </select>
                     <div class="relative mb-5">
-                        <input id="foodSearch" type="text" placeholder="🔍 搜尋食物..." class="w-full p-6 text-lg outline-none" oninput="searchFood(this.value, 'today')">
+                        <input id="foodSearch" type="text" placeholder="🔍 搜尋食物..." class="w-full p-6 text-lg outline-none text-slate-800 dark:text-white" oninput="searchFood(this.value, 'today')">
                         <div id="searchRes" class="suggestion-box hidden no-scrollbar"></div>
                     </div>
                     <div class="grid grid-cols-3 gap-4 mb-8">
-                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30">P</span><input id="pIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg"></div>
-                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30">C</span><input id="cIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg"></div>
-                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30">F</span><input id="fIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg"></div>
+                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30 text-slate-800 dark:text-white">P</span><input id="pIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
+                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30 text-slate-800 dark:text-white">C</span><input id="cIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
+                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30 text-slate-800 dark:text-white">F</span><input id="fIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
                     </div>
                     <button onclick="addLog()" class="w-full bg-blue-600 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-blue-500/30 btn-press">儲存紀錄</button>
                 </div>
                 
-                <div id="todayMealDisplay" class="space-y-6 mb-10"></div>
+                <div id="todayMealDisplay" class="space-y-6 mb-10 text-slate-800 dark:text-white"></div>
             </div>
 
             <div id="subContent-planner" class="meal-sub-content hidden">
@@ -174,36 +188,36 @@
                 </div>
 
                 <div class="card p-8 mb-8 border-b-8 border-orange-500">
-                    <h2 class="text-sm font-black opacity-60 mb-6 flex items-center gap-2">📅 編排 <span id="selectedPlanDateText" class="text-orange-500"></span></h2>
+                    <h2 class="text-sm font-black opacity-60 mb-6 flex items-center gap-2 text-slate-800 dark:text-white">📅 編排 <span id="selectedPlanDateText" class="text-orange-500"></span></h2>
                     <select id="planMealTime" class="w-full p-5 mb-5 text-sm">
                         <option value="breakfast">🌅 早餐</option><option value="lunch">☀️ 午餐</option><option value="dinner">🌙 晚餐</option><option value="snack">🍏 點心</option>
                     </select>
                     <div class="relative mb-5">
-                        <input id="planSearch" type="text" placeholder="🔍 搜尋食物..." class="w-full p-6 text-lg outline-none" oninput="searchFood(this.value, 'plan')">
+                        <input id="planSearch" type="text" placeholder="🔍 搜尋食物..." class="w-full p-6 text-lg outline-none text-slate-800 dark:text-white" oninput="searchFood(this.value, 'plan')">
                         <div id="planSearchRes" class="suggestion-box hidden no-scrollbar"></div>
                     </div>
                     <div class="grid grid-cols-3 gap-4 mb-8">
-                        <input id="planPIn" type="number" placeholder="P" class="p-5 text-center text-lg"><input id="planCIn" type="number" placeholder="C" class="p-5 text-center text-lg"><input id="planFIn" type="number" placeholder="F" class="p-5 text-center text-lg">
+                        <input id="planPIn" type="number" placeholder="P" class="p-5 text-center text-lg text-slate-800 dark:text-white"><input id="planCIn" type="number" placeholder="C" class="p-5 text-center text-lg text-slate-800 dark:text-white"><input id="planFIn" type="number" placeholder="F" class="p-5 text-center text-lg text-slate-800 dark:text-white">
                     </div>
                     <button onclick="addPlan()" class="w-full bg-orange-500 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-orange-500/30 btn-press">加入清單</button>
                 </div>
-                <div id="planDetailList" class="space-y-6"></div>
+                <div id="planDetailList" class="space-y-6 text-slate-800 dark:text-white"></div>
             </div>
 
-            <div id="subContent-library" class="meal-sub-content hidden">
+            <div id="subContent-library" class="meal-sub-content hidden text-slate-800 dark:text-white">
                 <div class="card p-8 mb-8 border-b-8 border-emerald-500">
                     <h2 class="text-lg font-black mb-6 flex items-center gap-2">🥑 建立食譜組合</h2>
-                    <input id="newRecipeName" type="text" placeholder="食譜名稱 (例如: 增肌牛肉沙拉)" class="w-full p-6 mb-6 text-lg outline-none font-bold">
+                    <input id="newRecipeName" type="text" placeholder="食譜名稱 (例如: 增肌牛肉沙拉)" class="w-full p-6 mb-6 text-lg outline-none font-bold text-slate-800 dark:text-white">
                     <div class="bg-gray-50/50 dark:bg-gray-800/30 p-6 rounded-3xl mb-6 border-2 border-dashed border-gray-200 dark:border-gray-700">
                         <div class="relative mb-6">
-                            <input id="recipeIngSearch" type="text" placeholder="🔍 搜尋食物..." class="w-full p-5 outline-none text-sm" oninput="searchFood(this.value, 'recipe')">
+                            <input id="recipeIngSearch" type="text" placeholder="🔍 搜尋食物..." class="w-full p-5 outline-none text-sm text-slate-800 dark:text-white" oninput="searchFood(this.value, 'recipe')">
                             <div id="recipeSearchRes" class="suggestion-box hidden"></div>
                         </div>
                         <div class="flex items-center gap-2 mb-4">
                             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                            <p class="text-xs font-black opacity-50 uppercase tracking-widest">已選食材清單</p>
+                            <p class="text-xs font-black opacity-50 uppercase tracking-widest text-slate-800 dark:text-white">已選食材清單</p>
                         </div>
-                        <ul id="tempIngList" class="space-y-3"></ul>
+                        <ul id="tempIngList" class="space-y-3 text-slate-800 dark:text-white"></ul>
                     </div>
                     <button onclick="saveRecipe()" class="w-full bg-emerald-500 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-emerald-500/30 btn-press">封裝食譜</button>
                 </div>
@@ -215,10 +229,11 @@
             
             <div class="sub-nav-container mb-6 shadow-sm">
                 <div onclick="switchGymSub('today')" id="gsub-today" class="sub-tab active">今日訓練</div>
+                <div onclick="switchGymSub('planner')" id="gsub-planner" class="sub-tab">7日課表</div>
                 <div onclick="switchGymSub('history')" id="gsub-history" class="sub-tab">歷史紀錄</div>
             </div>
 
-            <div id="gsubContent-today" class="gym-sub-content">
+            <div id="gsubContent-today" class="gym-sub-content text-slate-800 dark:text-white">
                 <div class="card p-6 mb-6 h-36 relative overflow-hidden flex flex-col justify-between shadow-sm">
                     <div class="flex justify-between items-start z-10 relative">
                         <h3 class="text-xs font-black opacity-50 uppercase tracking-widest">近 7 日容量趨勢</h3>
@@ -233,22 +248,22 @@
                     <h2 class="text-xl font-black mb-6 flex items-center gap-2">🏋️‍♂️ 訓練日誌</h2>
                     
                     <div class="mb-6 relative">
-                        <input id="gName" type="text" placeholder="🔍 搜尋動作 (例: 臥推, 深蹲)" class="w-full p-5 outline-none font-bold text-sm shadow-sm" oninput="searchGym(this.value)">
-                        <div id="gymSearchRes" class="suggestion-box hidden no-scrollbar"></div>
+                        <input id="gName" type="text" placeholder="🔍 搜尋動作 (例: 臥推, 深蹲)" class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="searchGym(this.value, 'today')">
+                        <div id="gymSearchRes" class="suggestion-box hidden no-scrollbar text-slate-800 dark:text-white"></div>
                     </div>
                     
                     <div class="grid grid-cols-3 gap-4 mb-8 bg-gray-50/50 dark:bg-gray-800/30 p-4 rounded-3xl border border-gray-100 dark:border-gray-700/50">
                         <div class="text-center">
                             <p class="text-[10px] font-black opacity-40 uppercase mb-2">重量 (KG)</p>
-                            <input id="gW" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none">
+                            <input id="gW" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
                             <p class="text-[10px] font-black opacity-40 uppercase mb-2">組數 (SETS)</p>
-                            <input id="gS" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none">
+                            <input id="gS" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
                             <p class="text-[10px] font-black opacity-40 uppercase mb-2">次數 (REPS)</p>
-                            <input id="gR" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none">
+                            <input id="gR" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                     </div>
 
@@ -264,42 +279,104 @@
                 </div>
                 
                 <div class="flex justify-between items-end mb-6 px-2">
-                    <h3 class="font-black text-lg">今日清單</h3>
+                    <h3 class="font-black text-lg text-slate-800 dark:text-white">今日清單</h3>
                     <div class="bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-800">
                         <p class="text-[10px] font-black opacity-70 uppercase text-indigo-700 dark:text-indigo-300">總容量: <span id="dailyVolume" class="text-sm ml-1">0</span> KG</p>
                     </div>
                 </div>
-                <div id="gymLogs" class="space-y-4 mb-10"></div>
+                <div id="gymLogs" class="space-y-4 mb-10 text-slate-800 dark:text-white"></div>
             </div>
 
-            <div id="gsubContent-history" class="gym-sub-content hidden pb-10">
+            <div id="gsubContent-planner" class="gym-sub-content hidden text-slate-800 dark:text-white">
+                <div class="flex space-x-3 overflow-x-auto no-scrollbar mb-8 pb-4 px-2" id="gymPlannerDateBar">
+                    </div>
+
+                <div class="card p-8 mb-8 border-b-8 border-indigo-500 relative">
+                    <h2 class="text-xl font-black mb-6 flex items-center gap-2">🗓️ 編排 <span id="selectedGymPlanDayText" class="text-indigo-500">週一</span> 課表</h2>
+                    
+                    <div class="mb-6 relative">
+                        <input id="gPlanName" type="text" placeholder="🔍 搜尋動作預排..." class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="searchGym(this.value, 'plan')">
+                        <div id="gymPlanSearchRes" class="suggestion-box hidden no-scrollbar text-slate-800 dark:text-white"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-4 mb-8 bg-gray-50/50 dark:bg-gray-800/30 p-4 rounded-3xl border border-gray-100 dark:border-gray-700/50">
+                        <div class="text-center">
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">目標重量</p>
+                            <input id="gPlanW" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">目標組數</p>
+                            <input id="gPlanS" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">目標次數</p>
+                            <input id="gPlanR" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
+                        </div>
+                    </div>
+                    <button onclick="addGymPlan()" class="w-full bg-indigo-500 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-indigo-500/30 btn-press">加入每週課表</button>
+                </div>
+                
+                <div class="flex justify-between items-end mb-6 px-2">
+                    <h3 class="font-black text-lg text-slate-800 dark:text-white">課表清單</h3>
+                </div>
+                <div id="gymPlanList" class="space-y-4 mb-10 text-slate-800 dark:text-white"></div>
+            </div>
+
+            <div id="gsubContent-history" class="gym-sub-content hidden pb-10 text-slate-800 dark:text-white">
                 <div class="card p-6 border-b-4 border-indigo-300 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/10 mb-6">
                     <h3 class="font-black text-indigo-600 dark:text-indigo-400 mb-4">📜 歷史紀錄查詢</h3>
-                    <input type="date" id="historyDateInput" class="w-full p-4 font-black text-center text-lg bg-white dark:bg-gray-900 shadow-sm border-none rounded-2xl" onchange="renderGymHistory(this.value)">
+                    <input type="date" id="historyDateInput" class="w-full box-border p-4 font-black text-center text-lg bg-white dark:bg-gray-900 shadow-sm border-none rounded-2xl text-slate-800 dark:text-white" onchange="renderGymHistory(this.value)">
                 </div>
                 <div id="gymHistoryList" class="space-y-4"></div>
             </div>
         </div>
 
-        <div id="userTab" class="tab-content">
+        <div id="communityTab" class="tab-content">
+            <div class="card p-8 mb-8 border-t-8 border-indigo-500 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-indigo-100 dark:bg-indigo-900/30 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
+                <h2 class="text-2xl font-black mb-2 relative z-10 text-slate-800 dark:text-white">🌐 Omni 社群 (預備版)</h2>
+                <p class="text-xs font-bold opacity-60 mb-8 relative z-10 text-slate-800 dark:text-white">記錄訓練點滴，為未來的聯網賽季做準備！</p>
+                
+                <div class="mb-6 relative z-10">
+                    <label class="video-upload-label flex flex-col items-center justify-center w-full h-48 rounded-3xl cursor-pointer transition-colors p-4 text-center">
+                        <span class="text-4xl mb-3">📹</span>
+                        <span class="text-sm font-black text-indigo-600 dark:text-indigo-400">點擊上傳訓練短片</span>
+                        <span class="text-[10px] opacity-50 font-bold mt-2 text-slate-600 dark:text-gray-400">支援 MP4, MOV (本機預覽模式)</span>
+                        <input type="file" id="videoUpload" accept="video/*" class="hidden">
+                    </label>
+                </div>
+
+                <div id="videoPreviewContainer" class="hidden relative z-10">
+                    <h3 class="font-black text-sm mb-3 flex items-center gap-2 text-slate-800 dark:text-white"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> 本機預覽</h3>
+                    <div class="rounded-3xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-700 bg-black">
+                        <video id="videoPreview" controls class="w-full max-h-96 object-contain"></video>
+                    </div>
+                    <div class="mt-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
+                        <p class="text-[10px] font-black opacity-60 text-slate-800 dark:text-gray-300">💡 系統提示：目前程式碼已封裝 <code class="text-indigo-500">NetAPI</code> 模組。當未來串接雲端服務（如 Supabase）時，您的影片與訓練數據將會一鍵同步至動態廣場！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="userTab" class="tab-content text-slate-800 dark:text-white">
             <div class="card p-8 mb-8 border-t-8 border-gray-800 dark:border-gray-500 relative overflow-hidden">
                 <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-gray-100 dark:bg-gray-800 rounded-full opacity-50 blur-3xl"></div>
                 <h2 class="text-2xl font-black mb-8 relative z-10">個人數據核心</h2>
                 
                 <div class="grid grid-cols-2 gap-5 mb-6 relative z-10">
-                    <div class="bg-gray-50 dark:bg-gray-800/50 p-5 rounded-3xl border border-gray-100 dark:border-gray-700"><p class="text-[10px] font-black opacity-40 mb-2 uppercase">目前體重 (KG)</p><input id="uW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center"></div>
-                    <div class="bg-blue-50/50 dark:bg-blue-900/20 p-5 rounded-3xl border border-blue-100 dark:border-blue-800"><p class="text-[10px] font-black text-blue-500 mb-2 uppercase">目標體重 (KG)</p><input id="uTargetW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center border-2 border-blue-200 dark:border-blue-600"></div>
+                    <div class="bg-gray-50 dark:bg-gray-800/50 p-5 rounded-3xl border border-gray-100 dark:border-gray-700"><p class="text-[10px] font-black opacity-40 mb-2 uppercase text-slate-800 dark:text-white">目前體重 (KG)</p><input id="uW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center text-slate-800 dark:text-white"></div>
+                    <div class="bg-blue-50/50 dark:bg-blue-900/20 p-5 rounded-3xl border border-blue-100 dark:border-blue-800"><p class="text-[10px] font-black text-blue-500 mb-2 uppercase">目標體重 (KG)</p><input id="uTargetW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center border-2 border-blue-200 dark:border-blue-600 text-slate-800 dark:text-white"></div>
                 </div>
                 
                 <div class="grid grid-cols-3 gap-4 mb-8 relative z-10">
-                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2">性別</p><select id="uGender" class="w-full p-4 text-center"><option value="male">男</option><option value="female">女</option></select></div>
-                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2">年齡</p><input id="uA" type="number" class="w-full p-4 text-center"></div>
-                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2">身高 (CM)</p><input id="uH" type="number" class="w-full p-4 text-center"></div>
+                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white">性別</p><select id="uGender" class="w-full p-4 text-center text-slate-800 dark:text-white"><option value="male">男</option><option value="female">女</option></select></div>
+                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white">年齡</p><input id="uA" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
+                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white">身高 (CM)</p><input id="uH" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
                 </div>
                 
                 <div class="mb-8 relative z-10">
-                    <p class="text-[10px] font-black opacity-40 mb-2 pl-2 uppercase tracking-widest">每日活動量係數 (PAL)</p>
-                    <select id="uAct" class="w-full p-5 text-sm font-bold shadow-sm">
+                    <p class="text-[10px] font-black opacity-40 mb-2 pl-2 uppercase tracking-widest text-slate-800 dark:text-white">每日活動量係數 (PAL)</p>
+                    <select id="uAct" class="w-full p-5 text-sm font-bold shadow-sm text-slate-800 dark:text-white">
                         <option value="1.2">💻 久坐 (辦公族、幾乎不運動)</option><option value="1.375">🚶 輕度 (每週輕鬆活動 1-3 天)</option><option value="1.465">🏃 中輕度 (每週規律健身 3-4 天)</option><option value="1.55">🏃 中度 (每週規律訓練 5-6 天)</option><option value="1.725">🏋️ 高度 (每日重訓或勞動力工作)</option><option value="1.9">🔥 極高 (專業運動員、長期高頻競技)</option>
                     </select>
                 </div>
@@ -323,22 +400,28 @@
                 </div>
             </div>
             
-            <div class="card p-8 mb-6"><h3 class="text-xs font-black opacity-40 uppercase mb-4 tracking-widest">熱量攝取趨勢</h3><div class="h-48"><canvas id="trendChart"></canvas></div></div>
-            <div class="card p-8 mb-8"><h3 class="text-xs font-black opacity-40 uppercase mb-4 tracking-widest">體重紀錄軌跡</h3><div class="h-48"><canvas id="weightChart"></canvas></div></div>
+            <div class="card p-8 mb-6"><h3 class="text-xs font-black opacity-40 uppercase mb-4 tracking-widest text-slate-800 dark:text-white">熱量攝取趨勢</h3><div class="h-48"><canvas id="trendChart"></canvas></div></div>
+            <div class="card p-8 mb-8"><h3 class="text-xs font-black opacity-40 uppercase mb-4 tracking-widest text-slate-800 dark:text-white">體重紀錄軌跡</h3><div class="h-48"><canvas id="weightChart"></canvas></div></div>
         </div>
     </div>
 
-    <nav class="fixed bottom-6 left-6 right-6 bg-white/85 dark:bg-gray-900/85 backdrop-blur-2xl border border-gray-200/50 dark:border-gray-700/50 flex justify-around py-5 px-4 z-[4000] rounded-full shadow-2xl shadow-gray-300/30 dark:shadow-black/50">
-        <button onclick="showTab('mealHub')" id="n-mealHub" class="flex flex-col items-center nav-active text-gray-400 transition-all duration-300"><span class="text-2xl mb-1 drop-shadow-sm">🍱</span><span class="text-[9px] font-black tracking-widest">DIET</span></button>
-        <button onclick="showTab('gym')" id="n-gym" class="flex flex-col items-center text-gray-400 transition-all duration-300"><span class="text-2xl mb-1 drop-shadow-sm">💪</span><span class="text-[9px] font-black tracking-widest">GYM</span></button>
-        <button onclick="showTab('user')" id="n-user" class="flex flex-col items-center text-gray-400 transition-all duration-300"><span class="text-2xl mb-1 drop-shadow-sm">👤</span><span class="text-[9px] font-black tracking-widest">ME</span></button>
+    <nav class="fixed bottom-0 left-0 right-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl border-t border-gray-200/50 dark:border-gray-800/80 flex justify-around pt-3 pb-[calc(1rem+env(safe-area-inset-bottom))] px-2 z-[9999] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.04)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+        <button onclick="showTab('mealHub')" id="n-mealHub" class="flex flex-col items-center nav-active text-gray-400 transition-all duration-300 w-1/4 relative"><span class="text-2xl mb-1 drop-shadow-sm">🍱</span><span class="text-[10px] font-black tracking-widest">飲食</span></button>
+        <button onclick="showTab('gym')" id="n-gym" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/4 relative"><span class="text-2xl mb-1 drop-shadow-sm">💪</span><span class="text-[10px] font-black tracking-widest">訓練</span></button>
+        <button onclick="showTab('community')" id="n-community" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/4 relative"><span class="text-2xl mb-1 drop-shadow-sm">🌐</span><span class="text-[10px] font-black tracking-widest">社群</span></button>
+        <button onclick="showTab('user')" id="n-user" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/4 relative"><span class="text-2xl mb-1 drop-shadow-sm">👤</span><span class="text-[10px] font-black tracking-widest">用戶</span></button>
     </nav>
 
     <script>
-        // --- 完整保留且擴充至 200 種的食物資料庫 ---
-        // (1-100 為原本資料，完全保留。101-200 為新增常見台灣小吃、外食、飲料等)
+        // --- 聯網架構準備區 (Network API Adapter) ---
+        // 未來只需將內部的 localStorage 替換為 fetch/Supabase SDK 即可升級為雲端版
+        const NetAPI = {
+            save: (key, data) => localStorage.setItem(key, JSON.stringify(data)),
+            load: (key) => JSON.parse(localStorage.getItem(key))
+        };
+
+        // --- 完整保留 200 種食物資料庫 ---
         const baseDB = [
-            // 原始 100 筆資料
             {name:"白飯(碗/200g)",p:5,c:56,f:0.6}, {name:"糙米飯(碗/200g)",p:5,c:52,f:1.6}, {name:"地瓜(150g)",p:2,c:36,f:0.3}, {name:"馬鈴薯(150g)",p:3,c:26,f:0.2}, {name:"全麥吐司(片)",p:4,c:15,f:1}, {name:"白吐司(片)",p:3,c:14,f:1}, {name:"燕麥片(50g)",p:6,c:33,f:3.5}, {name:"義大利麵(100g乾)",p:12,c:75,f:1.5}, {name:"玉米(根)",p:4,c:25,f:1.5}, {name:"烏龍麵(200g)",p:5,c:45,f:1},
             {name:"雞胸肉(100g)",p:31,c:0,f:3.6}, {name:"雞腿肉(100g/去皮)",p:24,c:0,f:8}, {name:"雞蛋(顆)",p:7,c:0.6,f:5}, {name:"豬里肌(100g)",p:22,c:0,f:4}, {name:"豬梅花(100g)",p:18,c:0,f:17}, {name:"牛腱(100g)",p:26,c:0,f:4}, {name:"牛小排(100g)",p:15,c:0,f:28}, {name:"培根(片)",p:3,c:0.5,f:10}, {name:"鴨肉(100g)",p:18,c:0,f:15}, {name:"羊肉(100g)",p:20,c:0,f:12},
             {name:"鯛魚片(100g)",p:18,c:0,f:1.5}, {name:"鮭魚(100g)",p:20,c:0,f:14}, {name:"鱈魚(100g)",p:16,c:0,f:1}, {name:"蝦子(100g/約8隻)",p:21,c:1,f:1}, {name:"蛤蜊(100g肉)",p:13,c:3,f:0.6}, {name:"小卷(100g)",p:16,c:1,f:1}, {name:"鮪魚罐頭(水煮/100g)",p:24,c:0,f:0.8}, {name:"蟹肉棒(5條)",p:6,c:10,f:0.5}, {name:"生蠔(100g)",p:9,c:5,f:2}, {name:"鯖魚(100g)",p:19,c:0,f:18},
@@ -350,8 +433,6 @@
             {name:"綜合堅果(20g)",p:4,c:4,f:11}, {name:"花生(20g)",p:5,c:3,f:10}, {name:"腰果(20g)",p:4,c:6,f:9}, {name:"黑巧克力(85%/20g)",p:2,c:4,f:10}, {name:"蘇打餅乾(3片)",p:2,c:15,f:3}, {name:"紅豆湯(碗)",p:6,c:40,f:1}, {name:"茶葉蛋(顆)",p:7,c:1,f:5}, {name:"地瓜球(10顆)",p:1,c:45,f:15}, {name:"雞蛋糕(5個)",p:4,c:30,f:6}, {name:"爆米花(小份)",p:3,c:30,f:12},
             {name:"黑咖啡(大杯)",p:0.5,c:1,f:0}, {name:"無糖綠茶(500ml)",p:0,c:0,f:0}, {name:"拿鐵(無糖/大杯)",p:10,c:15,f:10}, {name:"珍珠奶茶(微糖/700ml)",p:5,c:80,f:25}, {name:"可樂(罐)",p:0,c:35,f:0}, {name:"柳橙汁(200ml)",p:1,c:22,f:0.2}, {name:"乳清蛋白粉(份)",p:20,c:3,f:1.5}, {name:"啤酒(罐)",p:1,c:13,f:0}, {name:"紅酒(杯)",p:0,c:4,f:0}, {name:"運動飲料(罐)",p:0,c:25,f:0},
             {name:"麥香雞(個)",p:15,c:40,f:18}, {name:"大麥克(個)",p:25,c:45,f:30}, {name:"麥脆雞(塊)",p:18,c:15,f:25}, {name:"薯條(中)",p:3,c:40,f:15}, {name:"牛肉麵(碗)",p:30,c:65,f:20}, {name:"魯肉飯(碗)",p:10,c:50,f:25}, {name:"水餃(10顆)",p:15,c:55,f:20}, {name:"鍋貼(10顆)",p:18,c:60,f:35}, {name:"便利商店便當(個)",p:25,c:90,f:20}, {name:"三明治(個)",p:12,c:30,f:10},
-            
-            // 新增的 100 筆資料 (包含外食、點心、熱門飲品)
             {name:"珍珠奶茶(全糖/700ml)",p:5,c:105,f:25}, {name:"無糖烏龍茶(500ml)",p:0,c:0,f:0}, {name:"燕麥奶(250ml)",p:3,c:16,f:5}, {name:"杏仁奶(250ml)",p:1,c:1,f:2.5}, {name:"豆漿(有糖/400ml)",p:13,c:20,f:8}, {name:"美式咖啡(熱)",p:0,c:1,f:0}, {name:"蘋果汁(200ml)",p:0.2,c:23,f:0.1}, {name:"葡萄汁(200ml)",p:0.5,c:30,f:0.1}, {name:"冬瓜茶(500ml)",p:0,c:35,f:0}, {name:"多多綠茶(500ml)",p:2,c:40,f:0},
             {name:"蛋塔(個)",p:3,c:20,f:15}, {name:"車輪餅(奶油)",p:4,c:30,f:10}, {name:"車輪餅(紅豆)",p:5,c:35,f:8}, {name:"蔥抓餅(加蛋)",p:12,c:45,f:25}, {name:"雞排(炸/大片)",p:35,c:40,f:32}, {name:"甜不辣(炸/份)",p:6,c:35,f:18}, {name:"豬血糕(支)",p:4,c:30,f:1}, {name:"滷豆干(份)",p:14,c:5,f:8}, {name:"滷海帶(份)",p:1,c:3,f:0}, {name:"滷百頁豆腐(份)",p:18,c:5,f:20},
             {name:"披薩(夏威夷/片)",p:12,c:30,f:15}, {name:"炸雞腿(支)",p:20,c:12,f:18}, {name:"炸薯餅(塊)",p:1,c:15,f:10}, {name:"起司漢堡(個)",p:15,c:30,f:15}, {name:"潛艇堡(牛肉6吋)",p:25,c:45,f:10}, {name:"潛艇堡(香烤雞胸6吋)",p:22,c:45,f:5}, {name:"大腸麵線(碗)",p:10,c:45,f:15}, {name:"臭豆腐(碗)",p:12,c:20,f:18}, {name:"蚵仔煎(份)",p:14,c:40,f:22}, {name:"肉圓(顆)",p:6,c:40,f:10},
@@ -364,17 +445,22 @@
             {name:"黑糖珍珠(50g)",p:0,c:40,f:0}, {name:"仙草凍(100g)",p:0,c:5,f:0}, {name:"愛玉(100g)",p:0,c:1,f:0}, {name:"蒟蒻(100g)",p:0,c:4,f:0}, {name:"椰果(50g)",p:0,c:10,f:0}, {name:"粉條(50g)",p:0,c:15,f:0}, {name:"湯圓(50g)",p:1,c:35,f:1}, {name:"地瓜圓(50g)",p:1,c:30,f:1}, {name:"麻糬(花生/顆)",p:3,c:25,f:8}, {name:"麻糬(芝麻/顆)",p:3,c:25,f:9}
         ];
 
-        // --- 擴充健身動作庫 ---
+        // --- 完整保留擴充動作庫 ---
         const gymDB = ["槓鈴臥推", "啞鈴臥推", "上胸臥推", "下胸臥推", "機械飛鳥", "滑輪下拉", "引體向上", "槓鈴划船", "啞鈴划船", "坐姿划船", "槓鈴深蹲", "頸前深蹲", "硬舉", "腿推舉", "羅馬尼亞硬舉", "保加利亞分腿蹲", "腿彎舉", "腿伸直", "槓鈴肩推", "啞鈴肩推", "側平舉", "前平舉", "滑輪側平舉", "反向飛鳥", "二頭彎舉", "錘式彎舉", "三頭下壓", "法式彎舉", "仰臥起坐", "棒式", "捲腹", "俄羅斯轉體", "波比跳", "羅馬椅挺身"];
 
-        const KEYS = { logs: 'logs_vDual', recipes: 'recipes_vDual', plans: 'plans_vDual', user: 'user_vDual', gym: 'gym_vDual', theme: 'theme_vDual' };
-        function getSaved(key) { return JSON.parse(localStorage.getItem(KEYS[key])) || JSON.parse(localStorage.getItem(key.replace('_vDual', '_vOmni'))) || null; }
-
-        let logs = getSaved('logs') || {};
-        let recipes = getSaved('recipes') || [];
-        let planner = getSaved('plans') || {};
-        let user = getSaved('user') || { gender:'male', h:175, w:75, targetW:70, a:25, act:1.2, weights:[], water:{} };
-        let gym = getSaved('gym') || {};
+        const KEYS = { logs: 'logs_vDual', recipes: 'recipes_vDual', plans: 'plans_vDual', user: 'user_vDual', gym: 'gym_vDual', theme: 'theme_vDual', gymPlans: 'gymPlans_vDual' };
+        
+        let logs = NetAPI.load(KEYS.logs) || {};
+        let recipes = NetAPI.load(KEYS.recipes) || [];
+        let planner = NetAPI.load(KEYS.plans) || {};
+        let user = NetAPI.load(KEYS.user) || { gender:'male', h:175, w:75, targetW:70, a:25, act:1.2, weights:[], water:{} };
+        let gym = NetAPI.load(KEYS.gym) || {};
+        
+        // 7日訓練課表準備
+        const WEEK_DAYS = ['週一', '週二', '週三', '週四', '週五', '週六', '週日'];
+        let gymPlanner = NetAPI.load(KEYS.gymPlans) || { '週一':[], '週二':[], '週三':[], '週四':[], '週五':[], '週六':[], '週日':[] };
+        let currentGymPlanDay = '週一';
+        
         let today = new Date().toLocaleDateString();
         let currentPlanDate = today;
         let todayMacroChart, planMacroChart, trendChart, weightChart, gymChartInstance;
@@ -395,6 +481,7 @@
             if(t === 'mealHub') renderLogs();
         }
 
+        // 飲食子分頁
         function switchMealSub(st) {
             document.querySelectorAll('.meal-sub-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('subContent-' + st).classList.remove('hidden');
@@ -404,16 +491,18 @@
             if(st === 'library') renderSavedRecipes();
         }
 
+        // 訓練子分頁
         function switchGymSub(st) {
             document.querySelectorAll('.gym-sub-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('gsubContent-' + st).classList.remove('hidden');
             document.querySelectorAll('#gymTab .sub-tab').forEach(b => b.classList.remove('active'));
             document.getElementById('gsub-' + st).classList.add('active');
             if(st === 'history') renderGymHistory();
+            if(st === 'planner') initGymPlannerDays();
             if(st === 'today') { renderGym(); setTimeout(initGymChart, 100); }
         }
 
-        // 搜尋模組 (飲食庫)
+        // 搜尋模組 (飲食)
         function searchFood(q, mode) {
             const boxes = { 'today':'searchRes', 'recipe':'recipeSearchRes', 'plan':'planSearchRes' };
             const box = document.getElementById(boxes[mode]);
@@ -437,29 +526,29 @@
             document.querySelectorAll('.suggestion-box').forEach(b => b.classList.add('hidden'));
         }
 
-        // 搜尋模組 (動作庫)
-        function searchGym(q) {
-            const box = document.getElementById('gymSearchRes');
+        // 搜尋模組 (動作庫 - 支援 today 與 planner)
+        function searchGym(q, mode) {
+            const box = mode === 'today' ? document.getElementById('gymSearchRes') : document.getElementById('gymPlanSearchRes');
             if(!q) { box.classList.add('hidden'); return; }
             const matches = gymDB.filter(n => n.includes(q)).slice(0, 6);
-            box.innerHTML = matches.map(n => `<div class="p-5 border-b border-gray-100 dark:border-gray-800 cursor-pointer font-black text-sm hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors" onclick="selectGym('${n}')">🏋️ ${n}</div>`).join('');
-            
-            // 修復條件判斷，確保有結果才顯示
-            if(matches.length > 0) {
-                box.classList.remove('hidden');
-            } else {
-                box.classList.add('hidden');
-            }
+            box.innerHTML = matches.map(n => `<div class="p-5 border-b border-gray-100 dark:border-gray-800 cursor-pointer font-black text-sm hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors" onclick="selectGym('${n}', '${mode}')">🏋️ ${n}</div>`).join('');
+            if(matches.length > 0) box.classList.remove('hidden'); else box.classList.add('hidden');
         }
         
-        function selectGym(n) { document.getElementById('gName').value = n; document.getElementById('gymSearchRes').classList.add('hidden'); }
+        function selectGym(n, mode) { 
+            if(mode === 'today') {
+                document.getElementById('gName').value = n; document.getElementById('gymSearchRes').classList.add('hidden'); 
+            } else {
+                document.getElementById('gPlanName').value = n; document.getElementById('gymPlanSearchRes').classList.add('hidden');
+            }
+        }
 
-        // 飲食紀錄邏輯 (加上百分比)
+        // --- 飲食紀錄邏輯 ---
         function addLog() {
             let name = document.getElementById('foodSearch').value; if(!name) return;
             if(!logs[today]) logs[today] = [];
             logs[today].push({ name, p: parseFloat(document.getElementById('pIn').value)||0, c: parseFloat(document.getElementById('cIn').value)||0, f: parseFloat(document.getElementById('fIn').value)||0, time: document.getElementById('mealTime').value });
-            localStorage.setItem(KEYS.logs, JSON.stringify(logs));
+            NetAPI.save(KEYS.logs, logs);
             document.getElementById('foodSearch').value = ''; document.getElementById('pIn').value=''; document.getElementById('cIn').value=''; document.getElementById('fIn').value=''; 
             renderLogs();
         }
@@ -503,10 +592,10 @@
         function removeLog(tk, idx) {
             let filtered = logs[today].filter(l => l.time === tk || (!l.time && tk === 'snack'));
             logs[today].splice(logs[today].indexOf(filtered[idx]), 1);
-            localStorage.setItem(KEYS.logs, JSON.stringify(logs)); renderLogs();
+            NetAPI.save(KEYS.logs, logs); renderLogs();
         }
 
-        // 規劃與食譜庫
+        // --- 飲食規劃與食譜庫 ---
         function initPlannerDates() {
             const bar = document.getElementById('plannerDateBar'); bar.innerHTML = '';
             for(let i=0; i<7; i++) {
@@ -522,7 +611,7 @@
             let name = document.getElementById('planSearch').value; if(!name) return;
             if(!planner[currentPlanDate]) planner[currentPlanDate] = [];
             planner[currentPlanDate].push({ name, p: parseFloat(document.getElementById('planPIn').value)||0, c: parseFloat(document.getElementById('planCIn').value)||0, f: parseFloat(document.getElementById('planFIn').value)||0, time: document.getElementById('planMealTime').value });
-            localStorage.setItem(KEYS.plans, JSON.stringify(planner));
+            NetAPI.save(KEYS.plans, planner);
             document.getElementById('planSearch').value = ''; document.getElementById('planPIn').value=''; document.getElementById('planCIn').value=''; document.getElementById('planFIn').value='';
             renderPlannerDetail(currentPlanDate);
         }
@@ -568,7 +657,7 @@
         function removePlan(ds, tk, idx) {
             let filtered = planner[ds].filter(p => p.time === tk);
             planner[ds].splice(planner[ds].indexOf(filtered[idx]), 1);
-            localStorage.setItem(KEYS.plans, JSON.stringify(planner)); renderPlannerDetail(ds);
+            NetAPI.save(KEYS.plans, planner); renderPlannerDetail(ds);
         }
 
         function renderTempRecipe() {
@@ -581,18 +670,18 @@
             if(!name || tempRecipeIngs.length === 0) return;
             let tp=0, tc=0, tf=0; tempRecipeIngs.forEach(i => { tp += i.p; tc += i.c; tf += i.f; });
             recipes.push({ name, p: parseFloat(tp.toFixed(1)), c: parseFloat(tc.toFixed(1)), f: parseFloat(tf.toFixed(1)), isRecipe: true });
-            localStorage.setItem(KEYS.recipes, JSON.stringify(recipes));
+            NetAPI.save(KEYS.recipes, recipes);
             tempRecipeIngs = []; document.getElementById('newRecipeName').value = ''; renderTempRecipe(); renderSavedRecipes();
         }
 
         function renderSavedRecipes() {
-            document.getElementById('savedRecipesList').innerHTML = recipes.map((r, i) => `<div class="card p-6 mb-3 flex justify-between items-center border-l-4 border-emerald-500"><div><p class="font-black text-base mb-1">🍱 ${r.name}</p><p class="text-[10px] opacity-50 font-black uppercase tracking-wider bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded inline-block">P:${r.p} C:${r.c} F:${r.f}</p></div><button onclick="recipes.splice(${i},1);localStorage.setItem(KEYS.recipes,JSON.stringify(recipes));renderSavedRecipes()" class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 font-black flex items-center justify-center">✕</button></div>`).join('');
+            document.getElementById('savedRecipesList').innerHTML = recipes.map((r, i) => `<div class="card p-6 mb-3 flex justify-between items-center border-l-4 border-emerald-500"><div><p class="font-black text-base mb-1">🍱 ${r.name}</p><p class="text-[10px] opacity-50 font-black uppercase tracking-wider bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded inline-block">P:${r.p} C:${r.c} F:${r.f}</p></div><button onclick="recipes.splice(${i},1);NetAPI.save(KEYS.recipes,recipes);renderSavedRecipes()" class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 font-black flex items-center justify-center">✕</button></div>`).join('');
         }
 
-        function addWater(amt) { user.water[today] = (user.water[today]||0) + amt; localStorage.setItem(KEYS.user, JSON.stringify(user)); renderWater(); }
+        function addWater(amt) { user.water[today] = (user.water[today]||0) + amt; NetAPI.save(KEYS.user, user); renderWater(); }
         function renderWater() { document.getElementById('waterCurrent').innerText = (user.water[today] || 0) + ' ml'; }
         
-        // 個人數據與圖表
+        // --- 用戶數據與圖表 (更新覆蓋體重邏輯) ---
         function updateMacroChart(p,c,f) {
             const ctx = document.getElementById('todayMacroChart').getContext('2d');
             if(todayMacroChart) todayMacroChart.destroy();
@@ -603,8 +692,14 @@
             user.w = parseFloat(document.getElementById('uW').value); user.targetW = parseFloat(document.getElementById('uTargetW').value);
             user.h = parseFloat(document.getElementById('uH').value); user.a = parseInt(document.getElementById('uA').value);
             user.act = parseFloat(document.getElementById('uAct').value); user.gender = document.getElementById('uGender').value;
-            if(!user.weights) user.weights = []; user.weights.push({d:today, v:user.w});
-            localStorage.setItem(KEYS.user, JSON.stringify(user)); renderUserStats(); initCharts();
+            
+            // 體重覆蓋邏輯：如果今天已經有紀錄，就更新它；否則新增一筆。
+            if(!user.weights) user.weights = [];
+            let existingWeight = user.weights.find(w => w.d === today);
+            if(existingWeight) { existingWeight.v = user.w; } 
+            else { user.weights.push({d:today, v:user.w}); }
+            
+            NetAPI.save(KEYS.user, user); renderUserStats(); initCharts();
         }
 
         function renderUserStats() {
@@ -642,7 +737,7 @@
             });
         }
 
-        // --- 深度強化：健身模組 ---
+        // --- GYM 模組 (加入 7日規劃) ---
         function startRestTimer(seconds) {
             clearInterval(restTimer);
             let t = parseInt(seconds) || 90;
@@ -666,7 +761,6 @@
                 }
             }, 1000);
         }
-        
         function stopRestTimer() { clearInterval(restTimer); document.getElementById('restTimerDisplay').classList.add('hidden'); }
 
         function copyGym(idx) {
@@ -681,7 +775,7 @@
             if(!gym[today]) gym[today] = [];
             let w = parseFloat(document.getElementById('gW').value)||0, s = parseInt(document.getElementById('gS').value)||0, r = parseInt(document.getElementById('gR').value)||0;
             gym[today].push({ n: name, w: w, s: s, r: r, v: w*s*r });
-            localStorage.setItem(KEYS.gym, JSON.stringify(gym));
+            NetAPI.save(KEYS.gym, gym);
             document.getElementById('gName').value = ''; document.getElementById('gW').value = ''; document.getElementById('gS').value = ''; document.getElementById('gR').value = '';
             renderGym(); setTimeout(initGymChart, 100);
         }
@@ -719,7 +813,7 @@
             document.getElementById('dailyVolume').innerText = dailyVol;
         }
 
-        function removeGym(idx) { gym[today].splice(idx, 1); localStorage.setItem(KEYS.gym, JSON.stringify(gym)); renderGym(); setTimeout(initGymChart, 100); }
+        function removeGym(idx) { gym[today].splice(idx, 1); NetAPI.save(KEYS.gym, gym); renderGym(); setTimeout(initGymChart, 100); }
 
         function initGymChart() {
             if(gymChartInstance) gymChartInstance.destroy();
@@ -732,10 +826,53 @@
             });
         }
 
+        // 訓練規劃 7日 (Planner)
+        function initGymPlannerDays() {
+            const bar = document.getElementById('gymPlannerDateBar'); bar.innerHTML = '';
+            WEEK_DAYS.forEach(day => {
+                bar.innerHTML += `<div class="date-chip ${day === currentGymPlanDay ? 'active' : ''}" onclick="selectGymPlanDay('${day}')">${day}</div>`;
+            });
+            document.getElementById('selectedGymPlanDayText').innerText = currentGymPlanDay;
+            renderGymPlanList();
+        }
+        
+        function selectGymPlanDay(day) { currentGymPlanDay = day; initGymPlannerDays(); }
+        
+        function addGymPlan() {
+            let name = document.getElementById('gPlanName').value; if(!name) return;
+            let w = parseFloat(document.getElementById('gPlanW').value)||0;
+            let s = parseInt(document.getElementById('gPlanS').value)||0;
+            let r = parseInt(document.getElementById('gPlanR').value)||0;
+            gymPlanner[currentGymPlanDay].push({ n: name, w: w, s: s, r: r });
+            NetAPI.save(KEYS.gymPlans, gymPlanner);
+            document.getElementById('gPlanName').value = ''; document.getElementById('gPlanW').value = '';
+            document.getElementById('gPlanS').value = ''; document.getElementById('gPlanR').value = '';
+            renderGymPlanList();
+        }
+        
+        function renderGymPlanList() {
+            const container = document.getElementById('gymPlanList');
+            container.innerHTML = (gymPlanner[currentGymPlanDay]||[]).map((g, idx) => {
+                return `<div class="card p-5 mb-3 flex justify-between items-center border-l-4 border-indigo-400 bg-white/50 dark:bg-gray-800/50">
+                    <div>
+                        <p class="font-black text-sm text-slate-800 dark:text-white">${g.n}</p>
+                        <p class="text-[10px] font-black opacity-40 uppercase text-slate-600 dark:text-gray-300">目標: ${g.w}kg × ${g.s}組 × ${g.r}次</p>
+                    </div>
+                    <button onclick="removeGymPlan(${idx})" class="text-red-400 font-black px-2 btn-press">✕</button>
+                </div>`;
+            }).join('');
+        }
+        
+        function removeGymPlan(idx) {
+            gymPlanner[currentGymPlanDay].splice(idx, 1);
+            NetAPI.save(KEYS.gymPlans, gymPlanner);
+            renderGymPlanList();
+        }
+
+        // 歷史紀錄查詢
         function renderGymHistory(dateVal) {
             const container = document.getElementById('gymHistoryList');
             container.innerHTML = '';
-            
             let queryDate = dateVal;
             if(!queryDate) {
                 let d = new Date();
@@ -745,16 +882,13 @@
                 queryDate = `${year}-${month}-${day}`;
                 document.getElementById('historyDateInput').value = queryDate;
             }
-
             let parts = queryDate.split('-');
             let dObj = new Date(parts[0], parts[1]-1, parts[2]);
             let localDateKey = dObj.toLocaleDateString();
-
             let dayGym = gym[localDateKey] || [];
 
             if(dayGym.length === 0) {
-                container.innerHTML = '<p class="text-center opacity-40 font-black py-10 text-lg">此日期尚無訓練紀錄</p>';
-                return;
+                container.innerHTML = '<p class="text-center opacity-40 font-black py-10 text-lg">此日期尚無訓練紀錄</p>'; return;
             }
             
             let dailyVol = dayGym.reduce((sum, g) => sum + g.v, 0);
@@ -775,15 +909,30 @@
             container.innerHTML = html;
         }
 
+        // --- 社群影片預覽邏輯 ---
+        document.getElementById('videoUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if(file) {
+                const videoNode = document.getElementById('videoPreview');
+                const fileURL = URL.createObjectURL(file);
+                videoNode.src = fileURL;
+                document.getElementById('videoPreviewContainer').classList.remove('hidden');
+                
+                // Haptic Feedback (如果設備支援)
+                if (navigator.vibrate) navigator.vibrate(50);
+            }
+        });
+
+        // 系統與主題初始化
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
             const isDark = document.documentElement.classList.contains('dark');
             document.getElementById('themeBtn').innerText = isDark ? '☀️' : '🌙';
-            localStorage.setItem(KEYS.theme, isDark ? 'dark' : 'light');
+            NetAPI.save(KEYS.theme, isDark ? 'dark' : 'light');
         }
 
         window.onload = () => {
-            const savedTheme = localStorage.getItem(KEYS.theme);
+            const savedTheme = NetAPI.load(KEYS.theme);
             if(savedTheme === 'dark') { document.documentElement.classList.add('dark'); document.getElementById('themeBtn').innerText = '☀️'; }
             document.getElementById('uW').value = user.w; document.getElementById('uTargetW').value = user.targetW;
             document.getElementById('uH').value = user.h; document.getElementById('uA').value = user.a;
