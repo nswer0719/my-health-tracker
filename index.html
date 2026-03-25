@@ -115,7 +115,7 @@
                     <div class="absolute -right-6 -top-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                     <div class="flex justify-between items-end relative z-10">
                         <div>
-                            <h3 class="font-black text-sm opacity-90 mb-1" id="todayGoalLabel" data-i18n="calculating">計算中...</h3>
+                            <h3 class="font-black text-sm opacity-90 mb-1" id="todayGoalLabel">計算中...</h3>
                             <p class="text-[11px] font-bold opacity-75 uppercase tracking-widest">Daily Goal</p>
                         </div>
                         <div class="text-right">
@@ -508,7 +508,7 @@
             load: (key) => JSON.parse(localStorage.getItem(key))
         };
 
-        // --- 國際化 (i18n) 字典 (包含所有新舊翻譯鍵值) ---
+        // --- 國際化 (i18n) 字典 ---
         const i18nDict = {
             zh: {
                 nav_diet: "飲食", nav_gym: "訓練", nav_comm: "社群", nav_user: "用戶", nav_settings: "設定",
@@ -543,7 +543,6 @@
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if(i18nDict[lang][key]) {
-                    // 針對 input placeholder
                     if(el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
                         el.placeholder = i18nDict[lang][key];
                     } else {
@@ -554,11 +553,13 @@
             NetAPI.save('lang_vDual', lang);
             document.getElementById('langSelect').value = lang;
             
-            // Re-render chart text if exists
+            // 動態更新不需要直接帶有 data-i18n 標籤的內容
+            renderUserStats();
+            renderLogs();
             initCharts();
         }
 
-        // --- 完整保留 200 種食物資料庫 (絕對無刪減) ---
+        // --- 完整保留 200 種 + 擴充 50 種歐美食物庫 (無刪減，250+筆) ---
         const baseDB = [
             {name:"白飯(碗/200g)",p:5,c:56,f:0.6}, {name:"糙米飯(碗/200g)",p:5,c:52,f:1.6}, {name:"地瓜(150g)",p:2,c:36,f:0.3}, {name:"馬鈴薯(150g)",p:3,c:26,f:0.2}, {name:"全麥吐司(片)",p:4,c:15,f:1}, {name:"白吐司(片)",p:3,c:14,f:1}, {name:"燕麥片(50g)",p:6,c:33,f:3.5}, {name:"義大利麵(100g乾)",p:12,c:75,f:1.5}, {name:"玉米(根)",p:4,c:25,f:1.5}, {name:"烏龍麵(200g)",p:5,c:45,f:1},
             {name:"雞胸肉(100g)",p:31,c:0,f:3.6}, {name:"雞腿肉(100g/去皮)",p:24,c:0,f:8}, {name:"雞蛋(顆)",p:7,c:0.6,f:5}, {name:"豬里肌(100g)",p:22,c:0,f:4}, {name:"豬梅花(100g)",p:18,c:0,f:17}, {name:"牛腱(100g)",p:26,c:0,f:4}, {name:"牛小排(100g)",p:15,c:0,f:28}, {name:"培根(片)",p:3,c:0.5,f:10}, {name:"鴨肉(100g)",p:18,c:0,f:15}, {name:"羊肉(100g)",p:20,c:0,f:12},
@@ -580,13 +581,19 @@
             {name:"鮭魚握壽司(2貫)",p:8,c:15,f:5}, {name:"鮪魚握壽司(2貫)",p:10,c:15,f:1}, {name:"玉子燒壽司(2貫)",p:5,c:16,f:3}, {name:"稻荷壽司(豆皮/2貫)",p:4,c:20,f:6}, {name:"花壽司(4片)",p:6,c:30,f:4}, {name:"炸豬排丼(份)",p:35,c:100,f:30}, {name:"牛丼(份)",p:25,c:95,f:25}, {name:"親子丼(份)",p:30,c:90,f:15}, {name:"炸蝦天婦羅(2尾)",p:10,c:20,f:12}, {name:"烏龍湯麵(碗)",p:12,c:70,f:5},
             {name:"水煮鮪魚罐頭(半罐)",p:12,c:0,f:0.5}, {name:"油漬鮪魚罐頭(半罐)",p:12,c:0,f:8}, {name:"鯖魚罐頭(半罐)",p:14,c:2,f:12}, {name:"蒲燒鰻罐頭(半罐)",p:10,c:8,f:10}, {name:"玉米粒罐頭(100g)",p:3,c:20,f:1}, {name:"黑豆(熟/50g)",p:8,c:15,f:4}, {name:"鷹嘴豆(熟/50g)",p:4,c:14,f:1}, {name:"綠豆湯(碗)",p:6,c:35,f:0}, {name:"紅豆冰棒(支)",p:2,c:25,f:2}, {name:"薏仁湯(碗)",p:4,c:30,f:1},
             {name:"芋圓(10顆)",p:1,c:35,f:8}, {name:"燒仙草(碗)",p:2,c:25,f:0}, {name:"豆花(碗/無糖水)",p:8,c:5,f:4}, {name:"布丁(盒)",p:4,c:20,f:5}, {name:"優酪乳(原味/200ml)",p:6,c:24,f:2}, {name:"水餃(鮮肉/10顆)",p:15,c:50,f:22}, {name:"水煎包(份)",p:8,c:45,f:20}, {name:"小籠包(顆)",p:4,c:15,f:6}, {name:"蘿蔔糕(片)",p:2,c:20,f:5}, {name:"蛋餅(原味)",p:8,c:30,f:12},
-            {name:"黑糖珍珠(50g)",p:0,c:40,f:0}, {name:"仙草凍(100g)",p:0,c:5,f:0}, {name:"愛玉(100g)",p:0,c:1,f:0}, {name:"蒟蒻(100g)",p:0,c:4,f:0}, {name:"椰果(50g)",p:0,c:10,f:0}, {name:"粉條(50g)",p:0,c:15,f:0}, {name:"湯圓(50g)",p:1,c:35,f:1}, {name:"地瓜圓(50g)",p:1,c:30,f:1}, {name:"麻糬(花生/顆)",p:3,c:25,f:8}, {name:"麻糬(芝麻/顆)",p:3,c:25,f:9}
+            {name:"黑糖珍珠(50g)",p:0,c:40,f:0}, {name:"仙草凍(100g)",p:0,c:5,f:0}, {name:"愛玉(100g)",p:0,c:1,f:0}, {name:"蒟蒻(100g)",p:0,c:4,f:0}, {name:"椰果(50g)",p:0,c:10,f:0}, {name:"粉條(50g)",p:0,c:15,f:0}, {name:"湯圓(50g)",p:1,c:35,f:1}, {name:"地瓜圓(50g)",p:1,c:30,f:1}, {name:"麻糬(花生/顆)",p:3,c:25,f:8}, {name:"麻糬(芝麻/顆)",p:3,c:25,f:9},
+            // --- 以下為歐美常見食物擴充 (Western Food DB Expansion) ---
+            {name:"肋眼牛排(Ribeye Steak/100g)",p:24,c:0,f:14}, {name:"火雞胸肉(Turkey Breast/100g)",p:29,c:0,f:1}, {name:"貝果(Bagel/個)",p:10,c:48,f:1.5}, {name:"酸種麵包(Sourdough Bread/片)",p:4,c:18,f:1}, {name:"美式鬆餅(Pancakes/2片)",p:6,c:30,f:8}, {name:"格子鬆餅(Waffles/片)",p:4,c:25,f:10}, {name:"燕麥粥(Oatmeal/碗)",p:6,c:27,f:3}, {name:"起司通心粉(Mac & Cheese/碗)",p:12,c:45,f:10}, {name:"茅屋起司(Cottage Cheese/100g)",p:11,c:3,f:4}, {name:"莫札瑞拉起司(Mozzarella/30g)",p:6,c:1,f:6},
+            {name:"切達起司(Cheddar/30g)",p:7,c:0.5,f:9}, {name:"希臘優格(Greek Yogurt/100g)",p:10,c:4,f:0.4}, {name:"鷹嘴豆泥(Hummus/2匙)",p:2,c:4,f:5}, {name:"花生醬(Peanut Butter/2匙)",p:7,c:6,f:16}, {name:"杏仁醬(Almond Butter/2匙)",p:7,c:6,f:18}, {name:"薩拉米香腸(Salami/30g)",p:6,c:1,f:11}, {name:"培根(Bacon/2片)",p:6,c:0,f:8}, {name:"酪梨吐司(Avocado Toast/片)",p:6,c:20,f:12}, {name:"凱薩沙拉(Caesar Salad/碗)",p:5,c:10,f:15}, {name:"炸薯條(French Fries/中份)",p:4,c:45,f:17},
+            {name:"馬鈴薯泥(Mashed Potatoes/碗)",p:4,c:35,f:8}, {name:"英式烤豆(Baked Beans/碗)",p:12,c:40,f:1}, {name:"藜麥(Quinoa/煮熟1碗)",p:8,c:39,f:3.5}, {name:"櫛瓜(Zucchini/100g)",p:1,c:3,f:0}, {name:"抱子甘藍(Brussels Sprouts/100g)",p:3,c:9,f:0}, {name:"蘆筍(Asparagus/100g)",p:2,c:4,f:0}, {name:"藍莓(Blueberries/碗)",p:1,c:21,f:0.5}, {name:"覆盆子(Raspberries/碗)",p:1.5,c:15,f:0.8}, {name:"燕麥穀物(Granola/半碗)",p:5,c:30,f:10}, {name:"可頌(Croissant/個)",p:5,c:26,f:12},
+            {name:"瑪芬蛋糕(Muffin/個)",p:6,c:50,f:15}, {name:"甜甜圈(Donut/個)",p:4,c:30,f:15}, {name:"起司漢堡(Cheeseburger/個)",p:15,c:30,f:14}, {name:"熱狗(Hot Dog/份)",p:10,c:20,f:15}, {name:"義大利臘腸披薩(Pepperoni Pizza/片)",p:12,c:35,f:15}, {name:"麥克雞塊(Chicken Nuggets/6塊)",p:15,c:15,f:18}, {name:"美式炒蛋(Scrambled Eggs/2顆)",p:12,c:2,f:14}, {name:"歐姆蛋(Omelet/起司口味)",p:16,c:3,f:20}, {name:"雞肉捲餅(Chicken Wrap/份)",p:25,c:40,f:12}, {name:"墨西哥捲餅(Burrito/份)",p:20,c:50,f:18},
+            {name:"塔可餅(Taco/雞肉)",p:15,c:20,f:10}, {name:"炸魚薯條(Fish and Chips/份)",p:25,c:60,f:30}, {name:"豬排(Pork Chop/100g)",p:25,c:0,f:12}, {name:"烤牛肉(Roast Beef/100g)",p:26,c:0,f:10}, {name:"義式肉丸(Meatballs/5顆)",p:15,c:10,f:18}, {name:"番茄肉醬義大利麵(Spaghetti Bolognese)",p:20,c:65,f:15}, {name:"千層麵(Lasagna/份)",p:22,c:50,f:20}, {name:"蛤蜊巧達湯(Clam Chowder/碗)",p:8,c:20,f:12}, {name:"番茄濃湯(Tomato Soup/碗)",p:2,c:15,f:4}
         ];
 
-        // --- 保留並擴充動作庫 (新增滑輪與壺鈴系列) ---
+        // --- 完整保留動作庫並擴充滑輪與壺鈴 ---
         const gymDB = ["槓鈴臥推", "啞鈴臥推", "上胸臥推", "下胸臥推", "機械飛鳥", "滑輪下拉", "引體向上", "槓鈴划船", "啞鈴划船", "坐姿划船", "槓鈴深蹲", "頸前深蹲", "硬舉", "腿推舉", "羅馬尼亞硬舉", "保加利亞分腿蹲", "腿彎舉", "腿伸直", "槓鈴肩推", "啞鈴肩推", "側平舉", "前平舉", "滑輪側平舉", "反向飛鳥", "二頭彎舉", "錘式彎舉", "三頭下壓", "法式彎舉", "仰臥起坐", "棒式", "捲腹", "俄羅斯轉體", "波比跳", "羅馬椅挺身", 
-        "滑輪夾胸", "滑輪面拉(Face Pull)", "滑輪單臂划船", "滑輪飛鳥", "滑輪過頭三頭伸展", "滑輪直臂下拉", // 滑輪擴充
-        "壺鈴擺盪(Kettlebell Swing)", "壺鈴深蹲", "壺鈴土耳其起立", "壺鈴肩推", "壺鈴高腳杯深蹲", "壺鈴農夫走路", "壺鈴單臂划船", "壺鈴硬舉"]; // 壺鈴擴充
+        "滑輪夾胸", "滑輪面拉(Face Pull)", "滑輪單臂划船", "滑輪飛鳥", "滑輪過頭三頭伸展", "滑輪直臂下拉", 
+        "壺鈴擺盪(Kettlebell Swing)", "壺鈴深蹲", "壺鈴土耳其起立", "壺鈴肩推", "壺鈴高腳杯深蹲", "壺鈴農夫走路", "壺鈴單臂划船", "壺鈴硬舉"];
         const cardioDB = ["跑步", "自行車", "游泳", "橢圓機", "划船機", "階梯機", "跳繩", "有氧操", "HIIT"];
 
         const KEYS = { logs: 'logs_vDual', recipes: 'recipes_vDual', plans: 'plans_vDual', user: 'user_vDual', gym: 'gym_vDual', theme: 'theme_vDual', gymPlans: 'gymPlans_vDual' };
@@ -606,7 +613,7 @@
         let todayMacroChart, planMacroChart, trendChart, weightChart, gymChartInstance;
         let tempRecipeIngs = []; 
         let restTimer; 
-        let currentGymType = 'strength'; // strength or cardio
+        let currentGymType = 'strength'; 
         let currentWeightRange = 7;
 
         function showTab(t) {
@@ -647,13 +654,13 @@
                 document.getElementById('btnCardio').classList.remove('active-cardio');
                 document.getElementById('strengthInputs').classList.remove('hidden');
                 document.getElementById('cardioInputs').classList.add('hidden');
-                document.getElementById('gName').placeholder = "🔍 Search Strength...";
+                document.getElementById('gName').placeholder = currentLang==='en'?"🔍 Search Strength...":"🔍 搜尋重量訓練...";
             } else {
                 document.getElementById('btnCardio').classList.add('active-cardio');
                 document.getElementById('btnStrength').classList.remove('active');
                 document.getElementById('cardioInputs').classList.remove('hidden');
                 document.getElementById('strengthInputs').classList.add('hidden');
-                document.getElementById('gName').placeholder = "🔍 Search Cardio...";
+                document.getElementById('gName').placeholder = currentLang==='en'?"🔍 Search Cardio...":"🔍 搜尋有氧運動...";
             }
             document.getElementById('gymSearchRes').classList.add('hidden');
             document.getElementById('gName').value = '';
@@ -664,7 +671,10 @@
             const box = document.getElementById(boxes[mode]);
             if(!q) { box.classList.add('hidden'); return; }
             let pool = (mode === 'today' || mode === 'plan') ? [...recipes, ...baseDB] : [...baseDB];
+            
+            // 不分大小寫搜尋
             const matches = pool.filter(f => f.name.toLowerCase().includes(q.toLowerCase())).slice(0, 10);
+            
             box.innerHTML = matches.map(f => {
                 let kcal = Math.round(f.p*4 + f.c*4 + f.f*9);
                 return `<div class="p-5 border-b border-gray-100 dark:border-gray-800 cursor-pointer font-black text-sm hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors" onclick="selectFood('${f.name}', ${f.p}, ${f.c}, ${f.f}, '${mode}')">
@@ -686,7 +696,10 @@
             const box = mode === 'today' ? document.getElementById('gymSearchRes') : document.getElementById('gymPlanSearchRes');
             if(!q) { box.classList.add('hidden'); return; }
             const pool = currentGymType === 'cardio' ? cardioDB : gymDB;
-            const matches = pool.filter(n => n.includes(q)).slice(0, 6);
+            
+            // 不分大小寫搜尋
+            const matches = pool.filter(n => n.toLowerCase().includes(q.toLowerCase())).slice(0, 6);
+            
             box.innerHTML = matches.map(n => `<div class="p-5 border-b border-gray-100 dark:border-gray-800 cursor-pointer font-black text-sm hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors" onclick="selectGym('${n}', '${mode}')">${currentGymType==='cardio'?'🏃':'🏋️'} ${n}</div>`).join('');
             if(matches.length > 0) box.classList.remove('hidden'); else box.classList.add('hidden');
         }
@@ -746,7 +759,7 @@
             document.getElementById('sumF').innerHTML = `${sf.toFixed(1)}g <br><span class="text-[10px] font-bold opacity-60">(${fPct}%)</span>`; 
             document.getElementById('sumKcal').innerText = total;
             
-            // 同步首頁今日目標顯示 (若用戶分頁已計算，可在此反映)
+            // 更新首頁熱量目標顯示
             let bmr = (10*user.w)+(6.25*user.h)-(5*user.a);
             bmr = user.gender === 'male' ? bmr+5 : bmr-161;
             let tdee = Math.round(bmr*user.act);
@@ -808,10 +821,16 @@
                     container.innerHTML += html + `</div>`;
                 }
             });
+            
+            // 精準計算規劃的百分比 (修正第 2 點需求)
             let planTotal = Math.round(pp*4 + pc*4 + pf*9);
-            document.getElementById('planP').innerText = `${pp.toFixed(1)}g`;
-            document.getElementById('planC').innerText = `${pc.toFixed(1)}g`;
-            document.getElementById('planF').innerText = `${pf.toFixed(1)}g`;
+            let ppPct = planTotal > 0 ? Math.round(((pp*4)/planTotal)*100) : 0;
+            let cpPct = planTotal > 0 ? Math.round(((pc*4)/planTotal)*100) : 0;
+            let fpPct = planTotal > 0 ? Math.round(((pf*9)/planTotal)*100) : 0;
+            
+            document.getElementById('planP').innerHTML = `${pp.toFixed(1)}g <span class="opacity-60 font-bold ml-1">(${ppPct}%)</span>`;
+            document.getElementById('planC').innerHTML = `${pc.toFixed(1)}g <span class="opacity-60 font-bold ml-1">(${cpPct}%)</span>`;
+            document.getElementById('planF').innerHTML = `${pf.toFixed(1)}g <span class="opacity-60 font-bold ml-1">(${fpPct}%)</span>`;
             document.getElementById('planTotalKcal').innerText = planTotal + " kcal";
             updatePlanChart(pp, pc, pf);
         }
@@ -852,7 +871,7 @@
             todayMacroChart = new Chart(ctx, { type:'doughnut', data:{ datasets:[{data:[p*4||0.1, c*4||0.1, f*9||0.1], backgroundColor:['#3b82f6','#22c55e','#eab308'], borderWidth:0, hoverOffset: 4}]}, options:{cutout:'75%', layout:{padding:0}, plugins:{legend:{display:false}, tooltip:{enabled:false}}} });
         }
 
-        // --- 個人數據與圖表 (完整恢復 TDEE, BMI, 趨勢圖) ---
+        // --- 個人數據與圖表 (已修復 Daily Goal 中英文動態切換) ---
         function updateUser() {
             user.w = parseFloat(document.getElementById('uW').value); user.targetW = parseFloat(document.getElementById('uTargetW').value);
             user.h = parseFloat(document.getElementById('uH').value); user.a = parseInt(document.getElementById('uA').value);
@@ -867,7 +886,7 @@
             NetAPI.save(KEYS.user, user); 
             renderUserStats(); 
             initCharts();
-            renderLogs(); // 更新飲食頁面的目標
+            renderLogs();
         }
 
         function renderUserStats() {
@@ -876,13 +895,20 @@
             let tdee = Math.round(bmr*user.act);
             let goal = user.targetW < user.w ? tdee - 300 : (user.targetW > user.w ? tdee + 300 : tdee);
             
-            // 寫入畫面
             if(document.getElementById('dispTdee')) document.getElementById('dispTdee').innerText = tdee || '--';
             if(document.getElementById('dispBmi')) document.getElementById('dispBmi').innerText = (user.w / ((user.h/100)**2)).toFixed(1) || '--';
             if(document.getElementById('dispToTarget')) document.getElementById('dispToTarget').innerText = Math.abs(user.w - user.targetW).toFixed(1) + "kg";
             if(document.getElementById('statGoalKcal')) document.getElementById('statGoalKcal').innerText = goal || 0;
             if(document.getElementById('todayGoalKcal')) document.getElementById('todayGoalKcal').innerText = goal || 0;
-            if(document.getElementById('statGoalLogic')) document.getElementById('statGoalLogic').innerText = `🎯 System Sync OK`;
+
+            // 動態判斷語言與目標
+            let labelZh = user.targetW < user.w ? '減脂期目標' : (user.targetW > user.w ? '增肌期目標' : '維持現狀');
+            let labelEn = user.targetW < user.w ? 'Fat Loss Goal' : (user.targetW > user.w ? 'Muscle Gain Goal' : 'Maintenance');
+            let logicZh = `🎯 系統判定：${labelZh}`;
+            let logicEn = `🎯 AI Logic: ${labelEn}`;
+
+            if(document.getElementById('todayGoalLabel')) document.getElementById('todayGoalLabel').innerText = currentLang === 'en' ? labelEn : labelZh;
+            if(document.getElementById('statGoalLogic')) document.getElementById('statGoalLogic').innerText = currentLang === 'en' ? logicEn : logicZh;
         }
 
         function setWeightRange(range) {
@@ -894,7 +920,7 @@
             if(trendChart) trendChart.destroy();
             if(weightChart) weightChart.destroy();
             
-            // 1. 處理熱量趨勢圖表 (Trend Chart)
+            // 熱量趨勢圖表
             const last7 = [...Array(7)].map((_, i) => { let d = new Date(); d.setDate(d.getDate()-(6-i)); return d.toLocaleDateString(); });
             const calData = last7.map(d => (logs[d]||[]).reduce((sum, item) => sum + (item.p*4+item.c*4+item.f*9), 0));
             const calLabels = last7.map(d => { let p = d.split('/'); return p.length === 3 ? `${p[1]}/${p[2]}` : d; });
@@ -907,7 +933,7 @@
                 });
             }
 
-            // 2. 處理體重圖表 (Weight Chart)
+            // 體重圖表
             let wtData = user.weights || [];
             if(currentWeightRange !== 'all') {
                 wtData = wtData.slice(-currentWeightRange);
@@ -1158,10 +1184,14 @@
             document.getElementById('uGender').value = user.gender; document.getElementById('uAct').value = user.act;
             
             setLang(currentLang);
-            renderLogs(); renderUserStats(); renderGym(); renderSavedRecipes(); renderWater();
+            renderUserStats();
+            renderLogs();
+            renderGym(); 
+            renderSavedRecipes(); 
+            renderWater();
             
             // 確保圖表正確顯示
-            setTimeout(initCharts, 100);
+            setTimeout(initCharts, 150);
         };
     </script>
 </body>
