@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
     
-    <title>OmniFit - 社群聯網準備版</title>
+    <title>OmniFit - 國際多功能社群版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -20,14 +20,13 @@
         body { background-color: #f8fafc; color: #1e293b; padding-top: calc(4.5rem + var(--sat)); padding-bottom: calc(7rem + var(--sab)); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-family: 'Plus Jakarta Sans', 'PingFang TC', sans-serif; -webkit-tap-highlight-color: transparent; }
         .dark body { background-color: #0f172a; color: #f1f5f9; }
         
-        /* Premium Glassmorphism Cards */
         .card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .dark .card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3); }
         
-        input, select { background-color: #f1f5f9; color: #0f172a; border: 2px solid transparent; font-weight: 800; border-radius: 24px; transition: all 0.3s ease; outline: none; }
-        input:focus, select:focus { border-color: #3b82f6; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
-        .dark input, .dark select { background-color: #334155; color: #f1f5f9; }
-        .dark input:focus, .dark select:focus { border-color: #60a5fa; background-color: #1e293b; box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15); }
+        input, select, textarea { background-color: #f1f5f9; color: #0f172a; border: 2px solid transparent; font-weight: 800; border-radius: 24px; transition: all 0.3s ease; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: #3b82f6; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+        .dark input, .dark select, .dark textarea { background-color: #334155; color: #f1f5f9; }
+        .dark input:focus, .dark select:focus, .dark textarea:focus { border-color: #60a5fa; background-color: #1e293b; box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15); }
         
         .nav-active { color: #3b82f6 !important; transform: scale(1.1); }
         .nav-active::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background-color: #3b82f6; border-radius: 50%; }
@@ -52,43 +51,46 @@
         .meal-section-title::after { content: ""; flex: 1; height: 2px; background: rgba(0,0,0,0.05); border-radius: 2px; }
         .dark .meal-section-title::after { background: rgba(255,255,255,0.05); }
         
-        .gym-tag { padding: 4px 12px; border-radius: 12px; font-size: 10px; font-weight: 900; letter-spacing: 1px; }
-        .tag-chest { background: #fee2e2; color: #ef4444; } .dark .tag-chest { background: rgba(127, 29, 29, 0.3); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.5); box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
-        .tag-back { background: #e0e7ff; color: #3b82f6; } .dark .tag-back { background: rgba(30, 58, 138, 0.3); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.5); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
-        .tag-legs { background: #dcfce7; color: #22c55e; } .dark .tag-legs { background: rgba(20, 83, 45, 0.3); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.5); box-shadow: 0 0 10px rgba(34, 197, 94, 0.2); }
-        .tag-shoulders { background: #fef3c7; color: #f59e0b; } .dark .tag-shoulders { background: rgba(120, 53, 15, 0.3); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.5); box-shadow: 0 0 10px rgba(245, 158, 11, 0.2); }
-        .tag-arms { background: #f3e8ff; color: #a855f7; } .dark .tag-arms { background: rgba(76, 29, 149, 0.3); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
-        .tag-core { background: #f1f5f9; color: #64748b; } .dark .tag-core { background: rgba(51, 65, 85, 0.3); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.5); box-shadow: 0 0 10px rgba(148, 163, 184, 0.2); }
-        
-        @keyframes pulsePR { 0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(251, 191, 36, 0); } 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); } }
         .pr-badge { animation: pulsePR 2s infinite; background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; }
+        @keyframes pulsePR { 0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(251, 191, 36, 0); } 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); } }
         
-        @keyframes floatTimer { 0% { transform: translate(-50%, -20px); opacity: 0; } 100% { transform: translate(-50%, 0); opacity: 1; } }
         .timer-popup { animation: floatTimer 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        @keyframes floatTimer { 0% { transform: translate(-50%, -20px); opacity: 0; } 100% { transform: translate(-50%, 0); opacity: 1; } }
         
         input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .btn-press { transition: transform 0.1s ease; }
         .btn-press:active { transform: scale(0.96); }
 
-        /* 日曆選擇器修復與美化 */
         input[type="date"] { box-sizing: border-box; max-width: 100%; color: #0f172a; }
         .dark input[type="date"] { color: #f1f5f9; }
         input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.6; transition: 0.2s; }
         input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
         .dark input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
         
-        /* 社群影片上傳美化 */
-        .video-upload-label { border: 2px dashed rgba(99, 102, 241, 0.5); background: rgba(99, 102, 241, 0.05); }
-        .dark .video-upload-label { border-color: rgba(99, 102, 241, 0.3); background: rgba(99, 102, 241, 0.1); }
+        .video-upload-label { border: 2px dashed rgba(236, 72, 153, 0.5); background: rgba(236, 72, 153, 0.05); }
+        .dark .video-upload-label { border-color: rgba(236, 72, 153, 0.3); background: rgba(236, 72, 153, 0.1); }
+        
+        .toggle-switch { position: relative; width: 50px; height: 28px; background-color: #cbd5e1; border-radius: 9999px; transition: 0.3s; cursor: pointer; }
+        .toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; background-color: white; border-radius: 50%; transition: 0.3s; }
+        .dark .toggle-switch { background-color: #475569; }
+        .toggle-checkbox:checked + .toggle-switch { background-color: #10b981; }
+        .toggle-checkbox:checked + .toggle-switch::after { transform: translateX(22px); }
+
+        .type-btn { flex: 1; text-align: center; padding: 10px; font-size: 12px; font-weight: 900; border-radius: 20px; transition: 0.3s; cursor: pointer; color: #64748b; }
+        .type-btn.active { background: #6366f1; color: white; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); }
+        .type-btn.active-cardio { background: #10b981; color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+        
+        /* 社群貼文輸入框特定美化 */
+        textarea.social-input { background: transparent; border: none; font-size: 1rem; line-height: 1.5; box-shadow: none; padding: 0; }
+        textarea.social-input:focus { box-shadow: none; }
     </style>
 </head>
 <body class="px-5">
     
     <div id="restTimerDisplay" class="hidden fixed top-16 left-1/2 -translate-x-1/2 z-[6000] timer-popup bg-indigo-600/90 backdrop-blur-md text-white px-8 py-3 rounded-full font-black text-sm shadow-2xl border border-indigo-400/30 flex items-center gap-3">
         <span class="animate-pulse">⏳</span>
-        <span id="restTimerText">休息: 00:00</span>
+        <span id="restTimerText" data-i18n="rest_timer">休息: 00:00</span>
         <button onclick="stopRestTimer()" class="ml-2 w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-[10px]">✕</button>
     </div>
 
@@ -96,16 +98,16 @@
         <header class="flex justify-between items-center mb-8 pt-4">
             <div class="flex flex-col">
                 <h1 class="text-4xl font-black tracking-tighter">Omni<span class="text-blue-600">Fit</span></h1>
-                <span class="text-[9px] font-black opacity-30 uppercase tracking-[0.2em] mt-1 text-slate-800 dark:text-gray-300">Premium Network Ready</span>
+                <span class="text-[9px] font-black opacity-30 uppercase tracking-[0.2em] mt-1 text-slate-800 dark:text-gray-300">Global Community Edition</span>
             </div>
             <button onclick="toggleDarkMode()" id="themeBtn" class="w-14 h-14 rounded-full card flex items-center justify-center text-2xl btn-press text-slate-800 dark:text-white">🌙</button>
         </header>
 
         <div id="mealHubTab" class="tab-content active">
             <div class="sub-nav-container mb-8 shadow-sm">
-                <div onclick="switchMealSub('today')" id="sub-today" class="sub-tab active">今日清單</div>
-                <div onclick="switchMealSub('planner')" id="sub-planner" class="sub-tab">7日規劃</div>
-                <div onclick="switchMealSub('library')" id="sub-library" class="sub-tab">食譜庫</div>
+                <div onclick="switchMealSub('today')" id="sub-today" class="sub-tab active" data-i18n="nav_today">今日清單</div>
+                <div onclick="switchMealSub('planner')" id="sub-planner" class="sub-tab" data-i18n="nav_7day">7日規劃</div>
+                <div onclick="switchMealSub('library')" id="sub-library" class="sub-tab" data-i18n="nav_recipe">食譜庫</div>
             </div>
 
             <div id="subContent-today" class="meal-sub-content">
@@ -113,7 +115,7 @@
                     <div class="absolute -right-6 -top-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                     <div class="flex justify-between items-end relative z-10">
                         <div>
-                            <h3 class="font-black text-sm opacity-90 mb-1" id="todayGoalLabel">計算中...</h3>
+                            <h3 class="font-black text-sm opacity-90 mb-1" id="todayGoalLabel" data-i18n="calculating">計算中...</h3>
                             <p class="text-[11px] font-bold opacity-75 uppercase tracking-widest">Daily Goal</p>
                         </div>
                         <div class="text-right">
@@ -126,12 +128,14 @@
                 <div class="grid grid-cols-2 gap-4 mb-8">
                     <div class="card p-6 flex flex-col justify-between">
                         <div class="flex justify-between items-start mb-4">
-                            <h3 class="font-black text-blue-500 text-sm">飲水 💧</h3>
+                            <h3 class="font-black text-blue-500 text-sm" data-i18n="water_title">飲水 💧</h3>
                             <span id="waterCurrent" class="text-lg font-black text-blue-600 dark:text-blue-400">0ml</span>
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="addWater(250)" class="flex-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 py-3 rounded-2xl text-[11px] font-black btn-press">+250</button>
-                            <button onclick="addWater(500)" class="flex-1 bg-blue-100 dark:bg-blue-800/40 text-blue-700 py-3 rounded-2xl text-[11px] font-black btn-press">+500</button>
+                        <div class="grid grid-cols-2 gap-2 mt-auto">
+                            <button onclick="addWater(-250)" class="bg-red-50 dark:bg-red-900/20 text-red-500 py-2 rounded-xl text-[10px] font-black btn-press">-250</button>
+                            <button onclick="addWater(250)" class="bg-blue-50 dark:bg-blue-900/30 text-blue-600 py-2 rounded-xl text-[10px] font-black btn-press">+250</button>
+                            <button onclick="addWater(-500)" class="bg-red-100 dark:bg-red-900/40 text-red-600 py-2 rounded-xl text-[10px] font-black btn-press">-500</button>
+                            <button onclick="addWater(500)" class="bg-blue-100 dark:bg-blue-800/40 text-blue-700 py-2 rounded-xl text-[10px] font-black btn-press">+500</button>
                         </div>
                     </div>
                     <div class="card p-6 flex items-center justify-center relative">
@@ -148,12 +152,12 @@
                 </div>
 
                 <div class="card p-8 mb-8 border-b-8 border-blue-500 relative z-20">
-                    <h3 class="font-black text-lg mb-6 flex items-center gap-2 text-slate-800 dark:text-white">🍽️ 新增飲食</h3>
+                    <h3 class="font-black text-lg mb-6 flex items-center gap-2 text-slate-800 dark:text-white" data-i18n="add_diet">🍽️ 新增飲食</h3>
                     <select id="mealTime" class="w-full p-5 mb-5 text-sm">
-                        <option value="breakfast">🌅 早餐時段</option><option value="lunch">☀️ 午餐時段</option><option value="dinner">🌙 晚餐時段</option><option value="snack">🍏 點心與其他</option>
+                        <option value="breakfast" data-i18n="meal_breakfast">🌅 早餐時段</option><option value="lunch" data-i18n="meal_lunch">☀️ 午餐時段</option><option value="dinner" data-i18n="meal_dinner">🌙 晚餐時段</option><option value="snack" data-i18n="meal_snack">🍏 點心與其他</option>
                     </select>
                     <div class="relative mb-5">
-                        <input id="foodSearch" type="text" placeholder="🔍 搜尋食物..." class="w-full p-6 text-lg outline-none text-slate-800 dark:text-white" oninput="searchFood(this.value, 'today')">
+                        <input id="foodSearch" type="text" placeholder="🔍 搜尋食物 / Search..." class="w-full p-6 text-lg outline-none text-slate-800 dark:text-white" oninput="searchFood(this.value, 'today')">
                         <div id="searchRes" class="suggestion-box hidden no-scrollbar"></div>
                     </div>
                     <div class="grid grid-cols-3 gap-4 mb-8">
@@ -161,7 +165,7 @@
                         <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30 text-slate-800 dark:text-white">C</span><input id="cIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
                         <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30 text-slate-800 dark:text-white">F</span><input id="fIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
                     </div>
-                    <button onclick="addLog()" class="w-full bg-blue-600 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-blue-500/30 btn-press">儲存紀錄</button>
+                    <button onclick="addLog()" class="w-full bg-blue-600 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-blue-500/30 btn-press" data-i18n="btn_save_record">儲存紀錄</button>
                 </div>
                 
                 <div id="todayMealDisplay" class="space-y-6 mb-10 text-slate-800 dark:text-white"></div>
@@ -176,50 +180,50 @@
                             <canvas id="planMacroChart"></canvas>
                         </div>
                         <div class="flex-1">
-                            <h3 class="font-black text-sm opacity-90 mb-2">當日規劃總額</h3>
+                            <h3 class="font-black text-sm opacity-90 mb-2" data-i18n="daily_plan_total">當日規劃總額</h3>
                             <div class="grid grid-cols-2 gap-y-1 gap-x-2">
-                                <div><p class="text-[9px] font-black text-blue-200">蛋白質</p><p id="planP" class="text-[11px] font-black">0g</p></div>
-                                <div><p class="text-[9px] font-black text-green-200">碳水</p><p id="planC" class="text-[11px] font-black">0g</p></div>
-                                <div><p class="text-[9px] font-black text-yellow-200">脂肪</p><p id="planF" class="text-[11px] font-black">0g</p></div>
-                                <div><p class="text-[9px] font-black text-white">總熱量</p><p id="planTotalKcal" class="text-[11px] font-black">0 kcal</p></div>
+                                <div><p class="text-[9px] font-black text-blue-200">PRO</p><p id="planP" class="text-[11px] font-black">0g</p></div>
+                                <div><p class="text-[9px] font-black text-green-200">CARB</p><p id="planC" class="text-[11px] font-black">0g</p></div>
+                                <div><p class="text-[9px] font-black text-yellow-200">FAT</p><p id="planF" class="text-[11px] font-black">0g</p></div>
+                                <div><p class="text-[9px] font-black text-white">KCAL</p><p id="planTotalKcal" class="text-[11px] font-black">0 kcal</p></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="card p-8 mb-8 border-b-8 border-orange-500">
-                    <h2 class="text-sm font-black opacity-60 mb-6 flex items-center gap-2 text-slate-800 dark:text-white">📅 編排 <span id="selectedPlanDateText" class="text-orange-500"></span></h2>
+                    <h2 class="text-sm font-black opacity-60 mb-6 flex items-center gap-2 text-slate-800 dark:text-white"><span data-i18n="edit_plan">📅 編排</span> <span id="selectedPlanDateText" class="text-orange-500"></span></h2>
                     <select id="planMealTime" class="w-full p-5 mb-5 text-sm">
-                        <option value="breakfast">🌅 早餐</option><option value="lunch">☀️ 午餐</option><option value="dinner">🌙 晚餐</option><option value="snack">🍏 點心</option>
+                        <option value="breakfast" data-i18n="meal_breakfast">🌅 早餐</option><option value="lunch" data-i18n="meal_lunch">☀️ 午餐</option><option value="dinner" data-i18n="meal_dinner">🌙 晚餐</option><option value="snack" data-i18n="meal_snack">🍏 點心</option>
                     </select>
                     <div class="relative mb-5">
-                        <input id="planSearch" type="text" placeholder="🔍 搜尋食物..." class="w-full p-6 text-lg outline-none text-slate-800 dark:text-white" oninput="searchFood(this.value, 'plan')">
+                        <input id="planSearch" type="text" placeholder="🔍 Search..." class="w-full p-6 text-lg outline-none text-slate-800 dark:text-white" oninput="searchFood(this.value, 'plan')">
                         <div id="planSearchRes" class="suggestion-box hidden no-scrollbar"></div>
                     </div>
                     <div class="grid grid-cols-3 gap-4 mb-8">
                         <input id="planPIn" type="number" placeholder="P" class="p-5 text-center text-lg text-slate-800 dark:text-white"><input id="planCIn" type="number" placeholder="C" class="p-5 text-center text-lg text-slate-800 dark:text-white"><input id="planFIn" type="number" placeholder="F" class="p-5 text-center text-lg text-slate-800 dark:text-white">
                     </div>
-                    <button onclick="addPlan()" class="w-full bg-orange-500 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-orange-500/30 btn-press">加入清單</button>
+                    <button onclick="addPlan()" class="w-full bg-orange-500 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-orange-500/30 btn-press" data-i18n="btn_add_list">加入清單</button>
                 </div>
                 <div id="planDetailList" class="space-y-6 text-slate-800 dark:text-white"></div>
             </div>
 
             <div id="subContent-library" class="meal-sub-content hidden text-slate-800 dark:text-white">
                 <div class="card p-8 mb-8 border-b-8 border-emerald-500">
-                    <h2 class="text-lg font-black mb-6 flex items-center gap-2">🥑 建立食譜組合</h2>
-                    <input id="newRecipeName" type="text" placeholder="食譜名稱 (例如: 增肌牛肉沙拉)" class="w-full p-6 mb-6 text-lg outline-none font-bold text-slate-800 dark:text-white">
+                    <h2 class="text-lg font-black mb-6 flex items-center gap-2" data-i18n="create_recipe">🥑 建立食譜組合</h2>
+                    <input id="newRecipeName" type="text" placeholder="Recipe Name" class="w-full p-6 mb-6 text-lg outline-none font-bold text-slate-800 dark:text-white">
                     <div class="bg-gray-50/50 dark:bg-gray-800/30 p-6 rounded-3xl mb-6 border-2 border-dashed border-gray-200 dark:border-gray-700">
                         <div class="relative mb-6">
-                            <input id="recipeIngSearch" type="text" placeholder="🔍 搜尋食物..." class="w-full p-5 outline-none text-sm text-slate-800 dark:text-white" oninput="searchFood(this.value, 'recipe')">
+                            <input id="recipeIngSearch" type="text" placeholder="🔍 Search..." class="w-full p-5 outline-none text-sm text-slate-800 dark:text-white" oninput="searchFood(this.value, 'recipe')">
                             <div id="recipeSearchRes" class="suggestion-box hidden"></div>
                         </div>
                         <div class="flex items-center gap-2 mb-4">
                             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                            <p class="text-xs font-black opacity-50 uppercase tracking-widest text-slate-800 dark:text-white">已選食材清單</p>
+                            <p class="text-xs font-black opacity-50 uppercase tracking-widest text-slate-800 dark:text-white" data-i18n="selected_ingredients">已選食材清單</p>
                         </div>
                         <ul id="tempIngList" class="space-y-3 text-slate-800 dark:text-white"></ul>
                     </div>
-                    <button onclick="saveRecipe()" class="w-full bg-emerald-500 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-emerald-500/30 btn-press">封裝食譜</button>
+                    <button onclick="saveRecipe()" class="w-full bg-emerald-500 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-emerald-500/30 btn-press" data-i18n="btn_save_recipe">封裝食譜</button>
                 </div>
                 <div id="savedRecipesList" class="space-y-4"></div>
             </div>
@@ -228,15 +232,15 @@
         <div id="gymTab" class="tab-content">
             
             <div class="sub-nav-container mb-6 shadow-sm">
-                <div onclick="switchGymSub('today')" id="gsub-today" class="sub-tab active">今日訓練</div>
-                <div onclick="switchGymSub('planner')" id="gsub-planner" class="sub-tab">7日課表</div>
-                <div onclick="switchGymSub('history')" id="gsub-history" class="sub-tab">歷史紀錄</div>
+                <div onclick="switchGymSub('today')" id="gsub-today" class="sub-tab active" data-i18n="nav_today_train">今日訓練</div>
+                <div onclick="switchGymSub('planner')" id="gsub-planner" class="sub-tab" data-i18n="nav_7day_train">7日課表</div>
+                <div onclick="switchGymSub('history')" id="gsub-history" class="sub-tab" data-i18n="nav_history">歷史紀錄</div>
             </div>
 
             <div id="gsubContent-today" class="gym-sub-content text-slate-800 dark:text-white">
                 <div class="card p-6 mb-6 h-36 relative overflow-hidden flex flex-col justify-between shadow-sm">
                     <div class="flex justify-between items-start z-10 relative">
-                        <h3 class="text-xs font-black opacity-50 uppercase tracking-widest">近 7 日容量趨勢</h3>
+                        <h3 class="text-xs font-black opacity-50 uppercase tracking-widest" data-i18n="vol_trend">近 7 日容量趨勢</h3>
                         <span class="text-[10px] bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 px-2 py-1 rounded-lg font-bold">Volume</span>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 h-24 z-0">
@@ -245,86 +249,98 @@
                 </div>
 
                 <div class="card p-8 mb-8 border-b-8 border-indigo-500 relative">
-                    <h2 class="text-xl font-black mb-6 flex items-center gap-2">🏋️‍♂️ 訓練日誌</h2>
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-black flex items-center gap-2" data-i18n="workout_log">🏋️‍♂️ 訓練日誌</h2>
+                    </div>
+
+                    <div class="flex gap-2 mb-6 bg-gray-100 dark:bg-gray-800 p-1.5 rounded-2xl">
+                        <button id="btnStrength" onclick="setGymType('strength')" class="type-btn active" data-i18n="strength">重量訓練</button>
+                        <button id="btnCardio" onclick="setGymType('cardio')" class="type-btn" data-i18n="cardio">有氧運動</button>
+                    </div>
                     
                     <div class="mb-6 relative">
-                        <input id="gName" type="text" placeholder="🔍 搜尋動作 (例: 臥推, 深蹲)" class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="searchGym(this.value, 'today')">
+                        <input id="gName" type="text" placeholder="🔍 Search Exercise..." class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="searchGym(this.value, 'today')">
                         <div id="gymSearchRes" class="suggestion-box hidden no-scrollbar text-slate-800 dark:text-white"></div>
                     </div>
                     
-                    <div class="grid grid-cols-3 gap-4 mb-8 bg-gray-50/50 dark:bg-gray-800/30 p-4 rounded-3xl border border-gray-100 dark:border-gray-700/50">
+                    <div id="strengthInputs" class="grid grid-cols-3 gap-4 mb-8 bg-gray-50/50 dark:bg-gray-800/30 p-4 rounded-3xl border border-gray-100 dark:border-gray-700/50">
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">重量 (KG)</p>
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2" data-i18n="weight_kg">重量 (KG)</p>
                             <input id="gW" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">組數 (SETS)</p>
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2" data-i18n="sets">組數 (SETS)</p>
                             <input id="gS" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">次數 (REPS)</p>
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2" data-i18n="reps">次數 (REPS)</p>
                             <input id="gR" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                     </div>
 
+                    <div id="cardioInputs" class="hidden grid grid-cols-2 gap-4 mb-8 bg-emerald-50/50 dark:bg-emerald-900/10 p-4 rounded-3xl border border-emerald-100 dark:border-emerald-800/30">
+                        <div class="text-center">
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2 text-emerald-700 dark:text-emerald-400" data-i18n="time_mins">時間 (分鐘)</p>
+                            <input id="gMins" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2 text-emerald-700 dark:text-emerald-400" data-i18n="distance_km">距離 (KM)</p>
+                            <input id="gKm" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
+                        </div>
+                    </div>
+
                     <div class="flex gap-3">
-                        <button onclick="addGym()" class="flex-1 bg-indigo-600 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-indigo-500/30 btn-press">新增紀錄</button>
+                        <button onclick="addGym()" class="flex-1 bg-indigo-600 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-indigo-500/30 btn-press" id="btnSaveGym" data-i18n="btn_save_record">新增紀錄</button>
                         
                         <div class="flex items-center bg-indigo-50 dark:bg-indigo-900/40 rounded-3xl p-2 px-3 shadow-inner border border-indigo-100 dark:border-indigo-800">
                             <input id="restTimeInput" type="number" value="90" class="w-12 bg-transparent text-indigo-600 dark:text-indigo-400 font-black text-center text-lg outline-none">
-                            <span class="text-[10px] text-indigo-400 font-bold mr-2">秒</span>
-                            <button onclick="startRestTimer(document.getElementById('restTimeInput').value)" class="w-12 h-12 bg-white dark:bg-gray-800 text-indigo-600 rounded-full font-black shadow-sm flex justify-center items-center btn-press text-lg" title="開始休息倒數">⏱️</button>
+                            <span class="text-[10px] text-indigo-400 font-bold mr-2">s</span>
+                            <button onclick="startRestTimer(document.getElementById('restTimeInput').value)" class="w-12 h-12 bg-white dark:bg-gray-800 text-indigo-600 rounded-full font-black shadow-sm flex justify-center items-center btn-press text-lg">⏱️</button>
                         </div>
                     </div>
                 </div>
                 
                 <div class="flex justify-between items-end mb-6 px-2">
-                    <h3 class="font-black text-lg text-slate-800 dark:text-white">今日清單</h3>
+                    <h3 class="font-black text-lg text-slate-800 dark:text-white" data-i18n="today_list">今日清單</h3>
                     <div class="bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-800">
-                        <p class="text-[10px] font-black opacity-70 uppercase text-indigo-700 dark:text-indigo-300">總容量: <span id="dailyVolume" class="text-sm ml-1">0</span> KG</p>
+                        <p class="text-[10px] font-black opacity-70 uppercase text-indigo-700 dark:text-indigo-300">Vol: <span id="dailyVolume" class="text-sm ml-1">0</span></p>
                     </div>
                 </div>
                 <div id="gymLogs" class="space-y-4 mb-10 text-slate-800 dark:text-white"></div>
             </div>
 
             <div id="gsubContent-planner" class="gym-sub-content hidden text-slate-800 dark:text-white">
-                <div class="flex space-x-3 overflow-x-auto no-scrollbar mb-8 pb-4 px-2" id="gymPlannerDateBar">
-                    </div>
-
+                <div class="flex space-x-3 overflow-x-auto no-scrollbar mb-8 pb-4 px-2" id="gymPlannerDateBar"></div>
                 <div class="card p-8 mb-8 border-b-8 border-indigo-500 relative">
-                    <h2 class="text-xl font-black mb-6 flex items-center gap-2">🗓️ 編排 <span id="selectedGymPlanDayText" class="text-indigo-500">週一</span> 課表</h2>
+                    <h2 class="text-xl font-black mb-6 flex items-center gap-2"><span data-i18n="edit_plan">🗓️ 編排</span> <span id="selectedGymPlanDayText" class="text-indigo-500">週一</span></h2>
                     
                     <div class="mb-6 relative">
-                        <input id="gPlanName" type="text" placeholder="🔍 搜尋動作預排..." class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="searchGym(this.value, 'plan')">
+                        <input id="gPlanName" type="text" placeholder="🔍 Search..." class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="searchGym(this.value, 'plan')">
                         <div id="gymPlanSearchRes" class="suggestion-box hidden no-scrollbar text-slate-800 dark:text-white"></div>
                     </div>
                     
                     <div class="grid grid-cols-3 gap-4 mb-8 bg-gray-50/50 dark:bg-gray-800/30 p-4 rounded-3xl border border-gray-100 dark:border-gray-700/50">
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">目標重量</p>
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">KG</p>
                             <input id="gPlanW" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">目標組數</p>
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">SETS</p>
                             <input id="gPlanS" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">目標次數</p>
+                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">REPS</p>
                             <input id="gPlanR" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                     </div>
-                    <button onclick="addGymPlan()" class="w-full bg-indigo-500 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-indigo-500/30 btn-press">加入每週課表</button>
-                </div>
-                
-                <div class="flex justify-between items-end mb-6 px-2">
-                    <h3 class="font-black text-lg text-slate-800 dark:text-white">課表清單</h3>
+                    <button onclick="addGymPlan()" class="w-full bg-indigo-500 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-indigo-500/30 btn-press" data-i18n="btn_add_list">加入每週課表</button>
                 </div>
                 <div id="gymPlanList" class="space-y-4 mb-10 text-slate-800 dark:text-white"></div>
             </div>
 
             <div id="gsubContent-history" class="gym-sub-content hidden pb-10 text-slate-800 dark:text-white">
                 <div class="card p-6 border-b-4 border-indigo-300 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/10 mb-6">
-                    <h3 class="font-black text-indigo-600 dark:text-indigo-400 mb-4">📜 歷史紀錄查詢</h3>
+                    <h3 class="font-black text-indigo-600 dark:text-indigo-400 mb-4" data-i18n="history_query">📜 歷史紀錄查詢</h3>
                     <input type="date" id="historyDateInput" class="w-full box-border p-4 font-black text-center text-lg bg-white dark:bg-gray-900 shadow-sm border-none rounded-2xl text-slate-800 dark:text-white" onchange="renderGymHistory(this.value)">
                 </div>
                 <div id="gymHistoryList" class="space-y-4"></div>
@@ -332,95 +348,217 @@
         </div>
 
         <div id="communityTab" class="tab-content">
-            <div class="card p-8 mb-8 border-t-8 border-indigo-500 relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-indigo-100 dark:bg-indigo-900/30 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
-                <h2 class="text-2xl font-black mb-2 relative z-10 text-slate-800 dark:text-white">🌐 Omni 社群 (預備版)</h2>
-                <p class="text-xs font-bold opacity-60 mb-8 relative z-10 text-slate-800 dark:text-white">記錄訓練點滴，為未來的聯網賽季做準備！</p>
+            <div class="card p-6 mb-8 border-t-8 border-pink-500 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-100 dark:bg-pink-900/30 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
                 
-                <div class="mb-6 relative z-10">
-                    <label class="video-upload-label flex flex-col items-center justify-center w-full h-48 rounded-3xl cursor-pointer transition-colors p-4 text-center">
-                        <span class="text-4xl mb-3">📹</span>
-                        <span class="text-sm font-black text-indigo-600 dark:text-indigo-400">點擊上傳訓練短片</span>
-                        <span class="text-[10px] opacity-50 font-bold mt-2 text-slate-600 dark:text-gray-400">支援 MP4, MOV (本機預覽模式)</span>
-                        <input type="file" id="videoUpload" accept="video/*" class="hidden">
+                <div class="flex items-center gap-3 mb-6 relative z-10">
+                    <div class="w-12 h-12 bg-gradient-to-tr from-pink-500 to-orange-400 rounded-full flex items-center justify-center text-white font-black shadow-md">Me</div>
+                    <div>
+                        <h2 class="text-lg font-black text-slate-800 dark:text-white" data-i18n="my_post">發佈新動態</h2>
+                        <p class="text-[10px] font-bold opacity-60 text-slate-800 dark:text-white" data-i18n="comm_desc">分享您的努力，激勵更多人！</p>
+                    </div>
+                </div>
+                
+                <div class="mb-5 relative z-10">
+                    <select id="postType" class="w-full p-3 font-black text-sm text-slate-800 dark:text-white shadow-sm bg-gray-50 dark:bg-gray-800">
+                        <option value="diet">🍱 美味飲食分享 (相片)</option>
+                        <option value="training">💪 訓練動作紀錄 (影片/相片)</option>
+                        <option value="physique">👤 體態轉變 (相片)</option>
+                    </select>
+                </div>
+
+                <div class="mb-4 relative z-10">
+                    <textarea id="postText" class="social-input w-full text-slate-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500" rows="3" placeholder="今天練得如何？寫下一些心得紀錄吧..." data-i18n="post_placeholder"></textarea>
+                </div>
+
+                <div class="mb-4 relative z-10">
+                    <label class="video-upload-label flex flex-col items-center justify-center w-full h-32 rounded-2xl cursor-pointer transition-colors p-4 text-center">
+                        <span class="text-3xl mb-2">📸 / 📹</span>
+                        <span class="text-sm font-black text-pink-600 dark:text-pink-400" data-i18n="upload_media">點擊上傳相片或短片</span>
+                        <input type="file" id="mediaUpload" accept="image/*,video/*" class="hidden">
                     </label>
                 </div>
 
-                <div id="videoPreviewContainer" class="hidden relative z-10">
-                    <h3 class="font-black text-sm mb-3 flex items-center gap-2 text-slate-800 dark:text-white"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> 本機預覽</h3>
-                    <div class="rounded-3xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-700 bg-black">
-                        <video id="videoPreview" controls class="w-full max-h-96 object-contain"></video>
-                    </div>
-                    <div class="mt-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
-                        <p class="text-[10px] font-black opacity-60 text-slate-800 dark:text-gray-300">💡 系統提示：目前程式碼已封裝 <code class="text-indigo-500">NetAPI</code> 模組。當未來串接雲端服務（如 Supabase）時，您的影片與訓練數據將會一鍵同步至動態廣場！</p>
-                    </div>
+                <div id="mediaPreviewContainer" class="hidden relative z-10 border-t border-gray-100 dark:border-gray-800 pt-4">
+                    <div id="mediaBox" class="rounded-2xl overflow-hidden shadow-md bg-black flex justify-center items-center min-h-[150px]">
+                        </div>
                 </div>
+                
+                <button class="w-full bg-pink-500 text-white p-4 rounded-2xl font-black text-sm shadow-xl shadow-pink-500/30 mt-6 btn-press relative z-10" data-i18n="btn_publish">發佈至動態牆</button>
             </div>
         </div>
 
         <div id="userTab" class="tab-content text-slate-800 dark:text-white">
             <div class="card p-8 mb-8 border-t-8 border-gray-800 dark:border-gray-500 relative overflow-hidden">
                 <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-gray-100 dark:bg-gray-800 rounded-full opacity-50 blur-3xl"></div>
-                <h2 class="text-2xl font-black mb-8 relative z-10">個人數據核心</h2>
+                <h2 class="text-2xl font-black mb-8 relative z-10" data-i18n="user_core">個人數據核心</h2>
                 
                 <div class="grid grid-cols-2 gap-5 mb-6 relative z-10">
-                    <div class="bg-gray-50 dark:bg-gray-800/50 p-5 rounded-3xl border border-gray-100 dark:border-gray-700"><p class="text-[10px] font-black opacity-40 mb-2 uppercase text-slate-800 dark:text-white">目前體重 (KG)</p><input id="uW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center text-slate-800 dark:text-white"></div>
-                    <div class="bg-blue-50/50 dark:bg-blue-900/20 p-5 rounded-3xl border border-blue-100 dark:border-blue-800"><p class="text-[10px] font-black text-blue-500 mb-2 uppercase">目標體重 (KG)</p><input id="uTargetW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center border-2 border-blue-200 dark:border-blue-600 text-slate-800 dark:text-white"></div>
+                    <div class="bg-gray-50 dark:bg-gray-800/50 p-5 rounded-3xl border border-gray-100 dark:border-gray-700"><p class="text-[10px] font-black opacity-40 mb-2 uppercase text-slate-800 dark:text-white" data-i18n="curr_weight">目前體重 (KG)</p><input id="uW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center text-slate-800 dark:text-white"></div>
+                    <div class="bg-blue-50/50 dark:bg-blue-900/20 p-5 rounded-3xl border border-blue-100 dark:border-blue-800"><p class="text-[10px] font-black text-blue-500 mb-2 uppercase" data-i18n="target_weight">目標體重 (KG)</p><input id="uTargetW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center border-2 border-blue-200 dark:border-blue-600 text-slate-800 dark:text-white"></div>
                 </div>
                 
                 <div class="grid grid-cols-3 gap-4 mb-8 relative z-10">
-                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white">性別</p><select id="uGender" class="w-full p-4 text-center text-slate-800 dark:text-white"><option value="male">男</option><option value="female">女</option></select></div>
-                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white">年齡</p><input id="uA" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
-                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white">身高 (CM)</p><input id="uH" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
+                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white" data-i18n="gender">性別</p><select id="uGender" class="w-full p-4 text-center text-slate-800 dark:text-white"><option value="male" data-i18n="male">男</option><option value="female" data-i18n="female">女</option></select></div>
+                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white" data-i18n="age">年齡</p><input id="uA" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
+                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white" data-i18n="height">身高 (CM)</p><input id="uH" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
                 </div>
                 
                 <div class="mb-8 relative z-10">
-                    <p class="text-[10px] font-black opacity-40 mb-2 pl-2 uppercase tracking-widest text-slate-800 dark:text-white">每日活動量係數 (PAL)</p>
+                    <p class="text-[10px] font-black opacity-40 mb-2 pl-2 uppercase tracking-widest text-slate-800 dark:text-white" data-i18n="pal">活動量係數 (PAL)</p>
                     <select id="uAct" class="w-full p-5 text-sm font-bold shadow-sm text-slate-800 dark:text-white">
-                        <option value="1.2">💻 久坐 (辦公族、幾乎不運動)</option><option value="1.375">🚶 輕度 (每週輕鬆活動 1-3 天)</option><option value="1.465">🏃 中輕度 (每週規律健身 3-4 天)</option><option value="1.55">🏃 中度 (每週規律訓練 5-6 天)</option><option value="1.725">🏋️ 高度 (每日重訓或勞動力工作)</option><option value="1.9">🔥 極高 (專業運動員、長期高頻競技)</option>
+                        <option value="1.2" data-i18n="pal_1_2">💻 1.2 久坐 (辦公族、幾乎不運動)</option>
+                        <option value="1.375" data-i18n="pal_1_375">🚶 1.375 輕度 (每週輕鬆活動 1-3 天)</option>
+                        <option value="1.465" data-i18n="pal_1_465">🏃 1.465 中輕度 (每週規律健身 3-4 天)</option>
+                        <option value="1.55" data-i18n="pal_1_55">🏃 1.55 中度 (每週規律訓練 5-6 天)</option>
+                        <option value="1.725" data-i18n="pal_1_725">🏋️ 1.725 高度 (每日重訓或勞動力工作)</option>
+                        <option value="1.9" data-i18n="pal_1_9">🔥 1.9 極高 (專業運動員、長期競技)</option>
                     </select>
                 </div>
                 
-                <button onclick="updateUser()" class="w-full bg-gray-900 dark:bg-blue-600 text-white p-6 rounded-3xl font-black text-lg mb-8 shadow-xl btn-press relative z-10">同步運算核心數據</button>
+                <button onclick="updateUser()" class="w-full bg-gray-900 dark:bg-blue-600 text-white p-6 rounded-3xl font-black text-lg mb-8 shadow-xl btn-press relative z-10" data-i18n="btn_sync_data">同步運算核心數據</button>
                 
-                <div class="bg-gradient-to-br from-gray-900 to-gray-700 dark:from-gray-800 dark:to-gray-950 text-white p-8 rounded-[32px] mb-6 shadow-2xl relative z-10 overflow-hidden">
+                <div class="grid grid-cols-3 gap-3 relative z-10 mb-6">
+                    <div class="bg-gray-50 dark:bg-gray-800/80 p-5 rounded-3xl text-center border border-gray-100 dark:border-gray-700"><p class="text-[9px] font-black opacity-40 uppercase mb-1" data-i18n="label_tdee">維持 TDEE</p><p id="dispTdee" class="text-xl font-black text-gray-700 dark:text-gray-200">--</p></div>
+                    <div class="bg-gray-50 dark:bg-gray-800/80 p-5 rounded-3xl text-center border border-gray-100 dark:border-gray-700"><p class="text-[9px] font-black opacity-40 uppercase mb-1" data-i18n="label_bmi">身體質量 BMI</p><p id="dispBmi" class="text-xl font-black text-gray-700 dark:text-gray-200">--</p></div>
+                    <div class="bg-blue-50/50 dark:bg-blue-900/30 p-5 rounded-3xl text-center border border-blue-100 dark:border-blue-800/50"><p class="text-[9px] font-black opacity-60 text-blue-600 dark:text-blue-400 uppercase mb-1" data-i18n="label_target_dist">距目標體重</p><p id="dispToTarget" class="text-xl font-black text-blue-600 dark:text-blue-400">--</p></div>
+                </div>
+
+                <div class="bg-gradient-to-br from-gray-900 to-gray-700 dark:from-gray-800 dark:to-gray-950 text-white p-8 rounded-[32px] shadow-2xl relative z-10 overflow-hidden">
                     <div class="absolute right-0 top-0 w-32 h-32 bg-blue-500/20 blur-3xl rounded-full"></div>
-                    <p class="text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest relative z-10">AI 建議攝取目標</p>
-                    <div class="flex items-end gap-2 mb-4 relative z-10">
+                    <p class="text-[10px] font-black text-gray-400 mb-2 uppercase tracking-widest relative z-10" data-i18n="ai_target">AI 建議攝取目標</p>
+                    <div class="flex items-end gap-2 mb-2 relative z-10">
                         <span id="statGoalKcal" class="text-5xl font-black text-blue-400 tracking-tighter">0</span>
                         <span class="text-sm font-bold text-gray-400 pb-2">kcal / 日</span>
                     </div>
                     <p id="statGoalLogic" class="text-xs font-bold text-white bg-white/10 backdrop-blur-sm inline-block px-4 py-2 rounded-xl relative z-10 shadow-inner">請先同步數據</p>
                 </div>
-
-                <div class="grid grid-cols-3 gap-3 relative z-10">
-                    <div class="bg-gray-50 dark:bg-gray-800/80 p-5 rounded-3xl text-center border border-gray-100 dark:border-gray-700"><p class="text-[9px] font-black opacity-40 uppercase mb-1">維持 TDEE</p><p id="dispTdee" class="text-xl font-black text-gray-700 dark:text-gray-200">--</p></div>
-                    <div class="bg-gray-50 dark:bg-gray-800/80 p-5 rounded-3xl text-center border border-gray-100 dark:border-gray-700"><p class="text-[9px] font-black opacity-40 uppercase mb-1">身體質量 BMI</p><p id="dispBmi" class="text-xl font-black text-gray-700 dark:text-gray-200">--</p></div>
-                    <div class="bg-blue-50/50 dark:bg-blue-900/30 p-5 rounded-3xl text-center border border-blue-100 dark:border-blue-800/50"><p class="text-[9px] font-black opacity-60 text-blue-600 dark:text-blue-400 uppercase mb-1">距目標體重</p><p id="dispToTarget" class="text-xl font-black text-blue-600 dark:text-blue-400">--</p></div>
-                </div>
             </div>
             
-            <div class="card p-8 mb-6"><h3 class="text-xs font-black opacity-40 uppercase mb-4 tracking-widest text-slate-800 dark:text-white">熱量攝取趨勢</h3><div class="h-48"><canvas id="trendChart"></canvas></div></div>
-            <div class="card p-8 mb-8"><h3 class="text-xs font-black opacity-40 uppercase mb-4 tracking-widest text-slate-800 dark:text-white">體重紀錄軌跡</h3><div class="h-48"><canvas id="weightChart"></canvas></div></div>
+            <div class="card p-8 mb-6">
+                <h3 class="text-xs font-black opacity-40 uppercase mb-4 tracking-widest text-slate-800 dark:text-white" data-i18n="calorie_trend">熱量攝取趨勢</h3>
+                <div class="h-48"><canvas id="trendChart"></canvas></div>
+            </div>
+
+            <div class="card p-8 mb-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xs font-black opacity-40 uppercase tracking-widest text-slate-800 dark:text-white" data-i18n="weight_chart">體重軌跡</h3>
+                </div>
+                <div class="h-48 mb-4"><canvas id="weightChart"></canvas></div>
+                <div class="flex justify-center gap-2">
+                    <button onclick="setWeightRange(7)" class="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-xl text-xs font-black text-gray-600 dark:text-gray-300 btn-press" data-i18n="range_7">7天</button>
+                    <button onclick="setWeightRange(30)" class="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-xl text-xs font-black text-gray-600 dark:text-gray-300 btn-press" data-i18n="range_30">30天</button>
+                    <button onclick="setWeightRange('all')" class="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-xl text-xs font-black text-gray-600 dark:text-gray-300 btn-press" data-i18n="range_all">全部</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="settingsTab" class="tab-content text-slate-800 dark:text-white">
+            <div class="card p-8 mb-8 border-t-8 border-gray-400">
+                <h2 class="text-2xl font-black mb-6" data-i18n="sys_settings">系統設定</h2>
+                
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 p-5 rounded-2xl border border-gray-100 dark:border-gray-700">
+                        <div>
+                            <p class="font-black text-sm" data-i18n="lang_setting">介面語言 / Language</p>
+                        </div>
+                        <select id="langSelect" onchange="setLang(this.value)" class="p-2 text-sm">
+                            <option value="zh">繁體中文</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+
+                    <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 p-5 rounded-2xl border border-gray-100 dark:border-gray-700">
+                        <div>
+                            <p class="font-black text-sm" data-i18n="health_sync">連接 Apple Health / Fit</p>
+                            <p class="text-[10px] opacity-50 font-bold mt-1" data-i18n="health_sync_desc">自動同步步數與體重</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only toggle-checkbox" id="healthSyncToggle">
+                            <div class="toggle-switch"></div>
+                        </label>
+                    </div>
+                    
+                    <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 p-5 rounded-2xl border border-gray-100 dark:border-gray-700">
+                        <div>
+                            <p class="font-black text-sm" data-i18n="dark_mode">深色模式</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only toggle-checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                            <div class="toggle-switch"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <nav class="fixed bottom-0 left-0 right-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl border-t border-gray-200/50 dark:border-gray-800/80 flex justify-around pt-3 pb-[calc(1rem+env(safe-area-inset-bottom))] px-2 z-[9999] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.04)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
-        <button onclick="showTab('mealHub')" id="n-mealHub" class="flex flex-col items-center nav-active text-gray-400 transition-all duration-300 w-1/4 relative"><span class="text-2xl mb-1 drop-shadow-sm">🍱</span><span class="text-[10px] font-black tracking-widest">飲食</span></button>
-        <button onclick="showTab('gym')" id="n-gym" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/4 relative"><span class="text-2xl mb-1 drop-shadow-sm">💪</span><span class="text-[10px] font-black tracking-widest">訓練</span></button>
-        <button onclick="showTab('community')" id="n-community" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/4 relative"><span class="text-2xl mb-1 drop-shadow-sm">🌐</span><span class="text-[10px] font-black tracking-widest">社群</span></button>
-        <button onclick="showTab('user')" id="n-user" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/4 relative"><span class="text-2xl mb-1 drop-shadow-sm">👤</span><span class="text-[10px] font-black tracking-widest">用戶</span></button>
+        <button onclick="showTab('mealHub')" id="n-mealHub" class="flex flex-col items-center nav-active text-gray-400 transition-all duration-300 w-1/5 relative"><span class="text-2xl mb-1 drop-shadow-sm">🍱</span><span class="text-[10px] font-black tracking-widest" data-i18n="nav_diet">飲食</span></button>
+        <button onclick="showTab('gym')" id="n-gym" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/5 relative"><span class="text-2xl mb-1 drop-shadow-sm">💪</span><span class="text-[10px] font-black tracking-widest" data-i18n="nav_gym">訓練</span></button>
+        <button onclick="showTab('community')" id="n-community" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/5 relative"><span class="text-2xl mb-1 drop-shadow-sm">🌐</span><span class="text-[10px] font-black tracking-widest" data-i18n="nav_comm">社群</span></button>
+        <button onclick="showTab('user')" id="n-user" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/5 relative"><span class="text-2xl mb-1 drop-shadow-sm">👤</span><span class="text-[10px] font-black tracking-widest" data-i18n="nav_user">用戶</span></button>
+        <button onclick="showTab('settings')" id="n-settings" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/5 relative"><span class="text-2xl mb-1 drop-shadow-sm">⚙️</span><span class="text-[10px] font-black tracking-widest" data-i18n="nav_settings">設定</span></button>
     </nav>
 
     <script>
-        // --- 聯網架構準備區 (Network API Adapter) ---
-        // 未來只需將內部的 localStorage 替換為 fetch/Supabase SDK 即可升級為雲端版
+        // --- 聯網架構準備區 ---
         const NetAPI = {
             save: (key, data) => localStorage.setItem(key, JSON.stringify(data)),
             load: (key) => JSON.parse(localStorage.getItem(key))
         };
 
-        // --- 完整保留 200 種食物資料庫 ---
+        // --- 國際化 (i18n) 字典 (包含所有新舊翻譯鍵值) ---
+        const i18nDict = {
+            zh: {
+                nav_diet: "飲食", nav_gym: "訓練", nav_comm: "社群", nav_user: "用戶", nav_settings: "設定",
+                nav_today: "今日清單", nav_7day: "7日規劃", nav_recipe: "食譜庫", nav_today_train: "今日訓練", nav_7day_train: "7日課表", nav_history: "歷史紀錄",
+                water_title: "飲水 💧", add_diet: "🍽️ 新增飲食", meal_breakfast: "🌅 早餐時段", meal_lunch: "☀️ 午餐時段", meal_dinner: "🌙 晚餐時段", meal_snack: "🍏 點心與其他",
+                btn_save_record: "儲存紀錄", daily_plan_total: "當日規劃總額", edit_plan: "📅 編排", btn_add_list: "加入清單",
+                create_recipe: "🥑 建立食譜組合", selected_ingredients: "已選食材清單", btn_save_recipe: "封裝食譜",
+                vol_trend: "近 7 日容量趨勢", workout_log: "🏋️‍♂️ 訓練日誌", strength: "重量訓練", cardio: "有氧運動", weight_kg: "重量 (KG)", sets: "組數", reps: "次數", time_mins: "時間 (分鐘)", distance_km: "距離 (KM)", today_list: "今日清單",
+                history_query: "📜 歷史紀錄查詢", comm_title: "🌐 Omni 社群分享", comm_desc: "分享您的努力，激勵更多人！", post_type: "貼文類型", upload_media: "點擊上傳相片或短片", btn_publish: "發佈至動態牆", my_post: "發佈新動態", post_placeholder: "今天練得如何？寫下一些心得紀錄吧...",
+                user_core: "個人數據核心", curr_weight: "目前體重 (KG)", target_weight: "目標體重 (KG)", gender: "性別", age: "年齡", height: "身高 (CM)", pal: "活動量係數 (PAL)", btn_sync_data: "同步運算核心數據", ai_target: "AI 建議攝取目標", weight_chart: "體重軌跡", calorie_trend: "熱量攝取趨勢", label_tdee: "維持 TDEE", label_bmi: "身體質量 BMI", label_target_dist: "距目標體重",
+                pal_1_2: "💻 1.2 久坐 (辦公族、幾乎不運動)", pal_1_375: "🚶 1.375 輕度 (每週輕鬆活動 1-3 天)", pal_1_465: "🏃 1.465 中輕度 (每週規律健身 3-4 天)", pal_1_55: "🏃 1.55 中度 (每週規律訓練 5-6 天)", pal_1_725: "🏋️ 1.725 高度 (每日重訓或勞動力工作)", pal_1_9: "🔥 1.9 極高 (專業運動員、長期競技)", male: "男", female: "女", range_7: "7天", range_30: "30天", range_all: "全部",
+                sys_settings: "系統設定", lang_setting: "介面語言 / Language", health_sync: "連接 Apple Health / Fit", health_sync_desc: "自動同步步數與體重", dark_mode: "深色模式", calculating: "計算中...", rest_timer: "休息: 00:00"
+            },
+            en: {
+                nav_diet: "Diet", nav_gym: "Gym", nav_comm: "Social", nav_user: "User", nav_settings: "Settings",
+                nav_today: "Today", nav_7day: "7-Day Plan", nav_recipe: "Recipes", nav_today_train: "Workout", nav_7day_train: "Planner", nav_history: "History",
+                water_title: "Water 💧", add_diet: "🍽️ Add Meal", meal_breakfast: "🌅 Breakfast", meal_lunch: "☀️ Lunch", meal_dinner: "🌙 Dinner", meal_snack: "🍏 Snack",
+                btn_save_record: "Save Record", daily_plan_total: "Daily Plan Total", edit_plan: "📅 Plan", btn_add_list: "Add to List",
+                create_recipe: "🥑 Create Recipe", selected_ingredients: "Selected Ingredients", btn_save_recipe: "Save Recipe",
+                vol_trend: "7-Day Volume Trend", workout_log: "🏋️‍♂️ Workout Log", strength: "Strength", cardio: "Cardio", weight_kg: "Weight (KG)", sets: "Sets", reps: "Reps", time_mins: "Time (Mins)", distance_km: "Distance (KM)", today_list: "Today's List",
+                history_query: "📜 History Query", comm_title: "🌐 Omni Social", comm_desc: "Share and inspire others!", post_type: "Post Type", upload_media: "Upload Photo/Video", btn_publish: "Publish to Feed", my_post: "Create Post", post_placeholder: "How was your workout today? Write a log...",
+                user_core: "Core Data", curr_weight: "Current Weight (KG)", target_weight: "Target Weight (KG)", gender: "Gender", age: "Age", height: "Height (CM)", pal: "Activity Level (PAL)", btn_sync_data: "Sync Core Data", ai_target: "AI Calorie Goal", weight_chart: "Weight Tracker", calorie_trend: "Calorie Trend", label_tdee: "Maint. TDEE", label_bmi: "Body Mass BMI", label_target_dist: "To Target",
+                pal_1_2: "💻 1.2 Sedentary (Office job)", pal_1_375: "🚶 1.375 Light (Exercise 1-3 days/wk)", pal_1_465: "🏃 1.465 Moderate-Light (3-4 days/wk)", pal_1_55: "🏃 1.55 Moderate (5-6 days/wk)", pal_1_725: "🏋️ 1.725 Heavy (Daily hard training/labor)", pal_1_9: "🔥 1.9 Extreme (Pro athlete)", male: "Male", female: "Female", range_7: "7 Days", range_30: "30 Days", range_all: "All",
+                sys_settings: "System Settings", lang_setting: "Language", health_sync: "Connect Health/Fit", health_sync_desc: "Auto-sync steps & weight", dark_mode: "Dark Mode", calculating: "Calculating...", rest_timer: "Rest: 00:00"
+            }
+        };
+
+        let currentLang = NetAPI.load('lang_vDual') || 'zh';
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(i18nDict[lang][key]) {
+                    // 針對 input placeholder
+                    if(el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+                        el.placeholder = i18nDict[lang][key];
+                    } else {
+                        el.innerText = i18nDict[lang][key];
+                    }
+                }
+            });
+            NetAPI.save('lang_vDual', lang);
+            document.getElementById('langSelect').value = lang;
+            
+            // Re-render chart text if exists
+            initCharts();
+        }
+
+        // --- 完整保留 200 種食物資料庫 (絕對無刪減) ---
         const baseDB = [
             {name:"白飯(碗/200g)",p:5,c:56,f:0.6}, {name:"糙米飯(碗/200g)",p:5,c:52,f:1.6}, {name:"地瓜(150g)",p:2,c:36,f:0.3}, {name:"馬鈴薯(150g)",p:3,c:26,f:0.2}, {name:"全麥吐司(片)",p:4,c:15,f:1}, {name:"白吐司(片)",p:3,c:14,f:1}, {name:"燕麥片(50g)",p:6,c:33,f:3.5}, {name:"義大利麵(100g乾)",p:12,c:75,f:1.5}, {name:"玉米(根)",p:4,c:25,f:1.5}, {name:"烏龍麵(200g)",p:5,c:45,f:1},
             {name:"雞胸肉(100g)",p:31,c:0,f:3.6}, {name:"雞腿肉(100g/去皮)",p:24,c:0,f:8}, {name:"雞蛋(顆)",p:7,c:0.6,f:5}, {name:"豬里肌(100g)",p:22,c:0,f:4}, {name:"豬梅花(100g)",p:18,c:0,f:17}, {name:"牛腱(100g)",p:26,c:0,f:4}, {name:"牛小排(100g)",p:15,c:0,f:28}, {name:"培根(片)",p:3,c:0.5,f:10}, {name:"鴨肉(100g)",p:18,c:0,f:15}, {name:"羊肉(100g)",p:20,c:0,f:12},
@@ -445,8 +583,11 @@
             {name:"黑糖珍珠(50g)",p:0,c:40,f:0}, {name:"仙草凍(100g)",p:0,c:5,f:0}, {name:"愛玉(100g)",p:0,c:1,f:0}, {name:"蒟蒻(100g)",p:0,c:4,f:0}, {name:"椰果(50g)",p:0,c:10,f:0}, {name:"粉條(50g)",p:0,c:15,f:0}, {name:"湯圓(50g)",p:1,c:35,f:1}, {name:"地瓜圓(50g)",p:1,c:30,f:1}, {name:"麻糬(花生/顆)",p:3,c:25,f:8}, {name:"麻糬(芝麻/顆)",p:3,c:25,f:9}
         ];
 
-        // --- 完整保留擴充動作庫 ---
-        const gymDB = ["槓鈴臥推", "啞鈴臥推", "上胸臥推", "下胸臥推", "機械飛鳥", "滑輪下拉", "引體向上", "槓鈴划船", "啞鈴划船", "坐姿划船", "槓鈴深蹲", "頸前深蹲", "硬舉", "腿推舉", "羅馬尼亞硬舉", "保加利亞分腿蹲", "腿彎舉", "腿伸直", "槓鈴肩推", "啞鈴肩推", "側平舉", "前平舉", "滑輪側平舉", "反向飛鳥", "二頭彎舉", "錘式彎舉", "三頭下壓", "法式彎舉", "仰臥起坐", "棒式", "捲腹", "俄羅斯轉體", "波比跳", "羅馬椅挺身"];
+        // --- 保留並擴充動作庫 (新增滑輪與壺鈴系列) ---
+        const gymDB = ["槓鈴臥推", "啞鈴臥推", "上胸臥推", "下胸臥推", "機械飛鳥", "滑輪下拉", "引體向上", "槓鈴划船", "啞鈴划船", "坐姿划船", "槓鈴深蹲", "頸前深蹲", "硬舉", "腿推舉", "羅馬尼亞硬舉", "保加利亞分腿蹲", "腿彎舉", "腿伸直", "槓鈴肩推", "啞鈴肩推", "側平舉", "前平舉", "滑輪側平舉", "反向飛鳥", "二頭彎舉", "錘式彎舉", "三頭下壓", "法式彎舉", "仰臥起坐", "棒式", "捲腹", "俄羅斯轉體", "波比跳", "羅馬椅挺身", 
+        "滑輪夾胸", "滑輪面拉(Face Pull)", "滑輪單臂划船", "滑輪飛鳥", "滑輪過頭三頭伸展", "滑輪直臂下拉", // 滑輪擴充
+        "壺鈴擺盪(Kettlebell Swing)", "壺鈴深蹲", "壺鈴土耳其起立", "壺鈴肩推", "壺鈴高腳杯深蹲", "壺鈴農夫走路", "壺鈴單臂划船", "壺鈴硬舉"]; // 壺鈴擴充
+        const cardioDB = ["跑步", "自行車", "游泳", "橢圓機", "划船機", "階梯機", "跳繩", "有氧操", "HIIT"];
 
         const KEYS = { logs: 'logs_vDual', recipes: 'recipes_vDual', plans: 'plans_vDual', user: 'user_vDual', gym: 'gym_vDual', theme: 'theme_vDual', gymPlans: 'gymPlans_vDual' };
         
@@ -456,7 +597,6 @@
         let user = NetAPI.load(KEYS.user) || { gender:'male', h:175, w:75, targetW:70, a:25, act:1.2, weights:[], water:{} };
         let gym = NetAPI.load(KEYS.gym) || {};
         
-        // 7日訓練課表準備
         const WEEK_DAYS = ['週一', '週二', '週三', '週四', '週五', '週六', '週日'];
         let gymPlanner = NetAPI.load(KEYS.gymPlans) || { '週一':[], '週二':[], '週三':[], '週四':[], '週五':[], '週六':[], '週日':[] };
         let currentGymPlanDay = '週一';
@@ -466,9 +606,9 @@
         let todayMacroChart, planMacroChart, trendChart, weightChart, gymChartInstance;
         let tempRecipeIngs = []; 
         let restTimer; 
-        const MEAL_LABELS = { breakfast: '🌅 早餐時段', lunch: '☀️ 午餐時段', dinner: '🌙 晚餐時段', snack: '🍏 點心與其他' };
+        let currentGymType = 'strength'; // strength or cardio
+        let currentWeightRange = 7;
 
-        // 導航切換
         function showTab(t) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.getElementById(t + 'Tab').classList.add('active');
@@ -476,12 +616,11 @@
             document.getElementById('n-' + t).classList.add('nav-active');
             window.scrollTo({top: 0, behavior: 'smooth'});
             
-            if(t === 'user') setTimeout(initCharts, 100);
+            if(t === 'user') { renderUserStats(); setTimeout(initCharts, 100); }
             if(t === 'gym') { renderGym(); setTimeout(initGymChart, 100); }
             if(t === 'mealHub') renderLogs();
         }
 
-        // 飲食子分頁
         function switchMealSub(st) {
             document.querySelectorAll('.meal-sub-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('subContent-' + st).classList.remove('hidden');
@@ -491,7 +630,6 @@
             if(st === 'library') renderSavedRecipes();
         }
 
-        // 訓練子分頁
         function switchGymSub(st) {
             document.querySelectorAll('.gym-sub-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('gsubContent-' + st).classList.remove('hidden');
@@ -502,7 +640,25 @@
             if(st === 'today') { renderGym(); setTimeout(initGymChart, 100); }
         }
 
-        // 搜尋模組 (飲食)
+        function setGymType(type) {
+            currentGymType = type;
+            if(type === 'strength') {
+                document.getElementById('btnStrength').classList.add('active');
+                document.getElementById('btnCardio').classList.remove('active-cardio');
+                document.getElementById('strengthInputs').classList.remove('hidden');
+                document.getElementById('cardioInputs').classList.add('hidden');
+                document.getElementById('gName').placeholder = "🔍 Search Strength...";
+            } else {
+                document.getElementById('btnCardio').classList.add('active-cardio');
+                document.getElementById('btnStrength').classList.remove('active');
+                document.getElementById('cardioInputs').classList.remove('hidden');
+                document.getElementById('strengthInputs').classList.add('hidden');
+                document.getElementById('gName').placeholder = "🔍 Search Cardio...";
+            }
+            document.getElementById('gymSearchRes').classList.add('hidden');
+            document.getElementById('gName').value = '';
+        }
+
         function searchFood(q, mode) {
             const boxes = { 'today':'searchRes', 'recipe':'recipeSearchRes', 'plan':'planSearchRes' };
             const box = document.getElementById(boxes[mode]);
@@ -526,12 +682,12 @@
             document.querySelectorAll('.suggestion-box').forEach(b => b.classList.add('hidden'));
         }
 
-        // 搜尋模組 (動作庫 - 支援 today 與 planner)
         function searchGym(q, mode) {
             const box = mode === 'today' ? document.getElementById('gymSearchRes') : document.getElementById('gymPlanSearchRes');
             if(!q) { box.classList.add('hidden'); return; }
-            const matches = gymDB.filter(n => n.includes(q)).slice(0, 6);
-            box.innerHTML = matches.map(n => `<div class="p-5 border-b border-gray-100 dark:border-gray-800 cursor-pointer font-black text-sm hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors" onclick="selectGym('${n}', '${mode}')">🏋️ ${n}</div>`).join('');
+            const pool = currentGymType === 'cardio' ? cardioDB : gymDB;
+            const matches = pool.filter(n => n.includes(q)).slice(0, 6);
+            box.innerHTML = matches.map(n => `<div class="p-5 border-b border-gray-100 dark:border-gray-800 cursor-pointer font-black text-sm hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors" onclick="selectGym('${n}', '${mode}')">${currentGymType==='cardio'?'🏃':'🏋️'} ${n}</div>`).join('');
             if(matches.length > 0) box.classList.remove('hidden'); else box.classList.add('hidden');
         }
         
@@ -543,7 +699,6 @@
             }
         }
 
-        // --- 飲食紀錄邏輯 ---
         function addLog() {
             let name = document.getElementById('foodSearch').value; if(!name) return;
             if(!logs[today]) logs[today] = [];
@@ -556,10 +711,14 @@
         function renderLogs() {
             const container = document.getElementById('todayMealDisplay'); container.innerHTML = '';
             let sp=0, sc=0, sf=0;
-            Object.keys(MEAL_LABELS).forEach(tk => {
+            const labels = currentLang === 'en' ? 
+                { breakfast: '🌅 Breakfast', lunch: '☀️ Lunch', dinner: '🌙 Dinner', snack: '🍏 Snack' } : 
+                { breakfast: '🌅 早餐時段', lunch: '☀️ 午餐時段', dinner: '🌙 晚餐時段', snack: '🍏 點心與其他' };
+
+            Object.keys(labels).forEach(tk => {
                 const sl = (logs[today]||[]).filter(l => l.time === tk || (!l.time && tk === 'snack'));
                 if(sl.length > 0) {
-                    let html = `<div class="meal-section"><h4 class="meal-section-title">${MEAL_LABELS[tk]}</h4>`;
+                    let html = `<div class="meal-section"><h4 class="meal-section-title">${labels[tk]}</h4>`;
                     sl.forEach((l, idx) => {
                         sp+=l.p; sc+=l.c; sf+=l.f;
                         let kcal = Math.round(l.p*4 + l.c*4 + l.f*9);
@@ -586,6 +745,14 @@
             document.getElementById('sumC').innerHTML = `${sc.toFixed(1)}g <br><span class="text-[10px] font-bold opacity-60">(${cPct}%)</span>`;
             document.getElementById('sumF').innerHTML = `${sf.toFixed(1)}g <br><span class="text-[10px] font-bold opacity-60">(${fPct}%)</span>`; 
             document.getElementById('sumKcal').innerText = total;
+            
+            // 同步首頁今日目標顯示 (若用戶分頁已計算，可在此反映)
+            let bmr = (10*user.w)+(6.25*user.h)-(5*user.a);
+            bmr = user.gender === 'male' ? bmr+5 : bmr-161;
+            let tdee = Math.round(bmr*user.act);
+            let goal = user.targetW < user.w ? tdee - 300 : (user.targetW > user.w ? tdee + 300 : tdee);
+            document.getElementById('todayGoalKcal').innerText = goal || 0;
+            
             updateMacroChart(sp, sc, sf);
         }
 
@@ -595,16 +762,22 @@
             NetAPI.save(KEYS.logs, logs); renderLogs();
         }
 
-        // --- 飲食規劃與食譜庫 ---
+        function addWater(amt) { 
+            let current = user.water[today] || 0;
+            user.water[today] = Math.max(0, current + amt); 
+            NetAPI.save(KEYS.user, user); 
+            renderWater(); 
+        }
+        function renderWater() { document.getElementById('waterCurrent').innerText = (user.water[today] || 0) + ' ml'; }
+
         function initPlannerDates() {
             const bar = document.getElementById('plannerDateBar'); bar.innerHTML = '';
             for(let i=0; i<7; i++) {
                 let d = new Date(); d.setDate(d.getDate()+i); let ds = d.toLocaleDateString();
-                bar.innerHTML += `<div class="date-chip ${ds === currentPlanDate ? 'active' : ''}" onclick="selectPlanDate('${ds}')">${i===0?'今天':(d.getMonth()+1)+'/'+d.getDate()}</div>`;
+                bar.innerHTML += `<div class="date-chip ${ds === currentPlanDate ? 'active' : ''}" onclick="selectPlanDate('${ds}')">${i===0?(currentLang==='en'?'Today':'今天'):(d.getMonth()+1)+'/'+d.getDate()}</div>`;
             }
             document.getElementById('selectedPlanDateText').innerText = currentPlanDate; renderPlannerDetail(currentPlanDate);
         }
-
         function selectPlanDate(ds) { currentPlanDate = ds; initPlannerDates(); }
 
         function addPlan() {
@@ -619,10 +792,14 @@
         function renderPlannerDetail(ds) {
             const container = document.getElementById('planDetailList'); container.innerHTML = '';
             let pp=0, pc=0, pf=0;
-            Object.keys(MEAL_LABELS).forEach(tk => {
+            const labels = currentLang === 'en' ? 
+                { breakfast: '🌅 Breakfast', lunch: '☀️ Lunch', dinner: '🌙 Dinner', snack: '🍏 Snack' } : 
+                { breakfast: '🌅 早餐時段', lunch: '☀️ 午餐時段', dinner: '🌙 晚餐時段', snack: '🍏 點心與其他' };
+                
+            Object.keys(labels).forEach(tk => {
                 const sp = (planner[ds]||[]).filter(p => p.time === tk);
                 if(sp.length > 0) {
-                    let html = `<div class="meal-section"><h4 class="meal-section-title">${MEAL_LABELS[tk]}</h4>`;
+                    let html = `<div class="meal-section"><h4 class="meal-section-title">${labels[tk]}</h4>`;
                     sp.forEach((p, idx) => {
                         pp+=p.p; pc+=p.c; pf+=p.f;
                         let kcal = Math.round(p.p*4 + p.c*4 + p.f*9);
@@ -632,26 +809,17 @@
                 }
             });
             let planTotal = Math.round(pp*4 + pc*4 + pf*9);
-            let ppPct = planTotal > 0 ? Math.round(((pp*4)/planTotal)*100) : 0;
-            let cpPct = planTotal > 0 ? Math.round(((pc*4)/planTotal)*100) : 0;
-            let fpPct = planTotal > 0 ? Math.round(((pf*9)/planTotal)*100) : 0;
-            
-            document.getElementById('planP').innerHTML = `${pp.toFixed(1)}g <span class="opacity-60 font-bold ml-1">(${ppPct}%)</span>`;
-            document.getElementById('planC').innerHTML = `${pc.toFixed(1)}g <span class="opacity-60 font-bold ml-1">(${cpPct}%)</span>`;
-            document.getElementById('planF').innerHTML = `${pf.toFixed(1)}g <span class="opacity-60 font-bold ml-1">(${fpPct}%)</span>`;
+            document.getElementById('planP').innerText = `${pp.toFixed(1)}g`;
+            document.getElementById('planC').innerText = `${pc.toFixed(1)}g`;
+            document.getElementById('planF').innerText = `${pf.toFixed(1)}g`;
             document.getElementById('planTotalKcal').innerText = planTotal + " kcal";
-            
             updatePlanChart(pp, pc, pf);
         }
 
         function updatePlanChart(p, c, f) {
             const ctx = document.getElementById('planMacroChart').getContext('2d');
             if(planMacroChart) planMacroChart.destroy();
-            planMacroChart = new Chart(ctx, { 
-                type:'doughnut', 
-                data:{ datasets:[{data:[p*4||0.1, c*4||0.1, f*9||0.1], backgroundColor:['#bfdbfe','#bbf7d0','#fef08a'], borderWidth:0}]}, 
-                options:{cutout:'70%', layout:{padding:0}, plugins:{legend:{display:false}, tooltip:{enabled:false}}} 
-            });
+            planMacroChart = new Chart(ctx, { type:'doughnut', data:{ datasets:[{data:[p*4||0.1, c*4||0.1, f*9||0.1], backgroundColor:['#bfdbfe','#bbf7d0','#fef08a'], borderWidth:0}]}, options:{cutout:'70%', layout:{padding:0}, plugins:{legend:{display:false}, tooltip:{enabled:false}}} });
         }
 
         function removePlan(ds, tk, idx) {
@@ -678,28 +846,28 @@
             document.getElementById('savedRecipesList').innerHTML = recipes.map((r, i) => `<div class="card p-6 mb-3 flex justify-between items-center border-l-4 border-emerald-500"><div><p class="font-black text-base mb-1">🍱 ${r.name}</p><p class="text-[10px] opacity-50 font-black uppercase tracking-wider bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded inline-block">P:${r.p} C:${r.c} F:${r.f}</p></div><button onclick="recipes.splice(${i},1);NetAPI.save(KEYS.recipes,recipes);renderSavedRecipes()" class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 font-black flex items-center justify-center">✕</button></div>`).join('');
         }
 
-        function addWater(amt) { user.water[today] = (user.water[today]||0) + amt; NetAPI.save(KEYS.user, user); renderWater(); }
-        function renderWater() { document.getElementById('waterCurrent').innerText = (user.water[today] || 0) + ' ml'; }
-        
-        // --- 用戶數據與圖表 (更新覆蓋體重邏輯) ---
         function updateMacroChart(p,c,f) {
             const ctx = document.getElementById('todayMacroChart').getContext('2d');
             if(todayMacroChart) todayMacroChart.destroy();
             todayMacroChart = new Chart(ctx, { type:'doughnut', data:{ datasets:[{data:[p*4||0.1, c*4||0.1, f*9||0.1], backgroundColor:['#3b82f6','#22c55e','#eab308'], borderWidth:0, hoverOffset: 4}]}, options:{cutout:'75%', layout:{padding:0}, plugins:{legend:{display:false}, tooltip:{enabled:false}}} });
         }
 
+        // --- 個人數據與圖表 (完整恢復 TDEE, BMI, 趨勢圖) ---
         function updateUser() {
             user.w = parseFloat(document.getElementById('uW').value); user.targetW = parseFloat(document.getElementById('uTargetW').value);
             user.h = parseFloat(document.getElementById('uH').value); user.a = parseInt(document.getElementById('uA').value);
             user.act = parseFloat(document.getElementById('uAct').value); user.gender = document.getElementById('uGender').value;
             
-            // 體重覆蓋邏輯：如果今天已經有紀錄，就更新它；否則新增一筆。
             if(!user.weights) user.weights = [];
             let existingWeight = user.weights.find(w => w.d === today);
             if(existingWeight) { existingWeight.v = user.w; } 
             else { user.weights.push({d:today, v:user.w}); }
             
-            NetAPI.save(KEYS.user, user); renderUserStats(); initCharts();
+            user.weights.sort((a,b) => new Date(a.d) - new Date(b.d));
+            NetAPI.save(KEYS.user, user); 
+            renderUserStats(); 
+            initCharts();
+            renderLogs(); // 更新飲食頁面的目標
         }
 
         function renderUserStats() {
@@ -707,37 +875,58 @@
             bmr = user.gender === 'male' ? bmr+5 : bmr-161;
             let tdee = Math.round(bmr*user.act);
             let goal = user.targetW < user.w ? tdee - 300 : (user.targetW > user.w ? tdee + 300 : tdee);
-            document.getElementById('dispTdee').innerText = tdee;
-            document.getElementById('statGoalKcal').innerText = goal;
-            document.getElementById('dispBmi').innerText = (user.w / ((user.h/100)**2)).toFixed(1);
-            document.getElementById('dispToTarget').innerText = Math.abs(user.w - user.targetW).toFixed(1) + "kg";
-            document.getElementById('todayGoalKcal').innerText = goal;
             
-            let label = user.targetW < user.w ? '減脂期目標' : (user.targetW > user.w ? '增肌期目標' : '維持現狀');
-            document.getElementById('todayGoalLabel').innerText = label;
-            document.getElementById('statGoalLogic').innerText = `🎯 系統判定：${label}`;
+            // 寫入畫面
+            if(document.getElementById('dispTdee')) document.getElementById('dispTdee').innerText = tdee || '--';
+            if(document.getElementById('dispBmi')) document.getElementById('dispBmi').innerText = (user.w / ((user.h/100)**2)).toFixed(1) || '--';
+            if(document.getElementById('dispToTarget')) document.getElementById('dispToTarget').innerText = Math.abs(user.w - user.targetW).toFixed(1) + "kg";
+            if(document.getElementById('statGoalKcal')) document.getElementById('statGoalKcal').innerText = goal || 0;
+            if(document.getElementById('todayGoalKcal')) document.getElementById('todayGoalKcal').innerText = goal || 0;
+            if(document.getElementById('statGoalLogic')) document.getElementById('statGoalLogic').innerText = `🎯 System Sync OK`;
+        }
+
+        function setWeightRange(range) {
+            currentWeightRange = range;
+            initCharts();
         }
 
         function initCharts() {
-            if(trendChart) trendChart.destroy(); if(weightChart) weightChart.destroy();
+            if(trendChart) trendChart.destroy();
+            if(weightChart) weightChart.destroy();
+            
+            // 1. 處理熱量趨勢圖表 (Trend Chart)
             const last7 = [...Array(7)].map((_, i) => { let d = new Date(); d.setDate(d.getDate()-(6-i)); return d.toLocaleDateString(); });
-            
             const calData = last7.map(d => (logs[d]||[]).reduce((sum, item) => sum + (item.p*4+item.c*4+item.f*9), 0));
-            trendChart = new Chart(document.getElementById('trendChart'), { 
-                type:'bar', 
-                data:{ labels:last7.map(d=>d.split('/')[2]), datasets:[{data:calData, backgroundColor:'#3b82f6', borderRadius:12, barThickness: 16}]}, 
-                options:{maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{display:false, beginAtZero:true}, x:{grid:{display:false}, border:{display:false}}}}
-            });
+            const calLabels = last7.map(d => { let p = d.split('/'); return p.length === 3 ? `${p[1]}/${p[2]}` : d; });
             
-            const wtData = (user.weights||[]).slice(-7);
-            weightChart = new Chart(document.getElementById('weightChart'), { 
-                type:'line', 
-                data:{ labels:wtData.map(w=>w.d.split('/')[2]||''), datasets:[{data:wtData.map(w=>w.v), borderColor:'#8b5cf6', borderWidth:4, pointBackgroundColor:'#fff', pointBorderColor:'#8b5cf6', pointBorderWidth:3, pointRadius:5, fill:true, backgroundColor:'rgba(139,92,246,0.1)', tension:0.4}]}, 
-                options:{maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{display:false}, x:{grid:{display:false}, border:{display:false}}}}
-            });
+            if(document.getElementById('trendChart')) {
+                trendChart = new Chart(document.getElementById('trendChart'), { 
+                    type:'bar', 
+                    data:{ labels: calLabels, datasets:[{ label: currentLang==='en'?'Calories':'熱量', data: calData, backgroundColor:'#3b82f6', borderRadius:12, barThickness: 16}]}, 
+                    options:{ maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{display:true, beginAtZero:true, grid:{display:false}, border:{display:false}}, x:{grid:{display:false}, border:{display:false}}}}
+                });
+            }
+
+            // 2. 處理體重圖表 (Weight Chart)
+            let wtData = user.weights || [];
+            if(currentWeightRange !== 'all') {
+                wtData = wtData.slice(-currentWeightRange);
+            }
+            const labels = wtData.map(w => { let parts = w.d.split('/'); return parts.length === 3 ? `${parts[1]}/${parts[2]}` : w.d; });
+            const values = wtData.map(w => w.v);
+
+            if(document.getElementById('weightChart')) {
+                weightChart = new Chart(document.getElementById('weightChart'), { 
+                    type:'line', 
+                    data:{ labels: labels, datasets:[{
+                        label: currentLang==='en'?'Weight':'體重', data: values, borderColor:'#8b5cf6', borderWidth:4, pointBackgroundColor:'#fff', pointBorderColor:'#8b5cf6', pointBorderWidth:3, pointRadius:5, fill:true, backgroundColor:'rgba(139,92,246,0.1)', tension:0.4
+                    }]}, 
+                    options:{ maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{display:true, grid:{display:false}, border:{display:false}}, x:{display:true, grid:{display:false}, border:{display:false}} } }
+                });
+            }
         }
 
-        // --- GYM 模組 (加入 7日規劃) ---
+        // --- GYM 訓練與計時器 ---
         function startRestTimer(seconds) {
             clearInterval(restTimer);
             let t = parseInt(seconds) || 90;
@@ -745,18 +934,14 @@
             const text = document.getElementById('restTimerText');
             display.classList.remove('hidden');
             
-            let initM = Math.floor(t/60).toString().padStart(2,'0');
-            let initS = (t%60).toString().padStart(2,'0');
-            text.innerText = `休息: ${initM}:${initS}`;
-            
             restTimer = setInterval(() => {
                 t--;
                 let m = Math.floor(t/60).toString().padStart(2,'0');
                 let s = (t%60).toString().padStart(2,'0');
-                text.innerText = `休息: ${m}:${s}`;
+                text.innerText = (currentLang==='en'?'Rest: ':'休息: ') + `${m}:${s}`;
                 if(t <= 0) {
                     clearInterval(restTimer);
-                    text.innerText = "🔥 上陣了！";
+                    text.innerText = "🔥";
                     setTimeout(() => display.classList.add('hidden'), 3000);
                 }
             }, 1000);
@@ -765,43 +950,73 @@
 
         function copyGym(idx) {
             let g = gym[today][idx];
+            setGymType(g.type || 'strength');
             document.getElementById('gName').value = g.n;
-            document.getElementById('gW').value = g.w; document.getElementById('gS').value = g.s; document.getElementById('gR').value = g.r;
+            if(g.type === 'cardio') {
+                document.getElementById('gMins').value = g.mins; document.getElementById('gKm').value = g.km;
+            } else {
+                document.getElementById('gW').value = g.w; document.getElementById('gS').value = g.s; document.getElementById('gR').value = g.r;
+            }
             window.scrollTo({ top: document.getElementById('gymTab').offsetTop, behavior: 'smooth' });
         }
 
         function addGym() {
             let name = document.getElementById('gName').value; if(!name) return;
             if(!gym[today]) gym[today] = [];
-            let w = parseFloat(document.getElementById('gW').value)||0, s = parseInt(document.getElementById('gS').value)||0, r = parseInt(document.getElementById('gR').value)||0;
-            gym[today].push({ n: name, w: w, s: s, r: r, v: w*s*r });
+            
+            if(currentGymType === 'strength') {
+                let w = parseFloat(document.getElementById('gW').value)||0, s = parseInt(document.getElementById('gS').value)||0, r = parseInt(document.getElementById('gR').value)||0;
+                gym[today].push({ type: 'strength', n: name, w: w, s: s, r: r, v: w*s*r });
+                document.getElementById('gW').value = ''; document.getElementById('gS').value = ''; document.getElementById('gR').value = '';
+            } else {
+                let mins = parseFloat(document.getElementById('gMins').value)||0, km = parseFloat(document.getElementById('gKm').value)||0;
+                gym[today].push({ type: 'cardio', n: name, mins: mins, km: km, v: mins * 10 }); 
+                document.getElementById('gMins').value = ''; document.getElementById('gKm').value = '';
+            }
+            
             NetAPI.save(KEYS.gym, gym);
-            document.getElementById('gName').value = ''; document.getElementById('gW').value = ''; document.getElementById('gS').value = ''; document.getElementById('gR').value = '';
+            document.getElementById('gName').value = '';
             renderGym(); setTimeout(initGymChart, 100);
         }
 
         function renderGym() {
             let dailyVol = 0;
             let maxWeights = {};
-            for(let d in gym) { gym[d].forEach(g => { if(!maxWeights[g.n] || g.w > maxWeights[g.n]) maxWeights[g.n] = g.w; }); }
+            for(let d in gym) { 
+                gym[d].forEach(g => { 
+                    if(g.type !== 'cardio' && (!maxWeights[g.n] || g.w > maxWeights[g.n])) maxWeights[g.n] = g.w; 
+                }); 
+            }
 
             document.getElementById('gymLogs').innerHTML = (gym[today]||[]).map((g, idx) => {
                 dailyVol += g.v;
-                let prBadge = (g.w > 0 && g.w >= maxWeights[g.n]) ? '<span class="pr-badge px-2 py-0.5 rounded-full text-[9px] font-black ml-2 shadow-lg tracking-widest inline-block">👑 PR</span>' : '';
-                return `<div class="card p-6 mb-4 border-l-[6px] border-indigo-500 shadow-md relative overflow-hidden group">
+                
+                let detailsHTML = '';
+                if(g.type === 'cardio') {
+                    detailsHTML = `<div class="flex items-baseline gap-2 mt-1 text-emerald-600 dark:text-emerald-400">
+                        <span class="text-xl font-black">${g.mins}</span><span class="text-[10px] font-bold opacity-40">Mins</span>
+                        <span class="text-[10px] font-bold opacity-20 mx-1">|</span>
+                        <span class="text-xl font-black">${g.km}</span><span class="text-[10px] font-bold opacity-40">KM</span>
+                    </div>`;
+                } else {
+                    let prBadge = (g.w > 0 && g.w >= maxWeights[g.n]) ? '<span class="pr-badge px-2 py-0.5 rounded-full text-[9px] font-black ml-2 shadow-lg tracking-widest inline-block">👑 PR</span>' : '';
+                    detailsHTML = `<div class="flex items-center mb-2 flex-wrap gap-y-2"><p class="font-black text-lg leading-none">${g.n}</p>${prBadge}</div>
+                        <div class="flex items-baseline gap-2 mt-1 text-indigo-600 dark:text-indigo-400">
+                        <span class="text-xl font-black">${g.w}</span><span class="text-[10px] font-bold opacity-40">KG</span>
+                        <span class="text-[10px] font-bold opacity-20 mx-1">×</span>
+                        <span class="text-xl font-black">${g.s}</span><span class="text-[10px] font-bold opacity-40">Sets</span>
+                        <span class="text-[10px] font-bold opacity-20 mx-1">×</span>
+                        <span class="text-xl font-black">${g.r}</span><span class="text-[10px] font-bold opacity-40">Reps</span>
+                    </div>`;
+                }
+
+                let borderColor = g.type === 'cardio' ? 'border-emerald-500' : 'border-indigo-500';
+
+                return `<div class="card p-6 mb-4 border-l-[6px] ${borderColor} shadow-md relative overflow-hidden group">
                     <div class="flex justify-between items-center relative z-10">
                         <div class="flex-1">
-                            <div class="flex items-center mb-2 flex-wrap gap-y-2">
-                                <p class="font-black text-lg leading-none">${g.n}</p>
-                                ${prBadge}
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-1">
-                                <span class="text-xl font-black text-indigo-600 dark:text-indigo-400">${g.w}</span><span class="text-[10px] font-bold opacity-40">KG</span>
-                                <span class="text-[10px] font-bold opacity-20 mx-1">×</span>
-                                <span class="text-xl font-black text-indigo-600 dark:text-indigo-400">${g.s}</span><span class="text-[10px] font-bold opacity-40">組</span>
-                                <span class="text-[10px] font-bold opacity-20 mx-1">×</span>
-                                <span class="text-xl font-black text-indigo-600 dark:text-indigo-400">${g.r}</span><span class="text-[10px] font-bold opacity-40">次</span>
-                            </div>
+                            ${g.type === 'cardio' ? `<p class="font-black text-lg leading-none mb-2">${g.n}</p>` : ''}
+                            ${detailsHTML}
                         </div>
                         <div class="flex flex-col gap-3">
                             <button onclick="copyGym(${idx})" class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 font-black flex items-center justify-center btn-press shadow-sm">➕</button>
@@ -821,55 +1036,11 @@
             const volData = last7.map(d => (gym[d] || []).reduce((sum, item) => sum + item.v, 0));
             gymChartInstance = new Chart(document.getElementById('gymVolumeChart'), {
                 type: 'line',
-                data: { labels: last7.map(d=>d.split('/')[2]), datasets: [{ data: volData, borderColor: '#6366f1', borderWidth: 3, backgroundColor: 'rgba(99, 102, 241, 0.15)', fill: true, tension: 0.5, pointRadius:0, pointHitRadius: 10 }] },
+                data: { labels: last7.map(d=> { let p=d.split('/'); return p.length===3?`${p[1]}/${p[2]}`:d; }), datasets: [{ data: volData, borderColor: '#6366f1', borderWidth: 3, backgroundColor: 'rgba(99, 102, 241, 0.15)', fill: true, tension: 0.5, pointRadius:0, pointHitRadius: 10 }] },
                 options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: {enabled:false} }, scales: { x: { display: false }, y: { display: false, min: 0 } }, layout: {padding: 0} }
             });
         }
 
-        // 訓練規劃 7日 (Planner)
-        function initGymPlannerDays() {
-            const bar = document.getElementById('gymPlannerDateBar'); bar.innerHTML = '';
-            WEEK_DAYS.forEach(day => {
-                bar.innerHTML += `<div class="date-chip ${day === currentGymPlanDay ? 'active' : ''}" onclick="selectGymPlanDay('${day}')">${day}</div>`;
-            });
-            document.getElementById('selectedGymPlanDayText').innerText = currentGymPlanDay;
-            renderGymPlanList();
-        }
-        
-        function selectGymPlanDay(day) { currentGymPlanDay = day; initGymPlannerDays(); }
-        
-        function addGymPlan() {
-            let name = document.getElementById('gPlanName').value; if(!name) return;
-            let w = parseFloat(document.getElementById('gPlanW').value)||0;
-            let s = parseInt(document.getElementById('gPlanS').value)||0;
-            let r = parseInt(document.getElementById('gPlanR').value)||0;
-            gymPlanner[currentGymPlanDay].push({ n: name, w: w, s: s, r: r });
-            NetAPI.save(KEYS.gymPlans, gymPlanner);
-            document.getElementById('gPlanName').value = ''; document.getElementById('gPlanW').value = '';
-            document.getElementById('gPlanS').value = ''; document.getElementById('gPlanR').value = '';
-            renderGymPlanList();
-        }
-        
-        function renderGymPlanList() {
-            const container = document.getElementById('gymPlanList');
-            container.innerHTML = (gymPlanner[currentGymPlanDay]||[]).map((g, idx) => {
-                return `<div class="card p-5 mb-3 flex justify-between items-center border-l-4 border-indigo-400 bg-white/50 dark:bg-gray-800/50">
-                    <div>
-                        <p class="font-black text-sm text-slate-800 dark:text-white">${g.n}</p>
-                        <p class="text-[10px] font-black opacity-40 uppercase text-slate-600 dark:text-gray-300">目標: ${g.w}kg × ${g.s}組 × ${g.r}次</p>
-                    </div>
-                    <button onclick="removeGymPlan(${idx})" class="text-red-400 font-black px-2 btn-press">✕</button>
-                </div>`;
-            }).join('');
-        }
-        
-        function removeGymPlan(idx) {
-            gymPlanner[currentGymPlanDay].splice(idx, 1);
-            NetAPI.save(KEYS.gymPlans, gymPlanner);
-            renderGymPlanList();
-        }
-
-        // 歷史紀錄查詢
         function renderGymHistory(dateVal) {
             const container = document.getElementById('gymHistoryList');
             container.innerHTML = '';
@@ -888,37 +1059,79 @@
             let dayGym = gym[localDateKey] || [];
 
             if(dayGym.length === 0) {
-                container.innerHTML = '<p class="text-center opacity-40 font-black py-10 text-lg">此日期尚無訓練紀錄</p>'; return;
+                container.innerHTML = `<p class="text-center opacity-40 font-black py-10 text-lg">${currentLang==='en'?'No Records':'無紀錄'}</p>`; return;
             }
             
             let dailyVol = dayGym.reduce((sum, g) => sum + g.v, 0);
             let html = `<div class="flex justify-between items-end px-2 mb-6">
                 <h4 class="text-sm font-black opacity-80 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-full">${localDateKey}</h4>
-                <span class="text-sm font-black text-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-800">總容量: ${dailyVol}</span>
+                <span class="text-sm font-black text-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-800">Vol: ${dailyVol}</span>
             </div>`;
             
             dayGym.forEach(g => {
                 html += `<div class="card p-5 mb-4 flex justify-between items-center border-l-[4px] border-indigo-300 dark:border-indigo-700 bg-white/50 dark:bg-gray-800/50">
                     <div>
                         <p class="font-black text-lg mb-1">${g.n}</p>
-                        <p class="text-[11px] opacity-60 font-black uppercase tracking-wide text-gray-600 dark:text-gray-300">${g.w}kg × ${g.s}組 × ${g.r}次</p>
+                        <p class="text-[11px] opacity-60 font-black uppercase tracking-wide text-gray-600 dark:text-gray-300">
+                            ${g.type==='cardio' ? `${g.mins}mins × ${g.km}km` : `${g.w}kg × ${g.s}sets × ${g.r}reps`}
+                        </p>
                     </div>
-                    <span class="text-sm font-black text-indigo-400 opacity-80">${g.v} vol</span>
                 </div>`;
             });
             container.innerHTML = html;
         }
 
-        // --- 社群影片預覽邏輯 ---
-        document.getElementById('videoUpload').addEventListener('change', function(e) {
+        // --- Planner 7日 ---
+        function initGymPlannerDays() {
+            const bar = document.getElementById('gymPlannerDateBar'); bar.innerHTML = '';
+            WEEK_DAYS.forEach(day => {
+                bar.innerHTML += `<div class="date-chip ${day === currentGymPlanDay ? 'active' : ''}" onclick="selectGymPlanDay('${day}')">${day}</div>`;
+            });
+            document.getElementById('selectedGymPlanDayText').innerText = currentGymPlanDay;
+            renderGymPlanList();
+        }
+        function selectGymPlanDay(day) { currentGymPlanDay = day; initGymPlannerDays(); }
+        function addGymPlan() {
+            let name = document.getElementById('gPlanName').value; if(!name) return;
+            let w = parseFloat(document.getElementById('gPlanW').value)||0; let s = parseInt(document.getElementById('gPlanS').value)||0; let r = parseInt(document.getElementById('gPlanR').value)||0;
+            gymPlanner[currentGymPlanDay].push({ n: name, w: w, s: s, r: r });
+            NetAPI.save(KEYS.gymPlans, gymPlanner);
+            document.getElementById('gPlanName').value = ''; document.getElementById('gPlanW').value = ''; document.getElementById('gPlanS').value = ''; document.getElementById('gPlanR').value = '';
+            renderGymPlanList();
+        }
+        function renderGymPlanList() {
+            const container = document.getElementById('gymPlanList');
+            container.innerHTML = (gymPlanner[currentGymPlanDay]||[]).map((g, idx) => {
+                return `<div class="card p-5 mb-3 flex justify-between items-center border-l-4 border-indigo-400 bg-white/50 dark:bg-gray-800/50">
+                    <div>
+                        <p class="font-black text-sm text-slate-800 dark:text-white">${g.n}</p>
+                        <p class="text-[10px] font-black opacity-40 uppercase text-slate-600 dark:text-gray-300">${g.w}kg × ${g.s}sets × ${g.r}reps</p>
+                    </div>
+                    <button onclick="removeGymPlan(${idx})" class="text-red-400 font-black px-2 btn-press">✕</button>
+                </div>`;
+            }).join('');
+        }
+        function removeGymPlan(idx) { gymPlanner[currentGymPlanDay].splice(idx, 1); NetAPI.save(KEYS.gymPlans, gymPlanner); renderGymPlanList(); }
+
+        // --- 社群預覽邏輯 ---
+        document.getElementById('mediaUpload').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if(file) {
-                const videoNode = document.getElementById('videoPreview');
+                const mediaBox = document.getElementById('mediaBox');
+                mediaBox.innerHTML = ''; 
                 const fileURL = URL.createObjectURL(file);
-                videoNode.src = fileURL;
-                document.getElementById('videoPreviewContainer').classList.remove('hidden');
                 
-                // Haptic Feedback (如果設備支援)
+                if (file.type.startsWith('video/')) {
+                    const videoNode = document.createElement('video');
+                    videoNode.src = fileURL; videoNode.controls = true; videoNode.className = "w-full max-h-96 object-contain";
+                    mediaBox.appendChild(videoNode);
+                } else if (file.type.startsWith('image/')) {
+                    const imgNode = document.createElement('img');
+                    imgNode.src = fileURL; imgNode.className = "w-full max-h-96 object-cover";
+                    mediaBox.appendChild(imgNode);
+                }
+                
+                document.getElementById('mediaPreviewContainer').classList.remove('hidden');
                 if (navigator.vibrate) navigator.vibrate(50);
             }
         });
@@ -928,16 +1141,27 @@
             document.documentElement.classList.toggle('dark');
             const isDark = document.documentElement.classList.contains('dark');
             document.getElementById('themeBtn').innerText = isDark ? '☀️' : '🌙';
+            document.getElementById('darkModeToggle').checked = isDark;
             NetAPI.save(KEYS.theme, isDark ? 'dark' : 'light');
         }
 
         window.onload = () => {
             const savedTheme = NetAPI.load(KEYS.theme);
-            if(savedTheme === 'dark') { document.documentElement.classList.add('dark'); document.getElementById('themeBtn').innerText = '☀️'; }
+            if(savedTheme === 'dark') { 
+                document.documentElement.classList.add('dark'); 
+                document.getElementById('themeBtn').innerText = '☀️'; 
+                document.getElementById('darkModeToggle').checked = true;
+            }
+            
             document.getElementById('uW').value = user.w; document.getElementById('uTargetW').value = user.targetW;
             document.getElementById('uH').value = user.h; document.getElementById('uA').value = user.a;
             document.getElementById('uGender').value = user.gender; document.getElementById('uAct').value = user.act;
+            
+            setLang(currentLang);
             renderLogs(); renderUserStats(); renderGym(); renderSavedRecipes(); renderWater();
+            
+            // 確保圖表正確顯示
+            setTimeout(initCharts, 100);
         };
     </script>
 </body>
