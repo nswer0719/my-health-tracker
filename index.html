@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="OmniFit">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
     
@@ -20,36 +21,41 @@
         body { background-color: #f8fafc; color: #1e293b; padding-top: calc(4.5rem + var(--sat)); padding-bottom: calc(7rem + var(--sab)); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-family: 'Plus Jakarta Sans', 'PingFang TC', sans-serif; -webkit-tap-highlight-color: transparent; }
         .dark body { background-color: #0f172a; color: #f1f5f9; }
         
-        .card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08); transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .dark .card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3); }
         
-        input, select, textarea { background-color: #f1f5f9; color: #0f172a; border: 2px solid transparent; font-weight: 800; border-radius: 24px; transition: all 0.3s ease; outline: none; }
-        input:focus, select:focus, textarea:focus { border-color: #3b82f6; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+        /* 增強明亮模式的輸入框與文字對比度 */
+        input, select, textarea { background-color: #e2e8f0; color: #0f172a; border: 2px solid transparent; font-weight: 800; border-radius: 24px; transition: all 0.3s ease; outline: none; }
+        input::placeholder, textarea::placeholder { color: #64748b; opacity: 1; }
+        input:focus, select:focus, textarea:focus { border-color: #3b82f6; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); }
         .dark input, .dark select, .dark textarea { background-color: #334155; color: #f1f5f9; }
+        .dark input::placeholder, .dark textarea::placeholder { color: #94a3b8; }
         .dark input:focus, .dark select:focus, .dark textarea:focus { border-color: #60a5fa; background-color: #1e293b; box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15); }
         
         .nav-active { color: #3b82f6 !important; transform: scale(1.1); }
         .nav-active::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background-color: #3b82f6; border-radius: 50%; }
         
-        .tab-content { display: none; opacity: 0; transform: translateY(15px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .tab-content { display: none; opacity: 0; transform: translateY(15px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); min-h: 85vh; padding-bottom: 2rem; }
         .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
         
-        .sub-nav-container { background: rgba(241, 245, 249, 0.8); padding: 6px; border-radius: 28px; display: flex; gap: 4px; backdrop-filter: blur(10px); }
+        .sub-nav-container { background: rgba(226, 232, 240, 0.8); padding: 6px; border-radius: 28px; display: flex; gap: 4px; backdrop-filter: blur(10px); }
         .dark .sub-nav-container { background: rgba(30, 41, 59, 0.8); }
-        .sub-tab { flex: 1; text-align: center; padding: 12px; border-radius: 24px; font-size: 13px; font-weight: 900; color: #64748b; cursor: pointer; transition: all 0.3s; }
-        .sub-tab.active { background: white; color: #3b82f6; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+        .sub-tab { flex: 1; text-align: center; padding: 12px; border-radius: 24px; font-size: 13px; font-weight: 900; color: #475569; cursor: pointer; transition: all 0.3s; }
+        .sub-tab.active { background: white; color: #3b82f6; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .dark .sub-tab { color: #94a3b8; }
         .dark .sub-tab.active { background: #0f172a; color: #60a5fa; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
-        .suggestion-box { position: absolute; width: 100%; max-height: 300px; overflow-y: auto; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 28px; z-index: 5000; margin-top: 12px; border: 1px solid #e2e8f0; box-shadow: 0 24px 50px rgba(0,0,0,0.15); }
-        .dark .suggestion-box { background: rgba(30,41,59,0.95); border-color: #475569; box-shadow: 0 24px 50px rgba(0,0,0,0.4); }
+        .suggestion-box { position: absolute; width: 100%; max-height: 300px; overflow-y: auto; background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border-radius: 28px; z-index: 5000; margin-top: 12px; border: 1px solid #cbd5e1; box-shadow: 0 24px 50px rgba(0,0,0,0.15); }
+        .dark .suggestion-box { background: rgba(30,41,59,0.98); border-color: #475569; box-shadow: 0 24px 50px rgba(0,0,0,0.4); }
         
-        .date-chip { flex: 0 0 auto; padding: 14px 24px; border-radius: 24px; background: #f1f5f9; font-weight: 900; font-size: 13px; cursor: pointer; transition: 0.3s; color: #334155; }
+        .date-chip { flex: 0 0 auto; padding: 14px 24px; border-radius: 24px; background: #e2e8f0; font-weight: 900; font-size: 13px; cursor: pointer; transition: 0.3s; color: #334155; }
         .date-chip.active { color: white; background: linear-gradient(135deg, #f97316, #f59e0b); box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3); border: none; }
         .dark .date-chip { background: #334155; color: #f1f5f9; }
         
-        .meal-section-title { font-size: 13px; font-weight: 900; opacity: 0.4; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; margin-top: 32px; letter-spacing: 0.1em; }
-        .meal-section-title::after { content: ""; flex: 1; height: 2px; background: rgba(0,0,0,0.05); border-radius: 2px; }
-        .dark .meal-section-title::after { background: rgba(255,255,255,0.05); }
+        .meal-section-title { font-size: 13px; font-weight: 900; color: #64748b; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; margin-top: 32px; letter-spacing: 0.1em; }
+        .meal-section-title::after { content: ""; flex: 1; height: 2px; background: rgba(0,0,0,0.1); border-radius: 2px; }
+        .dark .meal-section-title { color: #94a3b8; }
+        .dark .meal-section-title::after { background: rgba(255,255,255,0.1); }
         
         .pr-badge { animation: pulsePR 2s infinite; background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; }
         @keyframes pulsePR { 0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(251, 191, 36, 0); } 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); } }
@@ -62,42 +68,50 @@
         .btn-press { transition: transform 0.1s ease; }
         .btn-press:active { transform: scale(0.96); }
 
-        input[type="date"] { box-sizing: border-box; max-width: 100%; color: #0f172a; }
-        .dark input[type="date"] { color: #f1f5f9; }
-        input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.6; transition: 0.2s; }
-        input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
-        .dark input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
+        /* 社群貼文輸入框特定美化 */
+        textarea.social-input { background: transparent; border: none; font-size: 1rem; line-height: 1.5; box-shadow: none; padding: 0; color: #1e293b; }
+        .dark textarea.social-input { color: #f1f5f9; }
+        textarea.social-input:focus { box-shadow: none; background: transparent; }
         
-        .video-upload-label { border: 2px dashed rgba(236, 72, 153, 0.5); background: rgba(236, 72, 153, 0.05); }
-        .dark .video-upload-label { border-color: rgba(236, 72, 153, 0.3); background: rgba(236, 72, 153, 0.1); }
+        /* 互動式日曆樣式 */
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
+        .cal-day { padding: 10px 0; border-radius: 12px; font-weight: 800; font-size: 14px; color: #334155; cursor: pointer; transition: 0.2s; position: relative; background: #f1f5f9; }
+        .dark .cal-day { color: #cbd5e1; background: #1e293b; }
+        .cal-day:hover { background: #e2e8f0; }
+        .dark .cal-day:hover { background: #334155; }
+        .cal-day.active { background: #6366f1; color: white; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); }
+        .cal-day.empty { background: transparent; pointer-events: none; }
+        .cal-dot { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; background: #3b82f6; border-radius: 50%; }
+        .cal-day.active .cal-dot { background: white; }
+
+        .type-btn { flex: 1; text-align: center; padding: 10px; font-size: 12px; font-weight: 900; border-radius: 20px; transition: 0.3s; cursor: pointer; color: #475569; background: #e2e8f0; }
+        .dark .type-btn { color: #94a3b8; background: #334155; }
+        .type-btn.active { background: #6366f1; color: white; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); }
+        .type-btn.active-cardio { background: #10b981; color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
         
         .toggle-switch { position: relative; width: 50px; height: 28px; background-color: #cbd5e1; border-radius: 9999px; transition: 0.3s; cursor: pointer; }
         .toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; background-color: white; border-radius: 50%; transition: 0.3s; }
         .dark .toggle-switch { background-color: #475569; }
         .toggle-checkbox:checked + .toggle-switch { background-color: #10b981; }
         .toggle-checkbox:checked + .toggle-switch::after { transform: translateX(22px); }
-
-        .type-btn { flex: 1; text-align: center; padding: 10px; font-size: 12px; font-weight: 900; border-radius: 20px; transition: 0.3s; cursor: pointer; color: #64748b; }
-        .type-btn.active { background: #6366f1; color: white; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); }
-        .type-btn.active-cardio { background: #10b981; color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
         
-        textarea.social-input { background: transparent; border: none; font-size: 1rem; line-height: 1.5; box-shadow: none; padding: 0; }
-        textarea.social-input:focus { box-shadow: none; }
+        .video-upload-label { border: 2px dashed rgba(236, 72, 153, 0.6); background: rgba(236, 72, 153, 0.08); }
+        .dark .video-upload-label { border-color: rgba(236, 72, 153, 0.4); background: rgba(236, 72, 153, 0.15); }
     </style>
 </head>
 <body class="px-5">
     
-    <div id="restTimerDisplay" class="hidden fixed top-16 left-1/2 -translate-x-1/2 z-[6000] timer-popup bg-indigo-600/90 backdrop-blur-md text-white px-8 py-3 rounded-full font-black text-sm shadow-2xl border border-indigo-400/30 flex items-center gap-3">
+    <div id="restTimerDisplay" class="hidden fixed top-16 left-1/2 -translate-x-1/2 z-[6000] timer-popup bg-indigo-600/95 backdrop-blur-xl text-white px-8 py-3 rounded-full font-black text-sm shadow-2xl border border-indigo-400/30 flex items-center gap-3">
         <span class="animate-pulse">⏳</span>
         <span id="restTimerText" data-i18n="rest_timer">休息: 00:00</span>
-        <button onclick="stopRestTimer()" class="ml-2 w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-[10px]">✕</button>
+        <button onclick="stopRestTimer()" class="ml-2 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-xs btn-press">✕</button>
     </div>
 
     <div class="max-w-2xl mx-auto relative z-10">
         <header class="flex justify-between items-center mb-8 pt-4">
             <div class="flex flex-col">
-                <h1 class="text-4xl font-black tracking-tighter">Omni<span class="text-blue-600">Fit</span></h1>
-                <span class="text-[9px] font-black opacity-30 uppercase tracking-[0.2em] mt-1 text-slate-800 dark:text-gray-300">Global Community Edition</span>
+                <h1 class="text-4xl font-black tracking-tighter text-slate-900 dark:text-white">Omni<span class="text-blue-600">Fit</span></h1>
+                <span class="text-[9px] font-black opacity-40 uppercase tracking-[0.2em] mt-1 text-slate-800 dark:text-gray-300">Global Community Edition</span>
             </div>
             <button onclick="toggleDarkMode()" id="themeBtn" class="w-14 h-14 rounded-full card flex items-center justify-center text-2xl btn-press text-slate-800 dark:text-white">🌙</button>
         </header>
@@ -127,14 +141,14 @@
                 <div class="grid grid-cols-2 gap-4 mb-8">
                     <div class="card p-6 flex flex-col justify-between">
                         <div class="flex justify-between items-start mb-4">
-                            <h3 class="font-black text-blue-500 text-sm" data-i18n="water_title">飲水 💧</h3>
+                            <h3 class="font-black text-blue-600 dark:text-blue-400 text-sm" data-i18n="water_title">飲水 💧</h3>
                             <span id="waterCurrent" class="text-lg font-black text-blue-600 dark:text-blue-400">0ml</span>
                         </div>
                         <div class="grid grid-cols-2 gap-2 mt-auto">
-                            <button onclick="addWater(-250)" class="bg-red-50 dark:bg-red-900/20 text-red-500 py-2 rounded-xl text-[10px] font-black btn-press">-250</button>
-                            <button onclick="addWater(250)" class="bg-blue-50 dark:bg-blue-900/30 text-blue-600 py-2 rounded-xl text-[10px] font-black btn-press">+250</button>
-                            <button onclick="addWater(-500)" class="bg-red-100 dark:bg-red-900/40 text-red-600 py-2 rounded-xl text-[10px] font-black btn-press">-500</button>
-                            <button onclick="addWater(500)" class="bg-blue-100 dark:bg-blue-800/40 text-blue-700 py-2 rounded-xl text-[10px] font-black btn-press">+500</button>
+                            <button onclick="addWater(-250)" class="bg-red-100 dark:bg-red-900/40 text-red-600 py-2 rounded-xl text-[10px] font-black btn-press">-250</button>
+                            <button onclick="addWater(250)" class="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 py-2 rounded-xl text-[10px] font-black btn-press">+250</button>
+                            <button onclick="addWater(-500)" class="bg-red-200 dark:bg-red-900/60 text-red-700 py-2 rounded-xl text-[10px] font-black btn-press">-500</button>
+                            <button onclick="addWater(500)" class="bg-blue-200 dark:bg-blue-800/60 text-blue-800 dark:text-blue-300 py-2 rounded-xl text-[10px] font-black btn-press">+500</button>
                         </div>
                     </div>
                     <div class="card p-6 flex items-center justify-center relative">
@@ -143,11 +157,11 @@
                     </div>
                 </div>
 
-                <div class="card p-6 mb-8 grid grid-cols-4 gap-2 text-center divide-x divide-gray-100 dark:divide-gray-800">
-                    <div><p class="text-[10px] font-black text-blue-500 uppercase mb-1">PRO</p><p id="sumP" class="text-sm font-black text-slate-800 dark:text-white">0g</p></div>
-                    <div><p class="text-[10px] font-black text-green-500 uppercase mb-1">CARB</p><p id="sumC" class="text-sm font-black text-slate-800 dark:text-white">0g</p></div>
-                    <div><p class="text-[10px] font-black text-yellow-500 uppercase mb-1">FAT</p><p id="sumF" class="text-sm font-black text-slate-800 dark:text-white">0g</p></div>
-                    <div><p class="text-[10px] font-black text-purple-500 uppercase mb-1">KCAL</p><p id="sumKcal" class="text-sm font-black text-slate-800 dark:text-white">0</p></div>
+                <div class="card p-6 mb-8 grid grid-cols-4 gap-2 text-center divide-x divide-gray-200 dark:divide-gray-700">
+                    <div><p class="text-[10px] font-black text-blue-600 uppercase mb-1">PRO</p><p id="sumP" class="text-sm font-black text-slate-800 dark:text-white">0g</p></div>
+                    <div><p class="text-[10px] font-black text-emerald-600 uppercase mb-1">CARB</p><p id="sumC" class="text-sm font-black text-slate-800 dark:text-white">0g</p></div>
+                    <div><p class="text-[10px] font-black text-amber-500 uppercase mb-1">FAT</p><p id="sumF" class="text-sm font-black text-slate-800 dark:text-white">0g</p></div>
+                    <div><p class="text-[10px] font-black text-purple-600 uppercase mb-1">KCAL</p><p id="sumKcal" class="text-sm font-black text-slate-800 dark:text-white">0</p></div>
                 </div>
 
                 <div class="card p-8 mb-8 border-b-8 border-blue-500 relative z-20">
@@ -156,11 +170,11 @@
                         <option value="breakfast" data-i18n="meal_breakfast">🌅 早餐時段</option><option value="lunch" data-i18n="meal_lunch">☀️ 午餐時段</option><option value="dinner" data-i18n="meal_dinner">🌙 晚餐時段</option><option value="snack" data-i18n="meal_snack">🍏 點心與其他</option>
                     </select>
                     <div class="relative mb-5">
-                        <input id="foodSearch" type="text" placeholder="🔍 搜尋食物 / Search..." class="w-full p-6 text-lg outline-none text-slate-800 dark:text-white" oninput="searchFood(this.value, 'today')">
+                        <input id="foodSearch" type="text" placeholder="🔍 Search..." class="w-full p-6 text-lg outline-none text-slate-800 dark:text-white" oninput="searchFood(this.value, 'today')">
                         <div id="searchRes" class="suggestion-box hidden no-scrollbar"></div>
                     </div>
                     
-                    <div class="flex items-center justify-between mb-5 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
+                    <div class="flex items-center justify-between mb-5 bg-gray-100 dark:bg-gray-800 p-4 rounded-2xl border border-gray-200 dark:border-gray-700">
                         <span class="text-sm font-black text-slate-800 dark:text-white" data-i18n="qty">份量 / Qty</span>
                         <div class="flex items-center gap-4">
                             <button onclick="changeFoodQty(-1, 'today')" class="w-10 h-10 rounded-full bg-white dark:bg-gray-700 text-blue-600 font-black shadow-sm btn-press">-</button>
@@ -170,9 +184,9 @@
                     </div>
 
                     <div class="grid grid-cols-3 gap-4 mb-8">
-                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30 text-slate-800 dark:text-white">P</span><input id="pIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
-                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30 text-slate-800 dark:text-white">C</span><input id="cIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
-                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-30 text-slate-800 dark:text-white">F</span><input id="fIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
+                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-40 text-slate-800 dark:text-gray-300">P</span><input id="pIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
+                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-40 text-slate-800 dark:text-gray-300">C</span><input id="cIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
+                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-40 text-slate-800 dark:text-gray-300">F</span><input id="fIn" type="number" placeholder="0" class="w-full p-5 pl-8 text-center text-lg text-slate-800 dark:text-white"></div>
                     </div>
                     <button onclick="addLog()" class="w-full bg-blue-600 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-blue-500/30 btn-press" data-i18n="btn_save_record">儲存紀錄</button>
                 </div>
@@ -201,7 +215,7 @@
                 </div>
 
                 <div class="card p-8 mb-8 border-b-8 border-orange-500">
-                    <h2 class="text-sm font-black opacity-60 mb-6 flex items-center gap-2 text-slate-800 dark:text-white"><span data-i18n="edit_plan">📅 編排</span> <span id="selectedPlanDateText" class="text-orange-500"></span></h2>
+                    <h2 class="text-sm font-black text-slate-600 dark:text-gray-300 mb-6 flex items-center gap-2"><span data-i18n="edit_plan">📅 編排</span> <span id="selectedPlanDateText" class="text-orange-500"></span></h2>
                     <select id="planMealTime" class="w-full p-5 mb-5 text-sm">
                         <option value="breakfast" data-i18n="meal_breakfast">🌅 早餐</option><option value="lunch" data-i18n="meal_lunch">☀️ 午餐</option><option value="dinner" data-i18n="meal_dinner">🌙 晚餐</option><option value="snack" data-i18n="meal_snack">🍏 點心</option>
                     </select>
@@ -210,7 +224,7 @@
                         <div id="planSearchRes" class="suggestion-box hidden no-scrollbar"></div>
                     </div>
 
-                    <div class="flex items-center justify-between mb-5 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
+                    <div class="flex items-center justify-between mb-5 bg-gray-100 dark:bg-gray-800 p-4 rounded-2xl border border-gray-200 dark:border-gray-700">
                         <span class="text-sm font-black text-slate-800 dark:text-white" data-i18n="qty">份量 / Qty</span>
                         <div class="flex items-center gap-4">
                             <button onclick="changeFoodQty(-1, 'plan')" class="w-10 h-10 rounded-full bg-white dark:bg-gray-700 text-orange-500 font-black shadow-sm btn-press">-</button>
@@ -231,14 +245,14 @@
                 <div class="card p-8 mb-8 border-b-8 border-emerald-500">
                     <h2 class="text-lg font-black mb-6 flex items-center gap-2" data-i18n="create_recipe">🥑 建立食譜組合</h2>
                     <input id="newRecipeName" type="text" placeholder="Recipe Name" class="w-full p-6 mb-6 text-lg outline-none font-bold text-slate-800 dark:text-white">
-                    <div class="bg-gray-50/50 dark:bg-gray-800/30 p-6 rounded-3xl mb-6 border-2 border-dashed border-gray-200 dark:border-gray-700">
+                    <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-3xl mb-6 border-2 border-dashed border-gray-300 dark:border-gray-600">
                         <div class="relative mb-6">
                             <input id="recipeIngSearch" type="text" placeholder="🔍 Search..." class="w-full p-5 outline-none text-sm text-slate-800 dark:text-white" oninput="searchFood(this.value, 'recipe')">
                             <div id="recipeSearchRes" class="suggestion-box hidden"></div>
                         </div>
                         <div class="flex items-center gap-2 mb-4">
                             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                            <p class="text-xs font-black opacity-50 uppercase tracking-widest text-slate-800 dark:text-white" data-i18n="selected_ingredients">已選食材清單</p>
+                            <p class="text-xs font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest" data-i18n="selected_ingredients">已選食材清單</p>
                         </div>
                         <ul id="tempIngList" class="space-y-3 text-slate-800 dark:text-white"></ul>
                     </div>
@@ -259,8 +273,8 @@
             <div id="gsubContent-today" class="gym-sub-content text-slate-800 dark:text-white">
                 <div class="card p-6 mb-6 h-36 relative overflow-hidden flex flex-col justify-between shadow-sm">
                     <div class="flex justify-between items-start z-10 relative">
-                        <h3 class="text-xs font-black opacity-50 uppercase tracking-widest" data-i18n="vol_trend">近 7 日容量趨勢</h3>
-                        <span class="text-[10px] bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 px-2 py-1 rounded-lg font-bold">Volume</span>
+                        <h3 class="text-xs font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest" data-i18n="vol_trend">近 7 日容量趨勢</h3>
+                        <span class="text-[10px] bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 px-2 py-1 rounded-lg font-bold">Volume</span>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 h-24 z-0">
                         <canvas id="gymVolumeChart"></canvas>
@@ -272,38 +286,38 @@
                         <h2 class="text-xl font-black flex items-center gap-2" data-i18n="workout_log">🏋️‍♂️ 訓練日誌</h2>
                     </div>
 
-                    <div class="flex gap-2 mb-6 bg-gray-100 dark:bg-gray-800 p-1.5 rounded-2xl">
+                    <div class="flex gap-2 mb-6 bg-gray-200 dark:bg-gray-800 p-1.5 rounded-2xl">
                         <button id="btnStrength" onclick="setGymType('strength')" class="type-btn active" data-i18n="strength">重量訓練</button>
                         <button id="btnCardio" onclick="setGymType('cardio')" class="type-btn" data-i18n="cardio">有氧運動</button>
                     </div>
                     
                     <div class="mb-6 relative">
-                        <input id="gName" type="text" placeholder="🔍 Search Exercise..." class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="searchGym(this.value, 'today')">
+                        <input id="gName" type="text" placeholder="🔍 Search..." class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="searchGym(this.value, 'today')">
                         <div id="gymSearchRes" class="suggestion-box hidden no-scrollbar text-slate-800 dark:text-white"></div>
                     </div>
                     
-                    <div id="strengthInputs" class="grid grid-cols-3 gap-4 mb-8 bg-gray-50/50 dark:bg-gray-800/30 p-4 rounded-3xl border border-gray-100 dark:border-gray-700/50">
+                    <div id="strengthInputs" class="grid grid-cols-3 gap-4 mb-8 bg-gray-100 dark:bg-gray-800/50 p-4 rounded-3xl border border-gray-200 dark:border-gray-700">
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2" data-i18n="weight_kg">重量 (KG)</p>
+                            <p class="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase mb-2" data-i18n="weight_kg">重量 (KG)</p>
                             <input id="gW" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2" data-i18n="sets">組數 (SETS)</p>
+                            <p class="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase mb-2" data-i18n="sets">組數 (SETS)</p>
                             <input id="gS" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2" data-i18n="reps">次數 (REPS)</p>
+                            <p class="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase mb-2" data-i18n="reps">次數 (REPS)</p>
                             <input id="gR" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                     </div>
 
                     <div id="cardioInputs" class="hidden grid grid-cols-2 gap-4 mb-8 bg-emerald-50/50 dark:bg-emerald-900/10 p-4 rounded-3xl border border-emerald-100 dark:border-emerald-800/30">
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2 text-emerald-700 dark:text-emerald-400" data-i18n="time_mins">時間 (分鐘)</p>
+                            <p class="text-[10px] font-black text-emerald-700 dark:text-emerald-500 uppercase mb-2" data-i18n="time_mins">時間 (分鐘)</p>
                             <input id="gMins" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2 text-emerald-700 dark:text-emerald-400" data-i18n="distance_km">距離 (KM)</p>
+                            <p class="text-[10px] font-black text-emerald-700 dark:text-emerald-500 uppercase mb-2" data-i18n="distance_km">距離 (KM)</p>
                             <input id="gKm" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                     </div>
@@ -311,9 +325,9 @@
                     <div class="flex gap-3">
                         <button onclick="addGym()" class="flex-1 bg-indigo-600 text-white p-6 rounded-3xl font-black text-lg shadow-xl shadow-indigo-500/30 btn-press" id="btnSaveGym" data-i18n="btn_save_record">新增紀錄</button>
                         
-                        <div class="flex items-center bg-indigo-50 dark:bg-indigo-900/40 rounded-3xl p-2 px-3 shadow-inner border border-indigo-100 dark:border-indigo-800">
-                            <input id="restTimeInput" type="number" value="90" class="w-12 bg-transparent text-indigo-600 dark:text-indigo-400 font-black text-center text-lg outline-none">
-                            <span class="text-[10px] text-indigo-400 font-bold mr-2">s</span>
+                        <div class="flex items-center bg-indigo-100 dark:bg-indigo-900/60 rounded-3xl p-2 px-3 shadow-inner border border-indigo-200 dark:border-indigo-800">
+                            <input id="restTimeInput" type="number" value="90" class="w-12 bg-transparent text-indigo-700 dark:text-indigo-300 font-black text-center text-lg outline-none">
+                            <span class="text-[10px] text-indigo-500 font-bold mr-2">s</span>
                             <button onclick="startRestTimer(document.getElementById('restTimeInput').value)" class="w-12 h-12 bg-white dark:bg-gray-800 text-indigo-600 rounded-full font-black shadow-sm flex justify-center items-center btn-press text-lg">⏱️</button>
                         </div>
                     </div>
@@ -331,24 +345,24 @@
             <div id="gsubContent-planner" class="gym-sub-content hidden text-slate-800 dark:text-white">
                 <div class="flex space-x-3 overflow-x-auto no-scrollbar mb-8 pb-4 px-2" id="gymPlannerDateBar"></div>
                 <div class="card p-8 mb-8 border-b-8 border-indigo-500 relative">
-                    <h2 class="text-xl font-black mb-6 flex items-center gap-2"><span data-i18n="edit_plan">🗓️ 編排</span> <span id="selectedGymPlanDayText" class="text-indigo-500">週一</span></h2>
+                    <h2 class="text-xl font-black mb-6 flex items-center gap-2"><span data-i18n="edit_plan">🗓️ 編排</span> <span id="selectedGymPlanDayText" class="text-indigo-500 ml-2"></span></h2>
                     
                     <div class="mb-6 relative">
                         <input id="gPlanName" type="text" placeholder="🔍 Search..." class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="searchGym(this.value, 'plan')">
                         <div id="gymPlanSearchRes" class="suggestion-box hidden no-scrollbar text-slate-800 dark:text-white"></div>
                     </div>
                     
-                    <div class="grid grid-cols-3 gap-4 mb-8 bg-gray-50/50 dark:bg-gray-800/30 p-4 rounded-3xl border border-gray-100 dark:border-gray-700/50">
+                    <div class="grid grid-cols-3 gap-4 mb-8 bg-gray-100 dark:bg-gray-800/50 p-4 rounded-3xl border border-gray-200 dark:border-gray-700">
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">KG</p>
+                            <p class="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase mb-2">KG</p>
                             <input id="gPlanW" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">SETS</p>
+                            <p class="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase mb-2">SETS</p>
                             <input id="gPlanS" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                         <div class="text-center">
-                            <p class="text-[10px] font-black opacity-40 uppercase mb-2">REPS</p>
+                            <p class="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase mb-2">REPS</p>
                             <input id="gPlanR" type="number" placeholder="0" class="w-full p-4 text-center font-black text-2xl bg-white dark:bg-gray-900 shadow-sm border-none text-slate-800 dark:text-white">
                         </div>
                     </div>
@@ -358,52 +372,80 @@
             </div>
 
             <div id="gsubContent-history" class="gym-sub-content hidden pb-10 text-slate-800 dark:text-white">
-                <div class="card p-6 border-b-4 border-indigo-300 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/10 mb-6">
-                    <h3 class="font-black text-indigo-600 dark:text-indigo-400 mb-4" data-i18n="history_query">📜 歷史紀錄查詢</h3>
-                    <input type="date" id="historyDateInput" class="w-full box-border p-4 font-black text-center text-lg bg-white dark:bg-gray-900 shadow-sm border-none rounded-2xl text-slate-800 dark:text-white" onchange="renderGymHistory(this.value)">
+                <div class="card p-6 border-b-4 border-indigo-400 dark:border-indigo-600 bg-white dark:bg-gray-800 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <button onclick="changeCalMonth(-1)" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center font-black btn-press">&lt;</button>
+                        <h3 id="calMonthYear" class="font-black text-indigo-600 dark:text-indigo-400 text-lg">2026 / 03</h3>
+                        <button onclick="changeCalMonth(1)" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center font-black btn-press">&gt;</button>
+                    </div>
+                    
+                    <div class="cal-grid mb-2 text-xs font-black text-slate-400 dark:text-slate-500">
+                        <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+                    </div>
+                    <div id="calGrid" class="cal-grid">
+                        </div>
                 </div>
-                <div id="gymHistoryList" class="space-y-4"></div>
+                
+                <div id="gymHistoryList" class="space-y-4">
+                    <p class="text-center opacity-40 font-black py-10 text-sm" data-i18n="select_date_cal">請選擇日曆上的日期</p>
+                </div>
             </div>
         </div>
 
         <div id="communityTab" class="tab-content">
-            <div class="card p-6 mb-8 border-t-8 border-pink-500 relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-100 dark:bg-pink-900/30 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
-                
-                <div class="flex items-center gap-3 mb-6 relative z-10">
-                    <div class="w-12 h-12 bg-gradient-to-tr from-pink-500 to-orange-400 rounded-full flex items-center justify-center text-white font-black shadow-md">Me</div>
-                    <div>
-                        <h2 class="text-lg font-black text-slate-800 dark:text-white" data-i18n="my_post">發佈新動態</h2>
-                        <p class="text-[10px] font-bold opacity-60 text-slate-800 dark:text-white" data-i18n="comm_desc">分享您的努力，激勵更多人！</p>
+            
+            <div class="sub-nav-container mb-6 shadow-sm">
+                <div onclick="switchCommSub('feed')" id="csub-feed" class="sub-tab active" data-i18n="comm_feed">動態牆</div>
+                <div onclick="switchCommSub('post')" id="csub-post" class="sub-tab" data-i18n="my_post">發佈新動態</div>
+            </div>
+
+            <div id="csubContent-feed" class="comm-sub-content">
+                <div class="mb-6 relative">
+                    <input id="socialSearch" type="text" placeholder="🔍 搜尋用戶或內容..." data-i18n="search_comm" class="w-full p-5 outline-none font-bold text-sm shadow-sm text-slate-800 dark:text-white" oninput="renderFeed()">
+                </div>
+                <div id="feedList" class="space-y-6 pb-10">
                     </div>
-                </div>
-                
-                <div class="mb-5 relative z-10">
-                    <select id="postType" class="w-full p-3 font-black text-sm text-slate-800 dark:text-white shadow-sm bg-gray-50 dark:bg-gray-800">
-                        <option value="diet">🍱 美味飲食分享 (相片)</option>
-                        <option value="training">💪 訓練動作紀錄 (影片/相片)</option>
-                        <option value="physique">👤 體態轉變 (相片)</option>
-                    </select>
-                </div>
+            </div>
 
-                <div class="mb-4 relative z-10">
-                    <textarea id="postText" class="social-input w-full text-slate-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500" rows="3" placeholder="今天練得如何？寫下一些心得紀錄吧..." data-i18n="post_placeholder"></textarea>
-                </div>
-
-                <div class="mb-4 relative z-10">
-                    <label class="video-upload-label flex flex-col items-center justify-center w-full h-32 rounded-2xl cursor-pointer transition-colors p-4 text-center">
-                        <span class="text-3xl mb-2">📸 / 📹</span>
-                        <span class="text-sm font-black text-pink-600 dark:text-pink-400" data-i18n="upload_media">點擊上傳相片或短片</span>
-                        <input type="file" id="mediaUpload" accept="image/*,video/*" class="hidden">
-                    </label>
-                </div>
-
-                <div id="mediaPreviewContainer" class="hidden relative z-10 border-t border-gray-100 dark:border-gray-800 pt-4">
-                    <div id="mediaBox" class="rounded-2xl overflow-hidden shadow-md bg-black flex justify-center items-center min-h-[150px]">
+            <div id="csubContent-post" class="comm-sub-content hidden">
+                <div class="card p-6 mb-8 border-t-8 border-pink-500 relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-100 dark:bg-pink-900/30 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex items-center gap-3 mb-6 relative z-10">
+                        <div class="w-12 h-12 bg-gradient-to-tr from-pink-500 to-orange-400 rounded-full flex items-center justify-center text-white font-black shadow-md">Me</div>
+                        <div>
+                            <h2 class="text-lg font-black text-slate-800 dark:text-white" data-i18n="my_post">發佈新動態</h2>
+                            <p class="text-[10px] font-bold text-slate-500 dark:text-gray-400" data-i18n="comm_desc">分享您的努力，激勵更多人！</p>
                         </div>
+                    </div>
+                    
+                    <div class="mb-5 relative z-10">
+                        <select id="postType" class="w-full p-4 font-black text-sm text-slate-800 dark:text-white shadow-sm bg-gray-100 dark:bg-gray-800 border-none">
+                            <option value="diet">🍱 美味飲食分享</option>
+                            <option value="training">💪 訓練動作紀錄</option>
+                            <option value="physique">👤 體態轉變</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4 relative z-10 p-4 bg-gray-50 dark:bg-gray-800/80 rounded-2xl border border-gray-200 dark:border-gray-700">
+                        <textarea id="postText" class="social-input w-full" rows="3" placeholder="今天練得如何？寫下一些心得紀錄吧..." data-i18n="post_placeholder"></textarea>
+                    </div>
+
+                    <div class="mb-4 relative z-10">
+                        <label class="video-upload-label flex flex-col items-center justify-center w-full h-32 rounded-2xl cursor-pointer transition-colors p-4 text-center">
+                            <span class="text-3xl mb-2">📸 / 📹</span>
+                            <span class="text-sm font-black text-pink-600 dark:text-pink-400" data-i18n="upload_media">點擊上傳相片或短片</span>
+                            <input type="file" id="mediaUpload" accept="image/*,video/*" class="hidden">
+                        </label>
+                    </div>
+
+                    <div id="mediaPreviewContainer" class="hidden relative z-10 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                        <div id="mediaBox" class="rounded-2xl overflow-hidden shadow-md bg-black flex justify-center items-center min-h-[150px]">
+                            </div>
+                    </div>
+                    
+                    <button onclick="publishPost()" class="w-full bg-pink-500 text-white p-4 rounded-2xl font-black text-sm shadow-xl shadow-pink-500/30 mt-6 btn-press relative z-10" data-i18n="btn_publish">發佈至動態牆</button>
                 </div>
-                
-                <button class="w-full bg-pink-500 text-white p-4 rounded-2xl font-black text-sm shadow-xl shadow-pink-500/30 mt-6 btn-press relative z-10" data-i18n="btn_publish">發佈至動態牆</button>
             </div>
         </div>
 
@@ -413,18 +455,18 @@
                 <h2 class="text-2xl font-black mb-8 relative z-10" data-i18n="user_core">個人數據核心</h2>
                 
                 <div class="grid grid-cols-2 gap-5 mb-6 relative z-10">
-                    <div class="bg-gray-50 dark:bg-gray-800/50 p-5 rounded-3xl border border-gray-100 dark:border-gray-700"><p class="text-[10px] font-black opacity-40 mb-2 uppercase text-slate-800 dark:text-white" data-i18n="curr_weight">目前體重 (KG)</p><input id="uW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center text-slate-800 dark:text-white"></div>
-                    <div class="bg-blue-50/50 dark:bg-blue-900/20 p-5 rounded-3xl border border-blue-100 dark:border-blue-800"><p class="text-[10px] font-black text-blue-500 mb-2 uppercase" data-i18n="target_weight">目標體重 (KG)</p><input id="uTargetW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center border-2 border-blue-200 dark:border-blue-600 text-slate-800 dark:text-white"></div>
+                    <div class="bg-gray-100 dark:bg-gray-800/80 p-5 rounded-3xl border border-gray-200 dark:border-gray-700"><p class="text-[10px] font-black text-slate-500 dark:text-gray-400 mb-2 uppercase" data-i18n="curr_weight">目前體重 (KG)</p><input id="uW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center text-slate-800 dark:text-white"></div>
+                    <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-3xl border border-blue-200 dark:border-blue-800"><p class="text-[10px] font-black text-blue-600 dark:text-blue-400 mb-2 uppercase" data-i18n="target_weight">目標體重 (KG)</p><input id="uTargetW" type="number" class="w-full p-4 bg-white dark:bg-gray-900 text-xl text-center border-2 border-blue-200 dark:border-blue-600 text-slate-800 dark:text-white"></div>
                 </div>
                 
                 <div class="grid grid-cols-3 gap-4 mb-8 relative z-10">
-                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white" data-i18n="gender">性別</p><select id="uGender" class="w-full p-4 text-center text-slate-800 dark:text-white"><option value="male" data-i18n="male">男</option><option value="female" data-i18n="female">女</option></select></div>
-                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white" data-i18n="age">年齡</p><input id="uA" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
-                    <div><p class="text-[10px] font-black opacity-40 mb-2 pl-2 text-slate-800 dark:text-white" data-i18n="height">身高 (CM)</p><input id="uH" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
+                    <div><p class="text-[10px] font-black text-slate-500 dark:text-gray-400 mb-2 pl-2" data-i18n="gender">性別</p><select id="uGender" class="w-full p-4 text-center text-slate-800 dark:text-white"><option value="male" data-i18n="male">男</option><option value="female" data-i18n="female">女</option></select></div>
+                    <div><p class="text-[10px] font-black text-slate-500 dark:text-gray-400 mb-2 pl-2" data-i18n="age">年齡</p><input id="uA" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
+                    <div><p class="text-[10px] font-black text-slate-500 dark:text-gray-400 mb-2 pl-2" data-i18n="height">身高 (CM)</p><input id="uH" type="number" class="w-full p-4 text-center text-slate-800 dark:text-white"></div>
                 </div>
                 
                 <div class="mb-8 relative z-10">
-                    <p class="text-[10px] font-black opacity-40 mb-2 pl-2 uppercase tracking-widest text-slate-800 dark:text-white" data-i18n="pal">活動量係數 (PAL)</p>
+                    <p class="text-[10px] font-black text-slate-500 dark:text-gray-400 mb-2 pl-2 uppercase tracking-widest" data-i18n="pal">活動量係數 (PAL)</p>
                     <select id="uAct" class="w-full p-5 text-sm font-bold shadow-sm text-slate-800 dark:text-white">
                         <option value="1.2" data-i18n="pal_1_2">💻 1.2 久坐 (辦公族、幾乎不運動)</option>
                         <option value="1.375" data-i18n="pal_1_375">🚶 1.375 輕度 (每週輕鬆活動 1-3 天)</option>
@@ -438,9 +480,9 @@
                 <button onclick="updateUser()" class="w-full bg-gray-900 dark:bg-blue-600 text-white p-6 rounded-3xl font-black text-lg mb-8 shadow-xl btn-press relative z-10" data-i18n="btn_sync_data">同步運算核心數據</button>
                 
                 <div class="grid grid-cols-3 gap-3 relative z-10 mb-6">
-                    <div class="bg-gray-50 dark:bg-gray-800/80 p-5 rounded-3xl text-center border border-gray-100 dark:border-gray-700"><p class="text-[9px] font-black opacity-40 uppercase mb-1" data-i18n="label_tdee">維持 TDEE</p><p id="dispTdee" class="text-xl font-black text-gray-700 dark:text-gray-200">--</p></div>
-                    <div class="bg-gray-50 dark:bg-gray-800/80 p-5 rounded-3xl text-center border border-gray-100 dark:border-gray-700"><p class="text-[9px] font-black opacity-40 uppercase mb-1" data-i18n="label_bmi">身體質量 BMI</p><p id="dispBmi" class="text-xl font-black text-gray-700 dark:text-gray-200">--</p></div>
-                    <div class="bg-blue-50/50 dark:bg-blue-900/30 p-5 rounded-3xl text-center border border-blue-100 dark:border-blue-800/50"><p class="text-[9px] font-black opacity-60 text-blue-600 dark:text-blue-400 uppercase mb-1" data-i18n="label_target_dist">距目標體重</p><p id="dispToTarget" class="text-xl font-black text-blue-600 dark:text-blue-400">--</p></div>
+                    <div class="bg-gray-100 dark:bg-gray-800/80 p-5 rounded-3xl text-center border border-gray-200 dark:border-gray-700"><p class="text-[9px] font-black text-slate-500 dark:text-gray-400 uppercase mb-1" data-i18n="label_tdee">維持 TDEE</p><p id="dispTdee" class="text-xl font-black text-gray-800 dark:text-gray-200">--</p></div>
+                    <div class="bg-gray-100 dark:bg-gray-800/80 p-5 rounded-3xl text-center border border-gray-200 dark:border-gray-700"><p class="text-[9px] font-black text-slate-500 dark:text-gray-400 uppercase mb-1" data-i18n="label_bmi">身體質量 BMI</p><p id="dispBmi" class="text-xl font-black text-gray-800 dark:text-gray-200">--</p></div>
+                    <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-3xl text-center border border-blue-200 dark:border-blue-800/50"><p class="text-[9px] font-black text-blue-700 dark:text-blue-400 uppercase mb-1" data-i18n="label_target_dist">距目標體重</p><p id="dispToTarget" class="text-xl font-black text-blue-600 dark:text-blue-400">--</p></div>
                 </div>
 
                 <div class="bg-gradient-to-br from-gray-900 to-gray-700 dark:from-gray-800 dark:to-gray-950 text-white p-8 rounded-[32px] shadow-2xl relative z-10 overflow-hidden">
@@ -455,19 +497,19 @@
             </div>
             
             <div class="card p-8 mb-6">
-                <h3 class="text-xs font-black opacity-40 uppercase mb-4 tracking-widest text-slate-800 dark:text-white" data-i18n="calorie_trend">熱量攝取趨勢</h3>
+                <h3 class="text-xs font-black text-slate-500 dark:text-gray-400 uppercase mb-4 tracking-widest" data-i18n="calorie_trend">熱量攝取趨勢</h3>
                 <div class="h-48"><canvas id="trendChart"></canvas></div>
             </div>
 
             <div class="card p-8 mb-8">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xs font-black opacity-40 uppercase tracking-widest text-slate-800 dark:text-white" data-i18n="weight_chart">體重軌跡</h3>
+                    <h3 class="text-xs font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest" data-i18n="weight_chart">體重軌跡</h3>
                 </div>
                 <div class="h-48 mb-4"><canvas id="weightChart"></canvas></div>
                 <div class="flex justify-center gap-2">
-                    <button onclick="setWeightRange(7)" class="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-xl text-xs font-black text-gray-600 dark:text-gray-300 btn-press" data-i18n="range_7">7天</button>
-                    <button onclick="setWeightRange(30)" class="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-xl text-xs font-black text-gray-600 dark:text-gray-300 btn-press" data-i18n="range_30">30天</button>
-                    <button onclick="setWeightRange('all')" class="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-xl text-xs font-black text-gray-600 dark:text-gray-300 btn-press" data-i18n="range_all">全部</button>
+                    <button onclick="setWeightRange(7)" class="px-4 py-1.5 bg-gray-200 dark:bg-gray-800 rounded-xl text-xs font-black text-gray-700 dark:text-gray-300 btn-press" data-i18n="range_7">7天</button>
+                    <button onclick="setWeightRange(30)" class="px-4 py-1.5 bg-gray-200 dark:bg-gray-800 rounded-xl text-xs font-black text-gray-700 dark:text-gray-300 btn-press" data-i18n="range_30">30天</button>
+                    <button onclick="setWeightRange('all')" class="px-4 py-1.5 bg-gray-200 dark:bg-gray-800 rounded-xl text-xs font-black text-gray-700 dark:text-gray-300 btn-press" data-i18n="range_all">全部</button>
                 </div>
             </div>
         </div>
@@ -477,20 +519,20 @@
                 <h2 class="text-2xl font-black mb-6" data-i18n="sys_settings">系統設定</h2>
                 
                 <div class="space-y-4">
-                    <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 p-5 rounded-2xl border border-gray-100 dark:border-gray-700">
+                    <div class="flex justify-between items-center bg-gray-100 dark:bg-gray-800/80 p-5 rounded-2xl border border-gray-200 dark:border-gray-700">
                         <div>
                             <p class="font-black text-sm" data-i18n="lang_setting">介面語言 / Language</p>
                         </div>
-                        <select id="langSelect" onchange="setLang(this.value)" class="p-2 text-sm">
+                        <select id="langSelect" onchange="setLang(this.value)" class="p-2 text-sm bg-white dark:bg-gray-700">
                             <option value="zh">繁體中文</option>
                             <option value="en">English</option>
                         </select>
                     </div>
 
-                    <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 p-5 rounded-2xl border border-gray-100 dark:border-gray-700">
+                    <div class="flex justify-between items-center bg-gray-100 dark:bg-gray-800/80 p-5 rounded-2xl border border-gray-200 dark:border-gray-700">
                         <div>
                             <p class="font-black text-sm" data-i18n="health_sync">連接 Apple Health / Fit</p>
-                            <p class="text-[10px] opacity-50 font-bold mt-1" data-i18n="health_sync_desc">自動同步步數與體重</p>
+                            <p class="text-[10px] text-slate-500 dark:text-gray-400 font-bold mt-1" data-i18n="health_sync_desc">自動同步步數與體重</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" class="sr-only toggle-checkbox" id="healthSyncToggle">
@@ -498,7 +540,7 @@
                         </label>
                     </div>
                     
-                    <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-800/50 p-5 rounded-2xl border border-gray-100 dark:border-gray-700">
+                    <div class="flex justify-between items-center bg-gray-100 dark:bg-gray-800/80 p-5 rounded-2xl border border-gray-200 dark:border-gray-700">
                         <div>
                             <p class="font-black text-sm" data-i18n="dark_mode">深色模式</p>
                         </div>
@@ -512,7 +554,7 @@
         </div>
     </div>
 
-    <nav class="fixed bottom-0 left-0 right-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl border-t border-gray-200/50 dark:border-gray-800/80 flex justify-around pt-3 pb-[calc(1rem+env(safe-area-inset-bottom))] px-2 z-[9999] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.04)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+    <nav class="fixed bottom-0 left-0 right-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl border-t border-gray-200/50 dark:border-gray-800/80 flex justify-around pt-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] px-2 z-[9999] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.04)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
         <button onclick="showTab('mealHub')" id="n-mealHub" class="flex flex-col items-center nav-active text-gray-400 transition-all duration-300 w-1/5 relative"><span class="text-2xl mb-1 drop-shadow-sm">🍱</span><span class="text-[10px] font-black tracking-widest" data-i18n="nav_diet">飲食</span></button>
         <button onclick="showTab('gym')" id="n-gym" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/5 relative"><span class="text-2xl mb-1 drop-shadow-sm">💪</span><span class="text-[10px] font-black tracking-widest" data-i18n="nav_gym">訓練</span></button>
         <button onclick="showTab('community')" id="n-community" class="flex flex-col items-center text-gray-400 transition-all duration-300 w-1/5 relative"><span class="text-2xl mb-1 drop-shadow-sm">🌐</span><span class="text-[10px] font-black tracking-widest" data-i18n="nav_comm">社群</span></button>
@@ -534,10 +576,10 @@
                 btn_save_record: "儲存紀錄", daily_plan_total: "當日規劃總額", edit_plan: "📅 編排", btn_add_list: "加入清單", qty: "份量 / Qty",
                 create_recipe: "🥑 建立食譜組合", selected_ingredients: "已選食材清單", btn_save_recipe: "封裝食譜",
                 vol_trend: "近 7 日容量趨勢", workout_log: "🏋️‍♂️ 訓練日誌", strength: "重量訓練", cardio: "有氧運動", weight_kg: "重量 (KG)", sets: "組數", reps: "次數", time_mins: "時間 (分鐘)", distance_km: "距離 (KM)", today_list: "今日清單",
-                history_query: "📜 歷史紀錄查詢", comm_title: "🌐 Omni 社群分享", comm_desc: "分享您的努力，激勵更多人！", post_type: "貼文類型", upload_media: "點擊上傳相片或短片", btn_publish: "發佈至動態牆", my_post: "發佈新動態", post_placeholder: "今天練得如何？寫下一些心得紀錄吧...",
+                history_query: "📜 歷史紀錄查詢", comm_feed: "動態牆", search_comm: "🔍 搜尋用戶或內容...", my_post: "發佈新動態", comm_desc: "分享您的努力，激勵更多人！", post_type: "貼文類型", upload_media: "點擊上傳相片或短片", btn_publish: "發佈至動態牆", post_placeholder: "今天練得如何？寫下一些心得紀錄吧...",
                 user_core: "個人數據核心", curr_weight: "目前體重 (KG)", target_weight: "目標體重 (KG)", gender: "性別", age: "年齡", height: "身高 (CM)", pal: "活動量係數 (PAL)", btn_sync_data: "同步運算核心數據", ai_target: "AI 建議攝取目標", weight_chart: "體重軌跡", calorie_trend: "熱量攝取趨勢", label_tdee: "維持 TDEE", label_bmi: "身體質量 BMI", label_target_dist: "距目標體重",
                 pal_1_2: "💻 1.2 久坐 (辦公族、幾乎不運動)", pal_1_375: "🚶 1.375 輕度 (每週輕鬆活動 1-3 天)", pal_1_465: "🏃 1.465 中輕度 (每週規律健身 3-4 天)", pal_1_55: "🏃 1.55 中度 (每週規律訓練 5-6 天)", pal_1_725: "🏋️ 1.725 高度 (每日重訓或勞動力工作)", pal_1_9: "🔥 1.9 極高 (專業運動員、長期競技)", male: "男", female: "女", range_7: "7天", range_30: "30天", range_all: "全部",
-                sys_settings: "系統設定", lang_setting: "介面語言 / Language", health_sync: "連接 Apple Health / Fit", health_sync_desc: "自動同步步數與體重", dark_mode: "深色模式", calculating: "計算中...", rest_timer: "休息: 00:00"
+                sys_settings: "系統設定", lang_setting: "介面語言 / Language", health_sync: "連接 Apple Health / Fit", health_sync_desc: "自動同步步數與體重", dark_mode: "深色模式", calculating: "計算中...", rest_timer: "休息: 00:00", select_date_cal: "請選擇日曆上的日期"
             },
             en: {
                 nav_diet: "Diet", nav_gym: "Gym", nav_comm: "Social", nav_user: "User", nav_settings: "Settings",
@@ -546,10 +588,10 @@
                 btn_save_record: "Save Record", daily_plan_total: "Daily Plan Total", edit_plan: "📅 Plan", btn_add_list: "Add to List", qty: "Quantity",
                 create_recipe: "🥑 Create Recipe", selected_ingredients: "Selected Ingredients", btn_save_recipe: "Save Recipe",
                 vol_trend: "7-Day Volume Trend", workout_log: "🏋️‍♂️ Workout Log", strength: "Strength", cardio: "Cardio", weight_kg: "Weight (KG)", sets: "Sets", reps: "Reps", time_mins: "Time (Mins)", distance_km: "Distance (KM)", today_list: "Today's List",
-                history_query: "📜 History Query", comm_title: "🌐 Omni Social", comm_desc: "Share and inspire others!", post_type: "Post Type", upload_media: "Upload Photo/Video", btn_publish: "Publish to Feed", my_post: "Create Post", post_placeholder: "How was your workout today? Write a log...",
+                history_query: "📜 History Query", comm_feed: "Feed", search_comm: "🔍 Search users or posts...", my_post: "Create Post", comm_desc: "Share and inspire others!", post_type: "Post Type", upload_media: "Upload Photo/Video", btn_publish: "Publish to Feed", post_placeholder: "How was your workout today? Write a log...",
                 user_core: "Core Data", curr_weight: "Current Weight (KG)", target_weight: "Target Weight (KG)", gender: "Gender", age: "Age", height: "Height (CM)", pal: "Activity Level (PAL)", btn_sync_data: "Sync Core Data", ai_target: "AI Calorie Goal", weight_chart: "Weight Tracker", calorie_trend: "Calorie Trend", label_tdee: "Maint. TDEE", label_bmi: "Body Mass BMI", label_target_dist: "To Target",
                 pal_1_2: "💻 1.2 Sedentary (Office job)", pal_1_375: "🚶 1.375 Light (Exercise 1-3 days/wk)", pal_1_465: "🏃 1.465 Moderate-Light (3-4 days/wk)", pal_1_55: "🏃 1.55 Moderate (5-6 days/wk)", pal_1_725: "🏋️ 1.725 Heavy (Daily hard training/labor)", pal_1_9: "🔥 1.9 Extreme (Pro athlete)", male: "Male", female: "Female", range_7: "7 Days", range_30: "30 Days", range_all: "All",
-                sys_settings: "System Settings", lang_setting: "Language", health_sync: "Connect Health/Fit", health_sync_desc: "Auto-sync steps & weight", dark_mode: "Dark Mode", calculating: "Calculating...", rest_timer: "Rest: 00:00"
+                sys_settings: "System Settings", lang_setting: "Language", health_sync: "Connect Health/Fit", health_sync_desc: "Auto-sync steps & weight", dark_mode: "Dark Mode", calculating: "Calculating...", rest_timer: "Rest: 00:00", select_date_cal: "Please select a date on calendar"
             }
         };
 
@@ -578,14 +620,14 @@
             renderUserStats();
             renderLogs();
             initCharts();
+            renderHistoryCalendar();
             
-            // 強制重繪 Planner 的星期文字
             if(!document.getElementById('gsubContent-planner').classList.contains('hidden')) {
                 initGymPlannerDays();
             }
         }
 
-        // --- 歐美食物擴充 (250+筆 雙語無刪減) ---
+        // --- 完整 250+ 筆資料庫 (無刪減) ---
         const baseDB = [
             {name:"白飯 (White Rice/碗/200g)",p:5,c:56,f:0.6}, {name:"糙米飯 (Brown Rice/碗/200g)",p:5,c:52,f:1.6}, {name:"地瓜 (Sweet Potato/150g)",p:2,c:36,f:0.3}, {name:"馬鈴薯 (Potato/150g)",p:3,c:26,f:0.2}, {name:"全麥吐司 (Whole Wheat Toast/片)",p:4,c:15,f:1}, {name:"白吐司 (White Toast/片)",p:3,c:14,f:1}, {name:"燕麥片 (Oats/50g)",p:6,c:33,f:3.5}, {name:"義大利麵 (Pasta/100g乾)",p:12,c:75,f:1.5}, {name:"玉米 (Corn/根)",p:4,c:25,f:1.5}, {name:"烏龍麵 (Udon/200g)",p:5,c:45,f:1},
             {name:"雞胸肉 (Chicken Breast/100g)",p:31,c:0,f:3.6}, {name:"雞腿肉 (Chicken Thigh/100g/去皮)",p:24,c:0,f:8}, {name:"雞蛋 (Egg/顆)",p:7,c:0.6,f:5}, {name:"豬里肌 (Pork Loin/100g)",p:22,c:0,f:4}, {name:"豬梅花 (Pork Shoulder/100g)",p:18,c:0,f:17}, {name:"牛腱 (Beef Shank/100g)",p:26,c:0,f:4}, {name:"牛小排 (Short Rib/100g)",p:15,c:0,f:28}, {name:"培根 (Bacon/片)",p:3,c:0.5,f:10}, {name:"鴨肉 (Duck/100g)",p:18,c:0,f:15}, {name:"羊肉 (Lamb/100g)",p:20,c:0,f:12},
@@ -608,8 +650,6 @@
             {name:"水煮鮪魚罐頭(Tuna in Water/半罐)",p:12,c:0,f:0.5}, {name:"油漬鮪魚罐頭(Tuna in Oil/半罐)",p:12,c:0,f:8}, {name:"鯖魚罐頭(Mackerel Canned/半罐)",p:14,c:2,f:12}, {name:"蒲燒鰻罐頭(Eel Canned/半罐)",p:10,c:8,f:10}, {name:"玉米粒罐頭(Corn Canned/100g)",p:3,c:20,f:1}, {name:"黑豆(Black Beans/熟/50g)",p:8,c:15,f:4}, {name:"鷹嘴豆(Chickpeas/熟/50g)",p:4,c:14,f:1}, {name:"綠豆湯(Mung Bean Soup/碗)",p:6,c:35,f:0}, {name:"紅豆冰棒(Red Bean Popsicle/支)",p:2,c:25,f:2}, {name:"薏仁湯(Job's Tears Soup/碗)",p:4,c:30,f:1},
             {name:"芋圓(Taro Balls/10顆)",p:1,c:35,f:8}, {name:"燒仙草(Hot Grass Jelly/碗)",p:2,c:25,f:0}, {name:"豆花(Tofu Pudding/碗/無糖水)",p:8,c:5,f:4}, {name:"布丁(Pudding/盒)",p:4,c:20,f:5}, {name:"優酪乳(Yogurt Drink/原味/200ml)",p:6,c:24,f:2}, {name:"水餃(Dumplings/鮮肉/10顆)",p:15,c:50,f:22}, {name:"水煎包(Pan-fried Bun/份)",p:8,c:45,f:20}, {name:"小籠包(Soup Dumpling/顆)",p:4,c:15,f:6}, {name:"蘿蔔糕(Turnip Cake/片)",p:2,c:20,f:5}, {name:"蛋餅(Egg Pancake/原味)",p:8,c:30,f:12},
             {name:"黑糖珍珠(Brown Sugar Boba/50g)",p:0,c:40,f:0}, {name:"仙草凍(Grass Jelly/100g)",p:0,c:5,f:0}, {name:"愛玉(Aiyu Jelly/100g)",p:0,c:1,f:0}, {name:"蒟蒻(Konjac/100g)",p:0,c:4,f:0}, {name:"椰果(Coconut Jelly/50g)",p:0,c:10,f:0}, {name:"粉條(Tapioca Noodles/50g)",p:0,c:15,f:0}, {name:"湯圓(Tangyuan/50g)",p:1,c:35,f:1}, {name:"地瓜圓(Sweet Potato Balls/50g)",p:1,c:30,f:1}, {name:"麻糬(Mochi/花生/顆)",p:3,c:25,f:8}, {name:"麻糬(Mochi/芝麻/顆)",p:3,c:25,f:9},
-            
-            // --- 歐美常見食物擴充 (Western Food DB) ---
             {name:"肋眼牛排 (Ribeye Steak/100g)",p:24,c:0,f:14}, {name:"火雞胸肉 (Turkey Breast/100g)",p:29,c:0,f:1}, {name:"貝果 (Bagel/個)",p:10,c:48,f:1.5}, {name:"酸種麵包 (Sourdough Bread/片)",p:4,c:18,f:1}, {name:"美式鬆餅 (Pancakes/2片)",p:6,c:30,f:8}, {name:"格子鬆餅 (Waffles/片)",p:4,c:25,f:10}, {name:"燕麥粥 (Oatmeal/碗)",p:6,c:27,f:3}, {name:"起司通心粉 (Mac & Cheese/碗)",p:12,c:45,f:10}, {name:"茅屋起司 (Cottage Cheese/100g)",p:11,c:3,f:4}, {name:"莫札瑞拉起司 (Mozzarella/30g)",p:6,c:1,f:6},
             {name:"切達起司 (Cheddar/30g)",p:7,c:0.5,f:9}, {name:"鷹嘴豆泥 (Hummus/2匙)",p:2,c:4,f:5}, {name:"花生醬 (Peanut Butter/2匙)",p:7,c:6,f:16}, {name:"杏仁醬 (Almond Butter/2匙)",p:7,c:6,f:18}, {name:"薩拉米香腸 (Salami/30g)",p:6,c:1,f:11}, {name:"酪梨吐司 (Avocado Toast/片)",p:6,c:20,f:12}, {name:"凱薩沙拉 (Caesar Salad/碗)",p:5,c:10,f:15}, {name:"馬鈴薯泥 (Mashed Potatoes/碗)",p:4,c:35,f:8}, {name:"英式烤豆 (Baked Beans/碗)",p:12,c:40,f:1}, {name:"藜麥 (Quinoa/煮熟1碗)",p:8,c:39,f:3.5}, 
             {name:"櫛瓜 (Zucchini/100g)",p:1,c:3,f:0}, {name:"抱子甘藍 (Brussels Sprouts/100g)",p:3,c:9,f:0}, {name:"藍莓 (Blueberries/碗)",p:1,c:21,f:0.5}, {name:"覆盆子 (Raspberries/碗)",p:1.5,c:15,f:0.8}, {name:"燕麥穀物 (Granola/半碗)",p:5,c:30,f:10}, {name:"可頌 (Croissant/個)",p:5,c:26,f:12}, {name:"瑪芬蛋糕 (Muffin/個)",p:6,c:50,f:15}, {name:"甜甜圈 (Donut/個)",p:4,c:30,f:15}, {name:"熱狗 (Hot Dog/份)",p:10,c:20,f:15}, {name:"義大利臘腸披薩 (Pepperoni Pizza/片)",p:12,c:35,f:15}, 
@@ -617,24 +657,22 @@
             {name:"番茄肉醬義大利麵 (Spaghetti Bolognese)",p:20,c:65,f:15}, {name:"千層麵 (Lasagna/份)",p:22,c:50,f:20}, {name:"蛤蜊巧達湯 (Clam Chowder/碗)",p:8,c:20,f:12}, {name:"番茄濃湯 (Tomato Soup/碗)",p:2,c:15,f:4}
         ];
 
-        // --- 完整雙語動作庫 (含滑輪與壺鈴) ---
         const gymDB = ["槓鈴臥推 (Barbell Bench Press)", "啞鈴臥推 (Dumbbell Bench Press)", "上胸臥推 (Incline Bench Press)", "下胸臥推 (Decline Bench Press)", "機械飛鳥 (Machine Fly)", "滑輪下拉 (Lat Pulldown)", "引體向上 (Pull-up)", "槓鈴划船 (Barbell Row)", "啞鈴划船 (Dumbbell Row)", "坐姿划船 (Seated Row)", "槓鈴深蹲 (Barbell Squat)", "頸前深蹲 (Front Squat)", "硬舉 (Deadlift)", "腿推舉 (Leg Press)", "羅馬尼亞硬舉 (Romanian Deadlift)", "保加利亞分腿蹲 (Bulgarian Split Squat)", "腿彎舉 (Leg Curl)", "腿伸直 (Leg Extension)", "槓鈴肩推 (Barbell Shoulder Press)", "啞鈴肩推 (Dumbbell Shoulder Press)", "側平舉 (Lateral Raise)", "前平舉 (Front Raise)", "滑輪側平舉 (Cable Lateral Raise)", "反向飛鳥 (Reverse Fly)", "二頭彎舉 (Bicep Curl)", "錘式彎舉 (Hammer Curl)", "三頭下壓 (Tricep Pushdown)", "法式彎舉 (Skull Crusher)", "仰臥起坐 (Sit-up)", "棒式 (Plank)", "捲腹 (Crunch)", "俄羅斯轉體 (Russian Twist)", "波比跳 (Burpee)", "羅馬椅挺身 (Hyperextension)", 
         "滑輪夾胸 (Cable Crossover)", "滑輪面拉 (Face Pull)", "滑輪單臂划船 (Single-arm Cable Row)", "滑輪飛鳥 (Cable Fly)", "滑輪過頭三頭伸展 (Overhead Tricep Extension)", "滑輪直臂下拉 (Straight-arm Pulldown)", 
         "壺鈴擺盪 (Kettlebell Swing)", "壺鈴深蹲 (Kettlebell Squat)", "壺鈴土耳其起立 (Turkish Get-up)", "壺鈴肩推 (Kettlebell Press)", "壺鈴高腳杯深蹲 (Goblet Squat)", "壺鈴農夫走路 (Farmer's Walk)", "壺鈴單臂划船 (Single-arm KB Row)", "壺鈴硬舉 (Kettlebell Deadlift)"];
+        
         const cardioDB = ["跑步 (Running)", "自行車 (Cycling)", "游泳 (Swimming)", "橢圓機 (Elliptical)", "划船機 (Rowing Machine)", "階梯機 (Stair Climber)", "跳繩 (Jump Rope)", "有氧操 (Aerobics)", "HIIT (High-Intensity Interval Training)"];
 
-        const KEYS = { logs: 'logs_vDual', recipes: 'recipes_vDual', plans: 'plans_vDual', user: 'user_vDual', gym: 'gym_vDual', theme: 'theme_vDual', gymPlans: 'gymPlans_vDual' };
+        const KEYS = { logs: 'logs_vDual', recipes: 'recipes_vDual', plans: 'plans_vDual', user: 'user_vDual', gym: 'gym_vDual', theme: 'theme_vDual', gymPlans: 'gymPlans_vDual', posts: 'posts_vDual' };
         
         let logs = NetAPI.load(KEYS.logs) || {};
         let recipes = NetAPI.load(KEYS.recipes) || [];
         let planner = NetAPI.load(KEYS.plans) || {};
         let user = NetAPI.load(KEYS.user) || { gender:'male', h:175, w:75, targetW:70, a:25, act:1.2, weights:[], water:{} };
         let gym = NetAPI.load(KEYS.gym) || {};
+        let communityPosts = NetAPI.load(KEYS.posts) || [];
         
-        const WEEK_DAYS = ['週一', '週二', '週三', '週四', '週五', '週六', '週日'];
-        let gymPlanner = NetAPI.load(KEYS.gymPlans) || { '週一':[], '週二':[], '週三':[], '週四':[], '週五':[], '週六':[], '週日':[] };
         let currentGymPlanDay = '週一';
-        
         let today = new Date().toLocaleDateString();
         let currentPlanDate = today;
         let todayMacroChart, planMacroChart, trendChart, weightChart, gymChartInstance;
@@ -642,10 +680,11 @@
         let restTimer; 
         let currentGymType = 'strength'; 
         let currentWeightRange = 7;
+        let currentCalMonth = new Date();
         
-        // 記錄選擇的食物基準營養素 (Qty = 1)
         let activeFood = { today: {p:0, c:0, f:0}, plan: {p:0, c:0, f:0} };
 
+        // ================= 導航切換 =================
         function showTab(t) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.getElementById(t + 'Tab').classList.add('active');
@@ -654,8 +693,9 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
             
             if(t === 'user') { renderUserStats(); setTimeout(initCharts, 100); }
-            if(t === 'gym') { renderGym(); setTimeout(initGymChart, 100); }
+            if(t === 'gym') { renderGym(); setTimeout(initGymChart, 100); renderHistoryCalendar(); }
             if(t === 'mealHub') renderLogs();
+            if(t === 'community') renderFeed();
         }
 
         function switchMealSub(st) {
@@ -672,11 +712,39 @@
             document.getElementById('gsubContent-' + st).classList.remove('hidden');
             document.querySelectorAll('#gymTab .sub-tab').forEach(b => b.classList.remove('active'));
             document.getElementById('gsub-' + st).classList.add('active');
-            if(st === 'history') renderGymHistory();
+            if(st === 'history') renderHistoryCalendar();
             if(st === 'planner') initGymPlannerDays();
             if(st === 'today') { renderGym(); setTimeout(initGymChart, 100); }
         }
 
+        function switchCommSub(st) {
+            document.querySelectorAll('.comm-sub-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById('csubContent-' + st).classList.remove('hidden');
+            document.querySelectorAll('#communityTab .sub-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById('csub-' + st).classList.add('active');
+            if(st === 'feed') renderFeed();
+        }
+
+        function setGymType(type) {
+            currentGymType = type;
+            if(type === 'strength') {
+                document.getElementById('btnStrength').classList.add('active');
+                document.getElementById('btnCardio').classList.remove('active-cardio');
+                document.getElementById('strengthInputs').classList.remove('hidden');
+                document.getElementById('cardioInputs').classList.add('hidden');
+                document.getElementById('gName').placeholder = currentLang==='en'?"🔍 Search Strength...":"🔍 搜尋重量訓練...";
+            } else {
+                document.getElementById('btnCardio').classList.add('active-cardio');
+                document.getElementById('btnStrength').classList.remove('active');
+                document.getElementById('cardioInputs').classList.remove('hidden');
+                document.getElementById('strengthInputs').classList.add('hidden');
+                document.getElementById('gName').placeholder = currentLang==='en'?"🔍 Search Cardio...":"🔍 搜尋有氧運動...";
+            }
+            document.getElementById('gymSearchRes').classList.add('hidden');
+            document.getElementById('gName').value = '';
+        }
+
+        // ================= 搜尋與加入邏輯 =================
         function searchFood(q, mode) {
             const boxes = { 'today':'searchRes', 'recipe':'recipeSearchRes', 'plan':'planSearchRes' };
             const box = document.getElementById(boxes[mode]);
@@ -687,7 +755,7 @@
             
             box.innerHTML = matches.map(f => {
                 let kcal = Math.round(f.p*4 + f.c*4 + f.f*9);
-                return `<div class="p-5 border-b border-gray-100 dark:border-gray-800 cursor-pointer font-black text-sm hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors" onclick="selectFood('${f.name}', ${f.p}, ${f.c}, ${f.f}, '${mode}')">
+                return `<div class="p-5 border-b border-gray-200 dark:border-gray-700 cursor-pointer font-black text-sm hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors text-slate-800 dark:text-white" onclick="selectFood('${f.name.replace(/'/g, "\\'")}', ${f.p}, ${f.c}, ${f.f}, '${mode}')">
                     <span class="opacity-50 mr-2 text-lg">${f.isRecipe ? '🍱' : '🥦'}</span>${f.name} 
                     <span class="text-blue-500 float-right bg-blue-50 dark:bg-blue-900/30 px-2 py-1 rounded-lg text-xs">${kcal} kcal</span>
                 </div>`;
@@ -706,8 +774,8 @@
                 tempRecipeIngs.push({ name: n, p, c, f }); renderTempRecipe(); document.getElementById('recipeIngSearch').value = '';
             } else {
                 document.getElementById(searchEl).value = n;
-                activeFood[mode] = { p:p, c:c, f:f }; // 保存基準值
-                if(document.getElementById(qtyEl)) document.getElementById(qtyEl).value = 1; // 重設份量為 1
+                activeFood[mode] = { p:p, c:c, f:f };
+                if(document.getElementById(qtyEl)) document.getElementById(qtyEl).value = 1;
                 
                 document.getElementById(pEl).value = p;
                 document.getElementById(cEl).value = c;
@@ -716,12 +784,11 @@
             document.querySelectorAll('.suggestion-box').forEach(b => b.classList.add('hidden'));
         }
 
-        // Qty 調整功能
         function changeFoodQty(delta, mode) {
             let qtyEl = document.getElementById(mode==='today' ? 'foodQty' : 'planQty');
             if(!qtyEl) return;
             let newQty = parseFloat(qtyEl.value) + delta;
-            if(newQty < 0.1) newQty = 0.1; // 最少 0.1 份
+            if(newQty < 0.1) newQty = 0.1;
             qtyEl.value = Number.isInteger(newQty) ? newQty : newQty.toFixed(1);
             updateFoodMacros(mode);
         }
@@ -729,14 +796,9 @@
         function updateFoodMacros(mode) {
             let qty = parseFloat(document.getElementById(mode==='today' ? 'foodQty' : 'planQty').value) || 1;
             let base = activeFood[mode];
-            
-            let pEl = mode==='today' ? 'pIn' : 'planPIn';
-            let cEl = mode==='today' ? 'cIn' : 'planCIn';
-            let fEl = mode==='today' ? 'fIn' : 'planFIn';
-            
-            document.getElementById(pEl).value = parseFloat((base.p * qty).toFixed(1));
-            document.getElementById(cEl).value = parseFloat((base.c * qty).toFixed(1));
-            document.getElementById(fEl).value = parseFloat((base.f * qty).toFixed(1));
+            document.getElementById(mode==='today' ? 'pIn' : 'planPIn').value = parseFloat((base.p * qty).toFixed(1));
+            document.getElementById(mode==='today' ? 'cIn' : 'planCIn').value = parseFloat((base.c * qty).toFixed(1));
+            document.getElementById(mode==='today' ? 'fIn' : 'planFIn').value = parseFloat((base.f * qty).toFixed(1));
         }
 
         function searchGym(q, mode) {
@@ -744,11 +806,9 @@
             if(!q) { box.classList.add('hidden'); return; }
             const pool = currentGymType === 'cardio' ? cardioDB : gymDB;
             const matches = pool.filter(n => n.toLowerCase().includes(q.toLowerCase())).slice(0, 6);
-            
-            box.innerHTML = matches.map(n => `<div class="p-5 border-b border-gray-100 dark:border-gray-800 cursor-pointer font-black text-sm hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors" onclick="selectGym('${n}', '${mode}')">${currentGymType==='cardio'?'🏃':'🏋️'} ${n}</div>`).join('');
+            box.innerHTML = matches.map(n => `<div class="p-5 border-b border-gray-200 dark:border-gray-700 cursor-pointer font-black text-sm hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors text-slate-800 dark:text-white" onclick="selectGym('${n.replace(/'/g, "\\'")}', '${mode}')">${currentGymType==='cardio'?'🏃':'🏋️'} ${n}</div>`).join('');
             if(matches.length > 0) box.classList.remove('hidden'); else box.classList.add('hidden');
         }
-        
         function selectGym(n, mode) { 
             if(mode === 'today') {
                 document.getElementById('gName').value = n; document.getElementById('gymSearchRes').classList.add('hidden'); 
@@ -757,6 +817,7 @@
             }
         }
 
+        // ================= 飲食與規劃渲染 =================
         function addLog() {
             let baseName = document.getElementById('foodSearch').value; if(!baseName) return;
             let qty = parseFloat(document.getElementById('foodQty').value) || 1;
@@ -766,7 +827,6 @@
             logs[today].push({ name: finalName, p: parseFloat(document.getElementById('pIn').value)||0, c: parseFloat(document.getElementById('cIn').value)||0, f: parseFloat(document.getElementById('fIn').value)||0, time: document.getElementById('mealTime').value });
             NetAPI.save(KEYS.logs, logs);
             
-            // 歸零輸入框
             document.getElementById('foodSearch').value = ''; document.getElementById('pIn').value=''; document.getElementById('cIn').value=''; document.getElementById('fIn').value=''; 
             document.getElementById('foodQty').value = 1;
             activeFood.today = {p:0, c:0, f:0};
@@ -788,14 +848,14 @@
                         sp+=l.p; sc+=l.c; sf+=l.f;
                         let kcal = Math.round(l.p*4 + l.c*4 + l.f*9);
                         html += `<div class="card p-6 mb-3 flex justify-between items-center border-l-4 border-blue-500 shadow-sm relative overflow-hidden group">
-                            <div class="relative z-10">
-                                <p class="font-black text-base mb-1">${l.name}</p>
+                            <div class="relative z-10 w-full pr-12">
+                                <p class="font-black text-base mb-1 truncate">${l.name}</p>
                                 <div class="flex gap-2">
-                                    <span class="bg-gray-100 dark:bg-gray-800 text-[9px] font-black px-2 py-1 rounded text-gray-500 dark:text-gray-400 uppercase tracking-wider">P:${l.p} C:${l.c} F:${l.f}</span>
+                                    <span class="bg-gray-100 dark:bg-gray-800 text-[9px] font-black px-2 py-1 rounded text-slate-500 dark:text-gray-400 uppercase tracking-wider">P:${l.p} C:${l.c} F:${l.f}</span>
                                     <span class="bg-blue-50 dark:bg-blue-900/30 text-[9px] font-black px-2 py-1 rounded text-blue-600 dark:text-blue-400 uppercase">${kcal} kcal</span>
                                 </div>
                             </div>
-                            <button onclick="removeLog('${tk}', ${idx})" class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 font-black flex items-center justify-center btn-press relative z-10">✕</button>
+                            <button onclick="removeLog('${tk}', ${idx})" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 font-black flex items-center justify-center btn-press z-10">✕</button>
                         </div>`;
                     });
                     container.innerHTML += html + `</div>`;
@@ -820,18 +880,8 @@
             updateMacroChart(sp, sc, sf);
         }
 
-        function removeLog(tk, idx) {
-            let filtered = logs[today].filter(l => l.time === tk || (!l.time && tk === 'snack'));
-            logs[today].splice(logs[today].indexOf(filtered[idx]), 1);
-            NetAPI.save(KEYS.logs, logs); renderLogs();
-        }
-
-        function addWater(amt) { 
-            let current = user.water[today] || 0;
-            user.water[today] = Math.max(0, current + amt); 
-            NetAPI.save(KEYS.user, user); 
-            renderWater(); 
-        }
+        function removeLog(tk, idx) { logs[today].splice(logs[today].indexOf(logs[today].filter(l => l.time === tk || (!l.time && tk === 'snack'))[idx]), 1); NetAPI.save(KEYS.logs, logs); renderLogs(); }
+        function addWater(amt) { user.water[today] = Math.max(0, (user.water[today] || 0) + amt); NetAPI.save(KEYS.user, user); renderWater(); }
         function renderWater() { document.getElementById('waterCurrent').innerText = (user.water[today] || 0) + ' ml'; }
 
         function initPlannerDates() {
@@ -853,7 +903,6 @@
             planner[currentPlanDate].push({ name: finalName, p: parseFloat(document.getElementById('planPIn').value)||0, c: parseFloat(document.getElementById('planCIn').value)||0, f: parseFloat(document.getElementById('planFIn').value)||0, time: document.getElementById('planMealTime').value });
             NetAPI.save(KEYS.plans, planner);
             
-            // 歸零輸入框
             document.getElementById('planSearch').value = ''; document.getElementById('planPIn').value=''; document.getElementById('planCIn').value=''; document.getElementById('planFIn').value='';
             document.getElementById('planQty').value = 1;
             activeFood.plan = {p:0, c:0, f:0};
@@ -874,13 +923,12 @@
                     sp.forEach((p, idx) => {
                         pp+=p.p; pc+=p.c; pf+=p.f;
                         let kcal = Math.round(p.p*4 + p.c*4 + p.f*9);
-                        html += `<div class="card p-5 mb-3 flex justify-between items-center border-l-4 border-orange-400"><div><p class="font-black text-sm">${p.name}</p><p class="text-[10px] font-black opacity-40 uppercase">P:${p.p} C:${p.c} F:${p.f} <span class="text-orange-500 ml-1">${kcal}kcal</span></p></div><button onclick="removePlan('${ds}', '${tk}', ${idx})" class="text-red-400 font-black">✕</button></div>`;
+                        html += `<div class="card p-5 mb-3 flex justify-between items-center border-l-4 border-orange-400"><div><p class="font-black text-sm truncate max-w-[200px]">${p.name}</p><p class="text-[10px] font-black opacity-40 uppercase">P:${p.p} C:${p.c} F:${p.f} <span class="text-orange-500 ml-1">${kcal}kcal</span></p></div><button onclick="removePlan('${ds}', '${tk}', ${idx})" class="text-red-400 font-black px-2">✕</button></div>`;
                     });
                     container.innerHTML += html + `</div>`;
                 }
             });
             
-            // 7日規劃百分比精準計算 (修復)
             let planTotal = Math.round(pp*4 + pc*4 + pf*9);
             let ppPct = planTotal > 0 ? Math.round(((pp*4)/planTotal)*100) : 0;
             let cpPct = planTotal > 0 ? Math.round(((pc*4)/planTotal)*100) : 0;
@@ -899,36 +947,13 @@
             planMacroChart = new Chart(ctx, { type:'doughnut', data:{ datasets:[{data:[p*4||0.1, c*4||0.1, f*9||0.1], backgroundColor:['#bfdbfe','#bbf7d0','#fef08a'], borderWidth:0}]}, options:{cutout:'70%', layout:{padding:0}, plugins:{legend:{display:false}, tooltip:{enabled:false}}} });
         }
 
-        function removePlan(ds, tk, idx) {
-            let filtered = planner[ds].filter(p => p.time === tk);
-            planner[ds].splice(planner[ds].indexOf(filtered[idx]), 1);
-            NetAPI.save(KEYS.plans, planner); renderPlannerDetail(ds);
-        }
+        function removePlan(ds, tk, idx) { planner[ds].splice(planner[ds].indexOf(planner[ds].filter(p => p.time === tk)[idx]), 1); NetAPI.save(KEYS.plans, planner); renderPlannerDetail(ds); }
+        function renderTempRecipe() { document.getElementById('tempIngList').innerHTML = tempRecipeIngs.map((ing, i) => `<li class="flex justify-between items-center p-4 bg-white dark:bg-gray-900 rounded-2xl text-sm font-black shadow-sm border border-gray-100 dark:border-gray-800"><span>${ing.name} <span class="text-[10px] opacity-40 ml-2">P:${ing.p} C:${ing.c} F:${ing.f}</span></span><button onclick="tempRecipeIngs.splice(${i},1);renderTempRecipe()" class="w-8 h-8 bg-red-50 dark:bg-red-900/20 text-red-500 rounded-full flex items-center justify-center text-xs">✕</button></li>`).join(''); }
+        function saveRecipe() { const name = document.getElementById('newRecipeName').value; if(!name || tempRecipeIngs.length === 0) return; let tp=0, tc=0, tf=0; tempRecipeIngs.forEach(i => { tp += i.p; tc += i.c; tf += i.f; }); recipes.push({ name, p: parseFloat(tp.toFixed(1)), c: parseFloat(tc.toFixed(1)), f: parseFloat(tf.toFixed(1)), isRecipe: true }); NetAPI.save(KEYS.recipes, recipes); tempRecipeIngs = []; document.getElementById('newRecipeName').value = ''; renderTempRecipe(); renderSavedRecipes(); }
+        function renderSavedRecipes() { document.getElementById('savedRecipesList').innerHTML = recipes.map((r, i) => `<div class="card p-6 mb-3 flex justify-between items-center border-l-4 border-emerald-500"><div><p class="font-black text-base mb-1">🍱 ${r.name}</p><p class="text-[10px] opacity-50 font-black uppercase tracking-wider bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded inline-block">P:${r.p} C:${r.c} F:${r.f}</p></div><button onclick="recipes.splice(${i},1);NetAPI.save(KEYS.recipes,recipes);renderSavedRecipes()" class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 font-black flex items-center justify-center">✕</button></div>`).join(''); }
+        function updateMacroChart(p,c,f) { const ctx = document.getElementById('todayMacroChart').getContext('2d'); if(todayMacroChart) todayMacroChart.destroy(); todayMacroChart = new Chart(ctx, { type:'doughnut', data:{ datasets:[{data:[p*4||0.1, c*4||0.1, f*9||0.1], backgroundColor:['#3b82f6','#22c55e','#eab308'], borderWidth:0, hoverOffset: 4}]}, options:{cutout:'75%', layout:{padding:0}, plugins:{legend:{display:false}, tooltip:{enabled:false}}} }); }
 
-        function renderTempRecipe() {
-            const list = document.getElementById('tempIngList');
-            list.innerHTML = tempRecipeIngs.map((ing, i) => `<li class="flex justify-between items-center p-4 bg-white dark:bg-gray-900 rounded-2xl text-sm font-black shadow-sm border border-gray-100 dark:border-gray-800"><span>${ing.name} <span class="text-[10px] opacity-40 ml-2">P:${ing.p} C:${ing.c} F:${ing.f}</span></span><button onclick="tempRecipeIngs.splice(${i},1);renderTempRecipe()" class="w-8 h-8 bg-red-50 dark:bg-red-900/20 text-red-500 rounded-full flex items-center justify-center text-xs">✕</button></li>`).join('');
-        }
-
-        function saveRecipe() {
-            const name = document.getElementById('newRecipeName').value;
-            if(!name || tempRecipeIngs.length === 0) return;
-            let tp=0, tc=0, tf=0; tempRecipeIngs.forEach(i => { tp += i.p; tc += i.c; tf += i.f; });
-            recipes.push({ name, p: parseFloat(tp.toFixed(1)), c: parseFloat(tc.toFixed(1)), f: parseFloat(tf.toFixed(1)), isRecipe: true });
-            NetAPI.save(KEYS.recipes, recipes);
-            tempRecipeIngs = []; document.getElementById('newRecipeName').value = ''; renderTempRecipe(); renderSavedRecipes();
-        }
-
-        function renderSavedRecipes() {
-            document.getElementById('savedRecipesList').innerHTML = recipes.map((r, i) => `<div class="card p-6 mb-3 flex justify-between items-center border-l-4 border-emerald-500"><div><p class="font-black text-base mb-1">🍱 ${r.name}</p><p class="text-[10px] opacity-50 font-black uppercase tracking-wider bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded inline-block">P:${r.p} C:${r.c} F:${r.f}</p></div><button onclick="recipes.splice(${i},1);NetAPI.save(KEYS.recipes,recipes);renderSavedRecipes()" class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 font-black flex items-center justify-center">✕</button></div>`).join('');
-        }
-
-        function updateMacroChart(p,c,f) {
-            const ctx = document.getElementById('todayMacroChart').getContext('2d');
-            if(todayMacroChart) todayMacroChart.destroy();
-            todayMacroChart = new Chart(ctx, { type:'doughnut', data:{ datasets:[{data:[p*4||0.1, c*4||0.1, f*9||0.1], backgroundColor:['#3b82f6','#22c55e','#eab308'], borderWidth:0, hoverOffset: 4}]}, options:{cutout:'75%', layout:{padding:0}, plugins:{legend:{display:false}, tooltip:{enabled:false}}} });
-        }
-
+        // ================= 用戶數據與圖表 =================
         function updateUser() {
             user.w = parseFloat(document.getElementById('uW').value); user.targetW = parseFloat(document.getElementById('uTargetW').value);
             user.h = parseFloat(document.getElementById('uH').value); user.a = parseInt(document.getElementById('uA').value);
@@ -967,10 +992,7 @@
             if(document.getElementById('statGoalLogic')) document.getElementById('statGoalLogic').innerText = currentLang === 'en' ? logicEn : logicZh;
         }
 
-        function setWeightRange(range) {
-            currentWeightRange = range;
-            initCharts();
-        }
+        function setWeightRange(range) { currentWeightRange = range; initCharts(); }
 
         function initCharts() {
             if(trendChart) trendChart.destroy();
@@ -989,29 +1011,31 @@
             }
 
             let wtData = user.weights || [];
-            if(currentWeightRange !== 'all') {
-                wtData = wtData.slice(-currentWeightRange);
-            }
+            if(currentWeightRange !== 'all') wtData = wtData.slice(-currentWeightRange);
             const labels = wtData.map(w => { let parts = w.d.split('/'); return parts.length === 3 ? `${parts[1]}/${parts[2]}` : w.d; });
             const values = wtData.map(w => w.v);
 
             if(document.getElementById('weightChart')) {
                 weightChart = new Chart(document.getElementById('weightChart'), { 
                     type:'line', 
-                    data:{ labels: labels, datasets:[{
-                        label: currentLang==='en'?'Weight':'體重', data: values, borderColor:'#8b5cf6', borderWidth:4, pointBackgroundColor:'#fff', pointBorderColor:'#8b5cf6', pointBorderWidth:3, pointRadius:5, fill:true, backgroundColor:'rgba(139,92,246,0.1)', tension:0.4
-                    }]}, 
+                    data:{ labels: labels, datasets:[{ label: currentLang==='en'?'Weight':'體重', data: values, borderColor:'#8b5cf6', borderWidth:4, pointBackgroundColor:'#fff', pointBorderColor:'#8b5cf6', pointBorderWidth:3, pointRadius:5, fill:true, backgroundColor:'rgba(139,92,246,0.1)', tension:0.4 }]}, 
                     options:{ maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{display:true, grid:{display:false}, border:{display:false}}, x:{display:true, grid:{display:false}, border:{display:false}} } }
                 });
             }
         }
 
+        // ================= GYM 訓練與系統通知計時器 =================
         function startRestTimer(seconds) {
             clearInterval(restTimer);
             let t = parseInt(seconds) || 90;
             const display = document.getElementById('restTimerDisplay');
             const text = document.getElementById('restTimerText');
             display.classList.remove('hidden');
+            
+            // 請求通知權限
+            if ("Notification" in window && Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
             
             restTimer = setInterval(() => {
                 t--;
@@ -1021,6 +1045,18 @@
                 if(t <= 0) {
                     clearInterval(restTimer);
                     text.innerText = "🔥";
+                    
+                    // 觸發震動
+                    if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 800]);
+                    
+                    // 觸發系統通知
+                    if ("Notification" in window && Notification.permission === "granted") {
+                        new Notification("OmniFit", {
+                            body: currentLang === 'en' ? "Rest is over! Get back to work! 💪" : "休息結束，準備下一組訓練！💪",
+                            icon: "https://cdn-icons-png.flaticon.com/512/2964/2964514.png"
+                        });
+                    }
+                    
                     setTimeout(() => display.classList.add('hidden'), 3000);
                 }
             }, 1000);
@@ -1031,11 +1067,8 @@
             let g = gym[today][idx];
             setGymType(g.type || 'strength');
             document.getElementById('gName').value = g.n;
-            if(g.type === 'cardio') {
-                document.getElementById('gMins').value = g.mins; document.getElementById('gKm').value = g.km;
-            } else {
-                document.getElementById('gW').value = g.w; document.getElementById('gS').value = g.s; document.getElementById('gR').value = g.r;
-            }
+            if(g.type === 'cardio') { document.getElementById('gMins').value = g.mins; document.getElementById('gKm').value = g.km; } 
+            else { document.getElementById('gW').value = g.w; document.getElementById('gS').value = g.s; document.getElementById('gR').value = g.r; }
             window.scrollTo({ top: document.getElementById('gymTab').offsetTop, behavior: 'smooth' });
         }
 
@@ -1061,48 +1094,20 @@
         function renderGym() {
             let dailyVol = 0;
             let maxWeights = {};
-            for(let d in gym) { 
-                gym[d].forEach(g => { 
-                    if(g.type !== 'cardio' && (!maxWeights[g.n] || g.w > maxWeights[g.n])) maxWeights[g.n] = g.w; 
-                }); 
-            }
+            for(let d in gym) { gym[d].forEach(g => { if(g.type !== 'cardio' && (!maxWeights[g.n] || g.w > maxWeights[g.n])) maxWeights[g.n] = g.w; }); }
 
             document.getElementById('gymLogs').innerHTML = (gym[today]||[]).map((g, idx) => {
                 dailyVol += g.v;
-                
                 let detailsHTML = '';
                 if(g.type === 'cardio') {
-                    detailsHTML = `<div class="flex items-baseline gap-2 mt-1 text-emerald-600 dark:text-emerald-400">
-                        <span class="text-xl font-black">${g.mins}</span><span class="text-[10px] font-bold opacity-40">Mins</span>
-                        <span class="text-[10px] font-bold opacity-20 mx-1">|</span>
-                        <span class="text-xl font-black">${g.km}</span><span class="text-[10px] font-bold opacity-40">KM</span>
-                    </div>`;
+                    detailsHTML = `<div class="flex items-baseline gap-2 mt-1 text-emerald-600 dark:text-emerald-400"><span class="text-xl font-black">${g.mins}</span><span class="text-[10px] font-bold opacity-40">Mins</span><span class="text-[10px] font-bold opacity-20 mx-1">|</span><span class="text-xl font-black">${g.km}</span><span class="text-[10px] font-bold opacity-40">KM</span></div>`;
                 } else {
                     let prBadge = (g.w > 0 && g.w >= maxWeights[g.n]) ? '<span class="pr-badge px-2 py-0.5 rounded-full text-[9px] font-black ml-2 shadow-lg tracking-widest inline-block">👑 PR</span>' : '';
-                    detailsHTML = `<div class="flex items-center mb-2 flex-wrap gap-y-2"><p class="font-black text-lg leading-none">${g.n}</p>${prBadge}</div>
-                        <div class="flex items-baseline gap-2 mt-1 text-indigo-600 dark:text-indigo-400">
-                        <span class="text-xl font-black">${g.w}</span><span class="text-[10px] font-bold opacity-40">KG</span>
-                        <span class="text-[10px] font-bold opacity-20 mx-1">×</span>
-                        <span class="text-xl font-black">${g.s}</span><span class="text-[10px] font-bold opacity-40">Sets</span>
-                        <span class="text-[10px] font-bold opacity-20 mx-1">×</span>
-                        <span class="text-xl font-black">${g.r}</span><span class="text-[10px] font-bold opacity-40">Reps</span>
-                    </div>`;
+                    detailsHTML = `<div class="flex items-center mb-2 flex-wrap gap-y-2"><p class="font-black text-lg leading-none">${g.n}</p>${prBadge}</div><div class="flex items-baseline gap-2 mt-1 text-indigo-600 dark:text-indigo-400"><span class="text-xl font-black">${g.w}</span><span class="text-[10px] font-bold opacity-40">KG</span><span class="text-[10px] font-bold opacity-20 mx-1">×</span><span class="text-xl font-black">${g.s}</span><span class="text-[10px] font-bold opacity-40">Sets</span><span class="text-[10px] font-bold opacity-20 mx-1">×</span><span class="text-xl font-black">${g.r}</span><span class="text-[10px] font-bold opacity-40">Reps</span></div>`;
                 }
-
                 let borderColor = g.type === 'cardio' ? 'border-emerald-500' : 'border-indigo-500';
 
-                return `<div class="card p-6 mb-4 border-l-[6px] ${borderColor} shadow-md relative overflow-hidden group">
-                    <div class="flex justify-between items-center relative z-10">
-                        <div class="flex-1">
-                            ${g.type === 'cardio' ? `<p class="font-black text-lg leading-none mb-2">${g.n}</p>` : ''}
-                            ${detailsHTML}
-                        </div>
-                        <div class="flex flex-col gap-3">
-                            <button onclick="copyGym(${idx})" class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 font-black flex items-center justify-center btn-press shadow-sm">➕</button>
-                            <button onclick="removeGym(${idx})" class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 font-black flex items-center justify-center btn-press shadow-sm">✕</button>
-                        </div>
-                    </div>
-                </div>`;
+                return `<div class="card p-6 mb-4 border-l-[6px] ${borderColor} shadow-md relative overflow-hidden group"><div class="flex justify-between items-center relative z-10"><div class="flex-1">${g.type === 'cardio' ? `<p class="font-black text-lg leading-none mb-2">${g.n}</p>` : ''}${detailsHTML}</div><div class="flex flex-col gap-3"><button onclick="copyGym(${idx})" class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 font-black flex items-center justify-center btn-press shadow-sm">➕</button><button onclick="removeGym(${idx})" class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 font-black flex items-center justify-center btn-press shadow-sm">✕</button></div></div></div>`;
             }).join('');
             document.getElementById('dailyVolume').innerText = dailyVol;
         }
@@ -1120,38 +1125,65 @@
             });
         }
 
-        function renderGymHistory(dateVal) {
-            const container = document.getElementById('gymHistoryList');
-            container.innerHTML = '';
-            let queryDate = dateVal;
-            if(!queryDate) {
-                let d = new Date();
-                let year = d.getFullYear();
-                let month = (d.getMonth() + 1).toString().padStart(2, '0');
-                let day = d.getDate().toString().padStart(2, '0');
-                queryDate = `${year}-${month}-${day}`;
-                document.getElementById('historyDateInput').value = queryDate;
+        // ================= 訓練歷史直覺日曆系統 =================
+        function changeCalMonth(delta) {
+            currentCalMonth.setMonth(currentCalMonth.getMonth() + delta);
+            renderHistoryCalendar();
+        }
+
+        function renderHistoryCalendar() {
+            const y = currentCalMonth.getFullYear();
+            const m = currentCalMonth.getMonth();
+            document.getElementById('calMonthYear').innerText = `${y} / ${(m+1).toString().padStart(2, '0')}`;
+            
+            const firstDay = new Date(y, m, 1).getDay();
+            const daysInMonth = new Date(y, m + 1, 0).getDate();
+            
+            let gridHTML = '';
+            // Empty slots
+            for(let i=0; i<firstDay; i++) { gridHTML += `<div class="cal-day empty"></div>`; }
+            
+            // Days
+            let todayObj = new Date();
+            let isCurrentMonth = (todayObj.getFullYear() === y && todayObj.getMonth() === m);
+            let todayDate = todayObj.getDate();
+
+            for(let i=1; i<=daysInMonth; i++) {
+                let dateStr = new Date(y, m, i).toLocaleDateString();
+                let hasGym = gym[dateStr] && gym[dateStr].length > 0;
+                let dotHTML = hasGym ? `<div class="cal-dot"></div>` : '';
+                let isTodayClass = (isCurrentMonth && i === todayDate) ? 'border border-indigo-500 text-indigo-500' : '';
+                
+                gridHTML += `<div class="cal-day ${isTodayClass}" onclick="selectCalDate('${dateStr}', this)">${i}${dotHTML}</div>`;
             }
-            let parts = queryDate.split('-');
-            let dObj = new Date(parts[0], parts[1]-1, parts[2]);
-            let localDateKey = dObj.toLocaleDateString();
-            let dayGym = gym[localDateKey] || [];
+            document.getElementById('calGrid').innerHTML = gridHTML;
+        }
+
+        function selectCalDate(dateStr, el) {
+            document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('active'));
+            el.classList.add('active');
+            renderGymHistory(dateStr);
+        }
+
+        function renderGymHistory(dateStr) {
+            const container = document.getElementById('gymHistoryList');
+            let dayGym = gym[dateStr] || [];
 
             if(dayGym.length === 0) {
-                container.innerHTML = `<p class="text-center opacity-40 font-black py-10 text-lg">${currentLang==='en'?'No Records':'無紀錄'}</p>`; return;
+                container.innerHTML = `<p class="text-center opacity-40 font-black py-10 text-sm">${currentLang==='en'?'No Records':'無紀錄'}</p>`; return;
             }
             
             let dailyVol = dayGym.reduce((sum, g) => sum + g.v, 0);
             let html = `<div class="flex justify-between items-end px-2 mb-6">
-                <h4 class="text-sm font-black opacity-80 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-full">${localDateKey}</h4>
+                <h4 class="text-sm font-black opacity-80 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-full">${dateStr}</h4>
                 <span class="text-sm font-black text-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-800">Vol: ${dailyVol}</span>
             </div>`;
             
             dayGym.forEach(g => {
                 html += `<div class="card p-5 mb-4 flex justify-between items-center border-l-[4px] border-indigo-300 dark:border-indigo-700 bg-white/50 dark:bg-gray-800/50">
                     <div>
-                        <p class="font-black text-lg mb-1">${g.n}</p>
-                        <p class="text-[11px] opacity-60 font-black uppercase tracking-wide text-gray-600 dark:text-gray-300">
+                        <p class="font-black text-lg mb-1 text-slate-800 dark:text-white">${g.n}</p>
+                        <p class="text-[11px] opacity-60 font-black uppercase tracking-wide text-slate-600 dark:text-gray-300">
                             ${g.type==='cardio' ? `${g.mins}mins × ${g.km}km` : `${g.w}kg × ${g.s}sets × ${g.r}reps`}
                         </p>
                     </div>
@@ -1160,7 +1192,7 @@
             container.innerHTML = html;
         }
 
-        // --- Planner 7日 (已修復多語言對應) ---
+        // ================= Planner 7日 =================
         function initGymPlannerDays() {
             const bar = document.getElementById('gymPlannerDateBar'); bar.innerHTML = '';
             WEEK_DAYS.forEach(day => {
@@ -1193,7 +1225,10 @@
         }
         function removeGymPlan(idx) { gymPlanner[currentGymPlanDay].splice(idx, 1); NetAPI.save(KEYS.gymPlans, gymPlanner); renderGymPlanList(); }
 
-        // --- 社群預覽邏輯 ---
+        // ================= 社群動態牆 (Feed & Post) =================
+        let tempMediaData = null;
+        let tempMediaType = null;
+
         document.getElementById('mediaUpload').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if(file) {
@@ -1205,17 +1240,110 @@
                     const videoNode = document.createElement('video');
                     videoNode.src = fileURL; videoNode.controls = true; videoNode.className = "w-full max-h-96 object-contain";
                     mediaBox.appendChild(videoNode);
+                    tempMediaType = 'video';
                 } else if (file.type.startsWith('image/')) {
                     const imgNode = document.createElement('img');
                     imgNode.src = fileURL; imgNode.className = "w-full max-h-96 object-cover";
                     mediaBox.appendChild(imgNode);
+                    tempMediaType = 'image';
                 }
                 
+                // 在真實環境中，應該上傳至 Cloudinary 等取得 URL，此處為 Base64 模擬
+                const reader = new FileReader();
+                reader.onloadend = () => { tempMediaData = reader.result; };
+                reader.readAsDataURL(file);
+
                 document.getElementById('mediaPreviewContainer').classList.remove('hidden');
                 if (navigator.vibrate) navigator.vibrate(50);
             }
         });
 
+        function publishPost() {
+            const text = document.getElementById('postText').value;
+            const type = document.getElementById('postType').value;
+            
+            if(!text && !tempMediaData) {
+                alert(currentLang==='en'?"Please write something or upload media.":"請輸入內容或上傳媒體！");
+                return;
+            }
+
+            const newPost = {
+                id: Date.now(),
+                author: 'Me',
+                avatar: 'M',
+                text: text,
+                type: type, // diet, training, physique
+                media: tempMediaData,
+                mediaType: tempMediaType,
+                date: new Date().toLocaleString(),
+                likes: 0
+            };
+
+            communityPosts.unshift(newPost);
+            NetAPI.save(KEYS.posts, communityPosts);
+            
+            // 清空輸入
+            document.getElementById('postText').value = '';
+            document.getElementById('mediaUpload').value = '';
+            document.getElementById('mediaPreviewContainer').classList.add('hidden');
+            tempMediaData = null; tempMediaType = null;
+
+            // 切回 Feed
+            switchCommSub('feed');
+        }
+
+        function renderFeed() {
+            const container = document.getElementById('feedList');
+            const q = document.getElementById('socialSearch').value.toLowerCase();
+            
+            // 系統預設假資料，如果為空
+            if(communityPosts.length === 0) {
+                communityPosts = [
+                    { id: 1, author: 'Alex_Fitness', avatar: 'A', text: 'Just hit a new PR on Deadlift! 140kg x 5! 🔥💪', type: 'training', date: '2026/03/24', likes: 12 },
+                    { id: 2, author: 'HealthyEats', avatar: 'H', text: '今天的增肌餐：烤鮭魚配藜麥與大量蔬菜。', type: 'diet', date: '2026/03/24', likes: 8 }
+                ];
+            }
+
+            let filteredPosts = communityPosts.filter(p => p.text.toLowerCase().includes(q) || p.author.toLowerCase().includes(q));
+
+            container.innerHTML = filteredPosts.map(p => {
+                let badge = p.type === 'diet' ? '🍱 Diet' : (p.type === 'training' ? '💪 Training' : '👤 Physique');
+                let mediaHTML = '';
+                if(p.media) {
+                    if(p.mediaType === 'video') {
+                        mediaHTML = `<video src="${p.media}" controls class="w-full rounded-2xl mt-3"></video>`;
+                    } else {
+                        mediaHTML = `<img src="${p.media}" class="w-full rounded-2xl mt-3 object-cover max-h-80">`;
+                    }
+                }
+
+                return `<div class="card p-5 border-t-4 border-pink-400 dark:border-pink-600">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-400 rounded-full flex items-center justify-center text-white font-black shadow-md">${p.avatar}</div>
+                            <div>
+                                <p class="font-black text-sm text-slate-800 dark:text-white">${p.author}</p>
+                                <p class="text-[10px] text-slate-500 dark:text-gray-400">${p.date}</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-black bg-pink-100 dark:bg-pink-900/40 text-pink-600 px-2 py-1 rounded-lg">${badge}</span>
+                    </div>
+                    <p class="text-sm font-bold text-slate-700 dark:text-gray-300 leading-relaxed">${p.text}</p>
+                    ${mediaHTML}
+                    <div class="mt-4 flex gap-4 pt-3 border-t border-gray-100 dark:border-gray-800">
+                        <button class="text-xs font-black text-slate-500 dark:text-gray-400 flex items-center gap-1 btn-press" onclick="likePost(${p.id})">❤️ ${p.likes} Likes</button>
+                        <button class="text-xs font-black text-slate-500 dark:text-gray-400 flex items-center gap-1 btn-press">💬 Comment</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function likePost(id) {
+            let post = communityPosts.find(p => p.id === id);
+            if(post) { post.likes++; NetAPI.save(KEYS.posts, communityPosts); renderFeed(); }
+        }
+
+        // ================= 系統與主題初始化 =================
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
             const isDark = document.documentElement.classList.contains('dark');
@@ -1239,7 +1367,7 @@
             document.getElementById('uGender').value = user.gender || 'male'; 
             document.getElementById('uAct').value = user.act || '1.2';
             
-            setLang(currentLang); // 初始化語言並帶出資料渲染
+            setLang(currentLang); 
         };
     </script>
 </body>
