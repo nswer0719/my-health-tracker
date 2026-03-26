@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
     
-    <title>OmniFit - 國際多功能社群版</title>
+    <title>OmniFit - 國際正式發佈版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -24,7 +24,6 @@
         .card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08); transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .dark .card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3); }
         
-        /* 增強明亮模式的輸入框與文字對比度 */
         input, select, textarea { background-color: #e2e8f0; color: #0f172a; border: 2px solid transparent; font-weight: 800; border-radius: 24px; transition: all 0.3s ease; outline: none; }
         input::placeholder, textarea::placeholder { color: #64748b; opacity: 1; }
         input:focus, select:focus, textarea:focus { border-color: #3b82f6; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); }
@@ -68,12 +67,10 @@
         .btn-press { transition: transform 0.1s ease; }
         .btn-press:active { transform: scale(0.96); }
 
-        /* 社群貼文輸入框特定美化 */
         textarea.social-input { background: transparent; border: none; font-size: 1rem; line-height: 1.5; box-shadow: none; padding: 0; color: #1e293b; }
         .dark textarea.social-input { color: #f1f5f9; }
         textarea.social-input:focus { box-shadow: none; background: transparent; }
         
-        /* 互動式日曆樣式 */
         .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
         .cal-day { padding: 10px 0; border-radius: 12px; font-weight: 800; font-size: 14px; color: #334155; cursor: pointer; transition: 0.2s; position: relative; background: #f1f5f9; }
         .dark .cal-day { color: #cbd5e1; background: #1e293b; }
@@ -111,9 +108,11 @@
         <header class="flex justify-between items-center mb-8 pt-4">
             <div class="flex flex-col">
                 <h1 class="text-4xl font-black tracking-tighter text-slate-900 dark:text-white">Omni<span class="text-blue-600">Fit</span></h1>
-                <span class="text-[9px] font-black opacity-40 uppercase tracking-[0.2em] mt-1 text-slate-800 dark:text-gray-300">Global Community Edition</span>
             </div>
-            <button onclick="toggleDarkMode()" id="themeBtn" class="w-14 h-14 rounded-full card flex items-center justify-center text-2xl btn-press text-slate-800 dark:text-white">🌙</button>
+            <div class="flex items-center gap-3">
+                <button onclick="alert(currentLang === 'en' ? 'Direct Messages coming soon!' : '私密對話功能即將推出！')" class="w-12 h-12 rounded-full card flex items-center justify-center text-xl btn-press text-slate-800 dark:text-white" title="DM">💬</button>
+                <button onclick="toggleDarkMode()" id="themeBtn" class="w-12 h-12 rounded-full card flex items-center justify-center text-xl btn-press text-slate-800 dark:text-white">🌙</button>
+            </div>
         </header>
 
         <div id="mealHubTab" class="tab-content active">
@@ -263,7 +262,6 @@
         </div>
 
         <div id="gymTab" class="tab-content">
-            
             <div class="sub-nav-container mb-6 shadow-sm">
                 <div onclick="switchGymSub('today')" id="gsub-today" class="sub-tab active" data-i18n="nav_today_train">今日訓練</div>
                 <div onclick="switchGymSub('planner')" id="gsub-planner" class="sub-tab" data-i18n="nav_7day_train">7日課表</div>
@@ -385,7 +383,6 @@
                     <div id="calGrid" class="cal-grid">
                         </div>
                 </div>
-                
                 <div id="gymHistoryList" class="space-y-4">
                     <p class="text-center opacity-40 font-black py-10 text-sm" data-i18n="select_date_cal">請選擇日曆上的日期</p>
                 </div>
@@ -397,6 +394,7 @@
             <div class="sub-nav-container mb-6 shadow-sm">
                 <div onclick="switchCommSub('feed')" id="csub-feed" class="sub-tab active" data-i18n="comm_feed">動態牆</div>
                 <div onclick="switchCommSub('post')" id="csub-post" class="sub-tab" data-i18n="my_post">發佈新動態</div>
+                <div onclick="switchCommSub('profile')" id="csub-profile" class="sub-tab" data-i18n="comm_profile">個人主頁</div>
             </div>
 
             <div id="csubContent-feed" class="comm-sub-content">
@@ -412,7 +410,10 @@
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-100 dark:bg-pink-900/30 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
                     
                     <div class="flex items-center gap-3 mb-6 relative z-10">
-                        <div class="w-12 h-12 bg-gradient-to-tr from-pink-500 to-orange-400 rounded-full flex items-center justify-center text-white font-black shadow-md">Me</div>
+                        <div class="w-12 h-12 bg-gradient-to-tr from-pink-500 to-orange-400 rounded-full flex items-center justify-center text-white font-black shadow-md overflow-hidden">
+                            <img id="postAvatarPreview" src="" class="w-full h-full object-cover hidden">
+                            <span id="postAvatarFallback">👤</span>
+                        </div>
                         <div>
                             <h2 class="text-lg font-black text-slate-800 dark:text-white" data-i18n="my_post">發佈新動態</h2>
                             <p class="text-[10px] font-bold text-slate-500 dark:text-gray-400" data-i18n="comm_desc">分享您的努力，激勵更多人！</p>
@@ -421,9 +422,9 @@
                     
                     <div class="mb-5 relative z-10">
                         <select id="postType" class="w-full p-4 font-black text-sm text-slate-800 dark:text-white shadow-sm bg-gray-100 dark:bg-gray-800 border-none">
-                            <option value="diet">🍱 美味飲食分享</option>
-                            <option value="training">💪 訓練動作紀錄</option>
-                            <option value="physique">👤 體態轉變</option>
+                            <option value="diet" data-i18n="type_diet">🍱 美味飲食分享</option>
+                            <option value="training" data-i18n="type_training">💪 訓練動作紀錄</option>
+                            <option value="physique" data-i18n="type_physique">👤 體態轉變</option>
                         </select>
                     </div>
 
@@ -447,6 +448,37 @@
                     <button onclick="publishPost()" class="w-full bg-pink-500 text-white p-4 rounded-2xl font-black text-sm shadow-xl shadow-pink-500/30 mt-6 btn-press relative z-10" data-i18n="btn_publish">發佈至動態牆</button>
                 </div>
             </div>
+
+            <div id="csubContent-profile" class="comm-sub-content hidden text-slate-800 dark:text-white">
+                <div class="card p-8 mb-6 text-center border-t-8 border-indigo-500 relative overflow-hidden">
+                    <div class="absolute -left-10 -top-10 w-32 h-32 bg-indigo-100 dark:bg-indigo-900/30 rounded-full opacity-50 blur-3xl pointer-events-none"></div>
+                    
+                    <label class="relative inline-block w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 mx-auto mb-4 cursor-pointer overflow-hidden shadow-lg border-4 border-white dark:border-gray-800 transition-transform hover:scale-105 z-10">
+                        <img id="profileAvatarImg" src="" class="w-full h-full object-cover hidden">
+                        <div id="profileAvatarText" class="w-full h-full flex items-center justify-center text-4xl">👤</div>
+                        <input type="file" accept="image/*" class="hidden" onchange="uploadAvatar(this)">
+                        <div class="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-[8px] font-black py-1">EDIT</div>
+                    </label>
+                    
+                    <div class="relative z-10 max-w-[250px] mx-auto">
+                        <input id="profileName" type="text" class="w-full text-center text-2xl font-black bg-transparent border-none mb-1 text-slate-800 dark:text-white focus:bg-gray-100 dark:focus:bg-gray-800 rounded-xl" value="Omni User" onchange="saveProfile()">
+                        <textarea id="profileBio" class="w-full text-center text-xs font-bold text-slate-500 dark:text-gray-400 bg-transparent border-none resize-none focus:bg-gray-100 dark:focus:bg-gray-800 rounded-xl p-1" rows="2" onchange="saveProfile()">每天都要比昨天更強！</textarea>
+                    </div>
+
+                    <div class="flex justify-center gap-8 mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 relative z-10">
+                        <div class="text-center"><p id="profilePostsCount" class="text-xl font-black text-indigo-600 dark:text-indigo-400">0</p><p class="text-[10px] uppercase font-black opacity-60" data-i18n="stats_posts">貼文</p></div>
+                        <div class="text-center"><p id="profileFollowers" class="text-xl font-black text-slate-800 dark:text-white">128</p><p class="text-[10px] uppercase font-black opacity-60" data-i18n="stats_followers">粉絲</p></div>
+                        <div class="text-center"><p id="profileFollowing" class="text-xl font-black text-slate-800 dark:text-white">45</p><p class="text-[10px] uppercase font-black opacity-60" data-i18n="stats_following">追蹤中</p></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 mb-4 px-2">
+                    <span class="text-lg">📸</span>
+                    <h3 class="font-black text-sm" data-i18n="my_works">我的作品與分享</h3>
+                </div>
+                <div id="myPostsGrid" class="grid grid-cols-2 gap-3 pb-10">
+                    </div>
+            </div>
         </div>
 
         <div id="userTab" class="tab-content text-slate-800 dark:text-white">
@@ -466,14 +498,14 @@
                 </div>
                 
                 <div class="mb-8 relative z-10">
-                    <p class="text-[10px] font-black text-slate-500 dark:text-gray-400 mb-2 pl-2 uppercase tracking-widest" data-i18n="pal">活動量係數 (PAL)</p>
+                    <p class="text-[10px] font-black text-slate-500 dark:text-gray-400 mb-2 pl-2 uppercase tracking-widest" data-i18n="pal">活動量</p>
                     <select id="uAct" class="w-full p-5 text-sm font-bold shadow-sm text-slate-800 dark:text-white">
-                        <option value="1.2" data-i18n="pal_1_2">💻 1.2 久坐 (辦公族、幾乎不運動)</option>
-                        <option value="1.375" data-i18n="pal_1_375">🚶 1.375 輕度 (每週輕鬆活動 1-3 天)</option>
-                        <option value="1.465" data-i18n="pal_1_465">🏃 1.465 中輕度 (每週規律健身 3-4 天)</option>
-                        <option value="1.55" data-i18n="pal_1_55">🏃 1.55 中度 (每週規律訓練 5-6 天)</option>
-                        <option value="1.725" data-i18n="pal_1_725">🏋️ 1.725 高度 (每日重訓或勞動力工作)</option>
-                        <option value="1.9" data-i18n="pal_1_9">🔥 1.9 極高 (專業運動員、長期競技)</option>
+                        <option value="1.2" data-i18n="pal_1_2">💻 久坐 (辦公族、幾乎不運動)</option>
+                        <option value="1.375" data-i18n="pal_1_375">🚶 輕度 (每週輕鬆活動 1-3 天)</option>
+                        <option value="1.465" data-i18n="pal_1_465">🏃 中輕度 (每週規律健身 3-4 天)</option>
+                        <option value="1.55" data-i18n="pal_1_55">🏃 中度 (每週規律訓練 5-6 天)</option>
+                        <option value="1.725" data-i18n="pal_1_725">🏋️ 高度 (每日重訓或勞動力工作)</option>
+                        <option value="1.9" data-i18n="pal_1_9">🔥 極高 (專業運動員、長期競技)</option>
                     </select>
                 </div>
                 
@@ -520,10 +552,8 @@
                 
                 <div class="space-y-4">
                     <div class="flex justify-between items-center bg-gray-100 dark:bg-gray-800/80 p-5 rounded-2xl border border-gray-200 dark:border-gray-700">
-                        <div>
-                            <p class="font-black text-sm" data-i18n="lang_setting">介面語言 / Language</p>
-                        </div>
-                        <select id="langSelect" onchange="setLang(this.value)" class="p-2 text-sm bg-white dark:bg-gray-700">
+                        <p class="font-black text-sm" data-i18n="lang_setting">介面語言 / Language</p>
+                        <select id="langSelect" onchange="setLang(this.value)" class="p-2 text-sm bg-white dark:bg-gray-700 rounded-xl border-none font-bold">
                             <option value="zh">繁體中文</option>
                             <option value="en">English</option>
                         </select>
@@ -539,16 +569,33 @@
                             <div class="toggle-switch"></div>
                         </label>
                     </div>
+                </div>
+
+                <div class="space-y-3 mt-8">
+                    <h3 class="text-xs font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest px-2 mb-4" data-i18n="legal_support">法律與支援</h3>
                     
-                    <div class="flex justify-between items-center bg-gray-100 dark:bg-gray-800/80 p-5 rounded-2xl border border-gray-200 dark:border-gray-700">
-                        <div>
-                            <p class="font-black text-sm" data-i18n="dark_mode">深色模式</p>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" class="sr-only toggle-checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
-                            <div class="toggle-switch"></div>
-                        </label>
-                    </div>
+                    <button class="w-full text-left bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl font-bold text-sm text-slate-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 flex justify-between btn-press" onclick="alert(currentLang==='en'?'Coming Soon':'即將推出')">
+                        <span data-i18n="privacy_policy">隱私政策</span> <span>📄</span>
+                    </button>
+                    <button class="w-full text-left bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl font-bold text-sm text-slate-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 flex justify-between btn-press" onclick="alert(currentLang==='en'?'Coming Soon':'即將推出')">
+                        <span data-i18n="tos">服務條款</span> <span>📜</span>
+                    </button>
+                    <button class="w-full text-left bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl font-bold text-sm text-slate-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 flex justify-between btn-press" onclick="alert(currentLang==='en'?'Coming Soon':'即將推出')">
+                        <span data-i18n="health_disclaimer">健康免責聲明</span> <span>⚕️</span>
+                    </button>
+                    <button class="w-full text-left bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl font-bold text-sm text-slate-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 flex justify-between btn-press" onclick="alert(currentLang==='en'?'Coming Soon':'即將推出')">
+                        <span data-i18n="content_mod">社群內容審核聲明</span> <span>🛡️</span>
+                    </button>
+                    <button class="w-full text-left bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl font-bold text-sm text-slate-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 flex justify-between btn-press" onclick="alert(currentLang==='en'?'Coming Soon':'即將推出')">
+                        <span data-i18n="permissions">權限導覽</span> <span>🔐</span>
+                    </button>
+                    <button class="w-full text-left bg-blue-50 dark:bg-blue-900/20 p-4 rounded-2xl font-black text-sm text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800/50 flex justify-between btn-press" onclick="alert(currentLang==='en'?'Coming Soon':'即將推出')">
+                        <span data-i18n="contact_support">聯繫支援 / 意見回饋</span> <span>💬</span>
+                    </button>
+                </div>
+                
+                <div class="text-center mt-10 opacity-30 font-black text-xs tracking-widest" data-i18n="version">
+                    版本 1.0.0 (Build 26)
                 </div>
             </div>
         </div>
@@ -576,10 +623,12 @@
                 btn_save_record: "儲存紀錄", daily_plan_total: "當日規劃總額", edit_plan: "📅 編排", btn_add_list: "加入清單", qty: "份量 / Qty",
                 create_recipe: "🥑 建立食譜組合", selected_ingredients: "已選食材清單", btn_save_recipe: "封裝食譜",
                 vol_trend: "近 7 日容量趨勢", workout_log: "🏋️‍♂️ 訓練日誌", strength: "重量訓練", cardio: "有氧運動", weight_kg: "重量 (KG)", sets: "組數", reps: "次數", time_mins: "時間 (分鐘)", distance_km: "距離 (KM)", today_list: "今日清單",
-                history_query: "📜 歷史紀錄查詢", comm_feed: "動態牆", search_comm: "🔍 搜尋用戶或內容...", my_post: "發佈新動態", comm_desc: "分享您的努力，激勵更多人！", post_type: "貼文類型", upload_media: "點擊上傳相片或短片", btn_publish: "發佈至動態牆", post_placeholder: "今天練得如何？寫下一些心得紀錄吧...",
-                user_core: "個人數據核心", curr_weight: "目前體重 (KG)", target_weight: "目標體重 (KG)", gender: "性別", age: "年齡", height: "身高 (CM)", pal: "活動量係數 (PAL)", btn_sync_data: "同步運算核心數據", ai_target: "AI 建議攝取目標", weight_chart: "體重軌跡", calorie_trend: "熱量攝取趨勢", label_tdee: "維持 TDEE", label_bmi: "身體質量 BMI", label_target_dist: "距目標體重",
-                pal_1_2: "💻 1.2 久坐 (辦公族、幾乎不運動)", pal_1_375: "🚶 1.375 輕度 (每週輕鬆活動 1-3 天)", pal_1_465: "🏃 1.465 中輕度 (每週規律健身 3-4 天)", pal_1_55: "🏃 1.55 中度 (每週規律訓練 5-6 天)", pal_1_725: "🏋️ 1.725 高度 (每日重訓或勞動力工作)", pal_1_9: "🔥 1.9 極高 (專業運動員、長期競技)", male: "男", female: "女", range_7: "7天", range_30: "30天", range_all: "全部",
-                sys_settings: "系統設定", lang_setting: "介面語言 / Language", health_sync: "連接 Apple Health / Fit", health_sync_desc: "自動同步步數與體重", dark_mode: "深色模式", calculating: "計算中...", rest_timer: "休息: 00:00", select_date_cal: "請選擇日曆上的日期"
+                history_query: "📜 歷史紀錄查詢", comm_feed: "動態牆", search_comm: "🔍 搜尋用戶或內容...", my_post: "發佈新動態", comm_profile: "個人主頁", comm_desc: "分享您的努力，激勵更多人！", post_type: "貼文類型", upload_media: "點擊上傳相片或短片", btn_publish: "發佈至動態牆", post_placeholder: "今天練得如何？寫下一些心得紀錄吧...", 
+                type_diet: "🍱 美味飲食分享", type_training: "💪 訓練動作紀錄", type_physique: "👤 體態轉變", comment_placeholder: "留言...", btn_comment: "發佈", stats_posts: "貼文", stats_followers: "粉絲", stats_following: "追蹤中", my_works: "我的作品與分享",
+                user_core: "個人數據核心", curr_weight: "目前體重 (KG)", target_weight: "目標體重 (KG)", gender: "性別", age: "年齡", height: "身高 (CM)", pal: "活動量", btn_sync_data: "同步運算核心數據", ai_target: "AI 建議攝取目標", weight_chart: "體重軌跡", calorie_trend: "熱量攝取趨勢", label_tdee: "維持 TDEE", label_bmi: "身體質量 BMI", label_target_dist: "距目標體重",
+                pal_1_2: "💻 久坐 (辦公族、幾乎不運動)", pal_1_375: "🚶 輕度 (每週輕鬆活動 1-3 天)", pal_1_465: "🏃 中輕度 (每週規律健身 3-4 天)", pal_1_55: "🏃 中度 (每週規律訓練 5-6 天)", pal_1_725: "🏋️ 高度 (每日重訓或勞動力工作)", pal_1_9: "🔥 極高 (專業運動員、長期競技)", male: "男", female: "女", range_7: "7天", range_30: "30天", range_all: "全部",
+                sys_settings: "系統設定", lang_setting: "介面語言 / Language", health_sync: "連接 Apple Health / Fit", health_sync_desc: "自動同步步數與體重", dark_mode: "深色模式", calculating: "計算中...", rest_timer: "休息: 00:00", select_date_cal: "請選擇日曆上的日期",
+                legal_support: "法律與支援", privacy_policy: "隱私政策", tos: "服務條款", health_disclaimer: "健康免責聲明", content_mod: "社群內容審核聲明", permissions: "權限導覽", contact_support: "聯繫支援 / 意見回饋", version: "版本 1.0.0 (Build 26)", report_post: "檢舉貼文", block_user: "封鎖用戶"
             },
             en: {
                 nav_diet: "Diet", nav_gym: "Gym", nav_comm: "Social", nav_user: "User", nav_settings: "Settings",
@@ -588,10 +637,12 @@
                 btn_save_record: "Save Record", daily_plan_total: "Daily Plan Total", edit_plan: "📅 Plan", btn_add_list: "Add to List", qty: "Quantity",
                 create_recipe: "🥑 Create Recipe", selected_ingredients: "Selected Ingredients", btn_save_recipe: "Save Recipe",
                 vol_trend: "7-Day Volume Trend", workout_log: "🏋️‍♂️ Workout Log", strength: "Strength", cardio: "Cardio", weight_kg: "Weight (KG)", sets: "Sets", reps: "Reps", time_mins: "Time (Mins)", distance_km: "Distance (KM)", today_list: "Today's List",
-                history_query: "📜 History Query", comm_feed: "Feed", search_comm: "🔍 Search users or posts...", my_post: "Create Post", comm_desc: "Share and inspire others!", post_type: "Post Type", upload_media: "Upload Photo/Video", btn_publish: "Publish to Feed", post_placeholder: "How was your workout today? Write a log...",
-                user_core: "Core Data", curr_weight: "Current Weight (KG)", target_weight: "Target Weight (KG)", gender: "Gender", age: "Age", height: "Height (CM)", pal: "Activity Level (PAL)", btn_sync_data: "Sync Core Data", ai_target: "AI Calorie Goal", weight_chart: "Weight Tracker", calorie_trend: "Calorie Trend", label_tdee: "Maint. TDEE", label_bmi: "Body Mass BMI", label_target_dist: "To Target",
-                pal_1_2: "💻 1.2 Sedentary (Office job)", pal_1_375: "🚶 1.375 Light (Exercise 1-3 days/wk)", pal_1_465: "🏃 1.465 Moderate-Light (3-4 days/wk)", pal_1_55: "🏃 1.55 Moderate (5-6 days/wk)", pal_1_725: "🏋️ 1.725 Heavy (Daily hard training/labor)", pal_1_9: "🔥 1.9 Extreme (Pro athlete)", male: "Male", female: "Female", range_7: "7 Days", range_30: "30 Days", range_all: "All",
-                sys_settings: "System Settings", lang_setting: "Language", health_sync: "Connect Health/Fit", health_sync_desc: "Auto-sync steps & weight", dark_mode: "Dark Mode", calculating: "Calculating...", rest_timer: "Rest: 00:00", select_date_cal: "Please select a date on calendar"
+                history_query: "📜 History Query", comm_feed: "Feed", search_comm: "🔍 Search users or posts...", my_post: "Create Post", comm_profile: "Profile", comm_desc: "Share and inspire others!", post_type: "Post Type", upload_media: "Upload Photo/Video", btn_publish: "Publish to Feed", post_placeholder: "How was your workout today? Write a log...",
+                type_diet: "🍱 Diet Share", type_training: "💪 Training Log", type_physique: "👤 Physique Update", comment_placeholder: "Add a comment...", btn_comment: "Post", stats_posts: "Posts", stats_followers: "Followers", stats_following: "Following", my_works: "My Posts & Media",
+                user_core: "Core Data", curr_weight: "Current Weight (KG)", target_weight: "Target Weight (KG)", gender: "Gender", age: "Age", height: "Height (CM)", pal: "Activity Level", btn_sync_data: "Sync Core Data", ai_target: "AI Calorie Goal", weight_chart: "Weight Tracker", calorie_trend: "Calorie Trend", label_tdee: "Maint. TDEE", label_bmi: "Body Mass BMI", label_target_dist: "To Target",
+                pal_1_2: "💻 Sedentary (Office job)", pal_1_375: "🚶 Light (Exercise 1-3 days/wk)", pal_1_465: "🏃 Mod-Light (3-4 days/wk)", pal_1_55: "🏃 Moderate (5-6 days/wk)", pal_1_725: "🏋️ Heavy (Daily hard training/labor)", pal_1_9: "🔥 Extreme (Pro athlete)", male: "Male", female: "Female", range_7: "7 Days", range_30: "30 Days", range_all: "All",
+                sys_settings: "System Settings", lang_setting: "Language", health_sync: "Connect Health/Fit", health_sync_desc: "Auto-sync steps & weight", dark_mode: "Dark Mode", calculating: "Calculating...", rest_timer: "Rest: 00:00", select_date_cal: "Please select a date on calendar",
+                legal_support: "Legal & Support", privacy_policy: "Privacy Policy", tos: "Terms of Service", health_disclaimer: "Health Disclaimer", content_mod: "Content Moderation", permissions: "Permissions", contact_support: "Contact Support / Feedback", version: "Version 1.0.0 (Build 26)", report_post: "Report Post", block_user: "Block User"
             }
         };
 
@@ -614,6 +665,10 @@
                     }
                 }
             });
+            
+            document.querySelectorAll('.comment-input').forEach(el => { el.placeholder = i18nDict[lang]['comment_placeholder']; });
+            document.querySelectorAll('.btn-comment').forEach(el => { el.innerText = i18nDict[lang]['btn_comment']; });
+
             NetAPI.save('lang_vDual', lang);
             document.getElementById('langSelect').value = lang;
             
@@ -657,13 +712,13 @@
             {name:"番茄肉醬義大利麵 (Spaghetti Bolognese)",p:20,c:65,f:15}, {name:"千層麵 (Lasagna/份)",p:22,c:50,f:20}, {name:"蛤蜊巧達湯 (Clam Chowder/碗)",p:8,c:20,f:12}, {name:"番茄濃湯 (Tomato Soup/碗)",p:2,c:15,f:4}
         ];
 
+        // --- 完整雙語動作庫 ---
         const gymDB = ["槓鈴臥推 (Barbell Bench Press)", "啞鈴臥推 (Dumbbell Bench Press)", "上胸臥推 (Incline Bench Press)", "下胸臥推 (Decline Bench Press)", "機械飛鳥 (Machine Fly)", "滑輪下拉 (Lat Pulldown)", "引體向上 (Pull-up)", "槓鈴划船 (Barbell Row)", "啞鈴划船 (Dumbbell Row)", "坐姿划船 (Seated Row)", "槓鈴深蹲 (Barbell Squat)", "頸前深蹲 (Front Squat)", "硬舉 (Deadlift)", "腿推舉 (Leg Press)", "羅馬尼亞硬舉 (Romanian Deadlift)", "保加利亞分腿蹲 (Bulgarian Split Squat)", "腿彎舉 (Leg Curl)", "腿伸直 (Leg Extension)", "槓鈴肩推 (Barbell Shoulder Press)", "啞鈴肩推 (Dumbbell Shoulder Press)", "側平舉 (Lateral Raise)", "前平舉 (Front Raise)", "滑輪側平舉 (Cable Lateral Raise)", "反向飛鳥 (Reverse Fly)", "二頭彎舉 (Bicep Curl)", "錘式彎舉 (Hammer Curl)", "三頭下壓 (Tricep Pushdown)", "法式彎舉 (Skull Crusher)", "仰臥起坐 (Sit-up)", "棒式 (Plank)", "捲腹 (Crunch)", "俄羅斯轉體 (Russian Twist)", "波比跳 (Burpee)", "羅馬椅挺身 (Hyperextension)", 
         "滑輪夾胸 (Cable Crossover)", "滑輪面拉 (Face Pull)", "滑輪單臂划船 (Single-arm Cable Row)", "滑輪飛鳥 (Cable Fly)", "滑輪過頭三頭伸展 (Overhead Tricep Extension)", "滑輪直臂下拉 (Straight-arm Pulldown)", 
         "壺鈴擺盪 (Kettlebell Swing)", "壺鈴深蹲 (Kettlebell Squat)", "壺鈴土耳其起立 (Turkish Get-up)", "壺鈴肩推 (Kettlebell Press)", "壺鈴高腳杯深蹲 (Goblet Squat)", "壺鈴農夫走路 (Farmer's Walk)", "壺鈴單臂划船 (Single-arm KB Row)", "壺鈴硬舉 (Kettlebell Deadlift)"];
-        
         const cardioDB = ["跑步 (Running)", "自行車 (Cycling)", "游泳 (Swimming)", "橢圓機 (Elliptical)", "划船機 (Rowing Machine)", "階梯機 (Stair Climber)", "跳繩 (Jump Rope)", "有氧操 (Aerobics)", "HIIT (High-Intensity Interval Training)"];
 
-        const KEYS = { logs: 'logs_vDual', recipes: 'recipes_vDual', plans: 'plans_vDual', user: 'user_vDual', gym: 'gym_vDual', theme: 'theme_vDual', gymPlans: 'gymPlans_vDual', posts: 'posts_vDual' };
+        const KEYS = { logs: 'logs_vDual', recipes: 'recipes_vDual', plans: 'plans_vDual', user: 'user_vDual', gym: 'gym_vDual', theme: 'theme_vDual', gymPlans: 'gymPlans_vDual', posts: 'posts_vDual', profile: 'profile_vDual' };
         
         let logs = NetAPI.load(KEYS.logs) || {};
         let recipes = NetAPI.load(KEYS.recipes) || [];
@@ -671,6 +726,8 @@
         let user = NetAPI.load(KEYS.user) || { gender:'male', h:175, w:75, targetW:70, a:25, act:1.2, weights:[], water:{} };
         let gym = NetAPI.load(KEYS.gym) || {};
         let communityPosts = NetAPI.load(KEYS.posts) || [];
+        let socialProfile = NetAPI.load(KEYS.profile) || { name: 'Omni User', bio: '每天都要比昨天更強！', avatar: '', followers: 128, following: 45, likedPosts: [] };
+        if(!socialProfile.likedPosts) socialProfile.likedPosts = [];
         
         let currentGymPlanDay = '週一';
         let today = new Date().toLocaleDateString();
@@ -681,7 +738,6 @@
         let currentGymType = 'strength'; 
         let currentWeightRange = 7;
         let currentCalMonth = new Date();
-        
         let activeFood = { today: {p:0, c:0, f:0}, plan: {p:0, c:0, f:0} };
 
         // ================= 導航切換 =================
@@ -695,7 +751,7 @@
             if(t === 'user') { renderUserStats(); setTimeout(initCharts, 100); }
             if(t === 'gym') { renderGym(); setTimeout(initGymChart, 100); renderHistoryCalendar(); }
             if(t === 'mealHub') renderLogs();
-            if(t === 'community') renderFeed();
+            if(t === 'community') { renderProfile(); renderFeed(); }
         }
 
         function switchMealSub(st) {
@@ -723,6 +779,7 @@
             document.querySelectorAll('#communityTab .sub-tab').forEach(b => b.classList.remove('active'));
             document.getElementById('csub-' + st).classList.add('active');
             if(st === 'feed') renderFeed();
+            if(st === 'profile') renderProfile();
         }
 
         function setGymType(type) {
@@ -750,9 +807,7 @@
             const box = document.getElementById(boxes[mode]);
             if(!q) { box.classList.add('hidden'); return; }
             let pool = (mode === 'today' || mode === 'plan') ? [...recipes, ...baseDB] : [...baseDB];
-            
             const matches = pool.filter(f => f.name.toLowerCase().includes(q.toLowerCase())).slice(0, 10);
-            
             box.innerHTML = matches.map(f => {
                 let kcal = Math.round(f.p*4 + f.c*4 + f.f*9);
                 return `<div class="p-5 border-b border-gray-200 dark:border-gray-700 cursor-pointer font-black text-sm hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors text-slate-800 dark:text-white" onclick="selectFood('${f.name.replace(/'/g, "\\'")}', ${f.p}, ${f.c}, ${f.f}, '${mode}')">
@@ -776,10 +831,7 @@
                 document.getElementById(searchEl).value = n;
                 activeFood[mode] = { p:p, c:c, f:f };
                 if(document.getElementById(qtyEl)) document.getElementById(qtyEl).value = 1;
-                
-                document.getElementById(pEl).value = p;
-                document.getElementById(cEl).value = c;
-                document.getElementById(fEl).value = f;
+                document.getElementById(pEl).value = p; document.getElementById(cEl).value = c; document.getElementById(fEl).value = f;
             }
             document.querySelectorAll('.suggestion-box').forEach(b => b.classList.add('hidden'));
         }
@@ -1032,7 +1084,6 @@
             const text = document.getElementById('restTimerText');
             display.classList.remove('hidden');
             
-            // 請求通知權限
             if ("Notification" in window && Notification.permission !== "granted") {
                 Notification.requestPermission();
             }
@@ -1046,10 +1097,8 @@
                     clearInterval(restTimer);
                     text.innerText = "🔥";
                     
-                    // 觸發震動
                     if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 800]);
                     
-                    // 觸發系統通知
                     if ("Notification" in window && Notification.permission === "granted") {
                         new Notification("OmniFit", {
                             body: currentLang === 'en' ? "Rest is over! Get back to work! 💪" : "休息結束，準備下一組訓練！💪",
@@ -1089,6 +1138,7 @@
             NetAPI.save(KEYS.gym, gym);
             document.getElementById('gName').value = '';
             renderGym(); setTimeout(initGymChart, 100);
+            renderHistoryCalendar();
         }
 
         function renderGym() {
@@ -1112,7 +1162,7 @@
             document.getElementById('dailyVolume').innerText = dailyVol;
         }
 
-        function removeGym(idx) { gym[today].splice(idx, 1); NetAPI.save(KEYS.gym, gym); renderGym(); setTimeout(initGymChart, 100); }
+        function removeGym(idx) { gym[today].splice(idx, 1); NetAPI.save(KEYS.gym, gym); renderGym(); setTimeout(initGymChart, 100); renderHistoryCalendar(); }
 
         function initGymChart() {
             if(gymChartInstance) gymChartInstance.destroy();
@@ -1140,10 +1190,8 @@
             const daysInMonth = new Date(y, m + 1, 0).getDate();
             
             let gridHTML = '';
-            // Empty slots
             for(let i=0; i<firstDay; i++) { gridHTML += `<div class="cal-day empty"></div>`; }
             
-            // Days
             let todayObj = new Date();
             let isCurrentMonth = (todayObj.getFullYear() === y && todayObj.getMonth() === m);
             let todayDate = todayObj.getDate();
@@ -1170,7 +1218,7 @@
             let dayGym = gym[dateStr] || [];
 
             if(dayGym.length === 0) {
-                container.innerHTML = `<p class="text-center opacity-40 font-black py-10 text-sm">${currentLang==='en'?'No Records':'無紀錄'}</p>`; return;
+                container.innerHTML = `<p class="text-center opacity-40 font-black py-10 text-sm" data-i18n="select_date_cal">${currentLang==='en'?'No Records':'請選擇日曆上的日期'}</p>`; return;
             }
             
             let dailyVol = dayGym.reduce((sum, g) => sum + g.v, 0);
@@ -1225,9 +1273,57 @@
         }
         function removeGymPlan(idx) { gymPlanner[currentGymPlanDay].splice(idx, 1); NetAPI.save(KEYS.gymPlans, gymPlanner); renderGymPlanList(); }
 
-        // ================= 社群動態牆 (Feed & Post) =================
+        // ================= 社群動態牆 (Feed, Post & Profile) =================
         let tempMediaData = null;
         let tempMediaType = null;
+
+        function renderProfile() {
+            document.getElementById('profileName').value = socialProfile.name;
+            document.getElementById('profileBio').value = socialProfile.bio;
+            document.getElementById('profileFollowers').innerText = socialProfile.followers;
+            document.getElementById('profileFollowing').innerText = socialProfile.following;
+            
+            if(socialProfile.avatar) {
+                document.getElementById('profileAvatarImg').src = socialProfile.avatar;
+                document.getElementById('profileAvatarImg').classList.remove('hidden');
+                document.getElementById('profileAvatarText').classList.add('hidden');
+                document.getElementById('postAvatarPreview').src = socialProfile.avatar;
+                document.getElementById('postAvatarPreview').classList.remove('hidden');
+                document.getElementById('postAvatarFallback').classList.add('hidden');
+            }
+
+            let myPosts = communityPosts.filter(p => p.author === socialProfile.name);
+            document.getElementById('profilePostsCount').innerText = myPosts.length;
+            
+            const grid = document.getElementById('myPostsGrid');
+            grid.innerHTML = myPosts.map(p => {
+                if(p.media) {
+                    if(p.mediaType === 'video') return `<div class="aspect-square bg-black rounded-2xl overflow-hidden relative"><video src="${p.media}" class="w-full h-full object-cover opacity-80"></video><span class="absolute top-2 right-2 text-white drop-shadow-md text-xs">📹</span></div>`;
+                    return `<div class="aspect-square bg-black rounded-2xl overflow-hidden"><img src="${p.media}" class="w-full h-full object-cover"></div>`;
+                } else {
+                    return `<div class="aspect-square bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl p-4 flex items-center justify-center text-center"><p class="text-xs font-black text-indigo-700 dark:text-indigo-300 line-clamp-4">${p.text}</p></div>`;
+                }
+            }).join('');
+        }
+
+        function saveProfile() {
+            socialProfile.name = document.getElementById('profileName').value || 'Omni User';
+            socialProfile.bio = document.getElementById('profileBio').value || '';
+            NetAPI.save(KEYS.profile, socialProfile);
+            renderFeed(); 
+        }
+
+        function uploadAvatar(input) {
+            if(input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    socialProfile.avatar = e.target.result;
+                    NetAPI.save(KEYS.profile, socialProfile);
+                    renderProfile();
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
         document.getElementById('mediaUpload').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -1248,7 +1344,6 @@
                     tempMediaType = 'image';
                 }
                 
-                // 在真實環境中，應該上傳至 Cloudinary 等取得 URL，此處為 Base64 模擬
                 const reader = new FileReader();
                 reader.onloadend = () => { tempMediaData = reader.result; };
                 reader.readAsDataURL(file);
@@ -1269,38 +1364,41 @@
 
             const newPost = {
                 id: Date.now(),
-                author: 'Me',
-                avatar: 'M',
+                author: socialProfile.name,
+                avatarURL: socialProfile.avatar,
                 text: text,
-                type: type, // diet, training, physique
+                type: type,
                 media: tempMediaData,
                 mediaType: tempMediaType,
                 date: new Date().toLocaleString(),
-                likes: 0
+                likes: 0,
+                comments: [] 
             };
 
             communityPosts.unshift(newPost);
             NetAPI.save(KEYS.posts, communityPosts);
             
-            // 清空輸入
             document.getElementById('postText').value = '';
             document.getElementById('mediaUpload').value = '';
             document.getElementById('mediaPreviewContainer').classList.add('hidden');
             tempMediaData = null; tempMediaType = null;
 
-            // 切回 Feed
             switchCommSub('feed');
+        }
+
+        function togglePostMenu(id) {
+            let menu = document.getElementById('postMenu-' + id);
+            if(menu) menu.classList.toggle('hidden');
         }
 
         function renderFeed() {
             const container = document.getElementById('feedList');
             const q = document.getElementById('socialSearch').value.toLowerCase();
             
-            // 系統預設假資料，如果為空
             if(communityPosts.length === 0) {
                 communityPosts = [
-                    { id: 1, author: 'Alex_Fitness', avatar: 'A', text: 'Just hit a new PR on Deadlift! 140kg x 5! 🔥💪', type: 'training', date: '2026/03/24', likes: 12 },
-                    { id: 2, author: 'HealthyEats', avatar: 'H', text: '今天的增肌餐：烤鮭魚配藜麥與大量蔬菜。', type: 'diet', date: '2026/03/24', likes: 8 }
+                    { id: 1, author: 'Alex_Fitness', avatarURL: '', text: 'Just hit a new PR on Deadlift! 140kg x 5! 🔥💪', type: 'training', date: '2026/03/24', likes: 12, comments: [{author: 'GymBro', text: 'Beast mode!!'}] },
+                    { id: 2, author: 'HealthyEats', avatarURL: '', text: '今天的增肌餐：烤鮭魚配藜麥與大量蔬菜。', type: 'diet', date: '2026/03/24', likes: 8, comments: [] }
                 ];
             }
 
@@ -1316,23 +1414,61 @@
                         mediaHTML = `<img src="${p.media}" class="w-full rounded-2xl mt-3 object-cover max-h-80">`;
                     }
                 }
+                
+                let avatarDOM = p.avatarURL ? 
+                    `<img src="${p.avatarURL}" class="w-10 h-10 rounded-full object-cover">` : 
+                    `<div class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-400 rounded-full flex items-center justify-center text-white font-black shadow-md">${p.author.charAt(0)}</div>`;
+
+                let commentsHTML = (p.comments || []).map(c => `
+                    <div class="bg-gray-100 dark:bg-gray-800/80 p-2.5 rounded-xl mt-2 text-[11px]">
+                        <span class="font-black text-slate-800 dark:text-gray-200">${c.author}:</span>
+                        <span class="text-slate-600 dark:text-gray-400 ml-1">${c.text}</span>
+                    </div>
+                `).join('');
+
+                let placeholderText = currentLang === 'en' ? 'Add a comment...' : '留言...';
+                let btnText = currentLang === 'en' ? 'Post' : '發佈';
+                
+                // Like Logic
+                let isLiked = socialProfile.likedPosts.includes(p.id);
+                let heartIcon = isLiked ? '❤️' : '🤍';
+                
+                let reportTxt = currentLang === 'en' ? 'Report Post' : '檢舉貼文';
+                let blockTxt = currentLang === 'en' ? 'Block User' : '封鎖用戶';
 
                 return `<div class="card p-5 border-t-4 border-pink-400 dark:border-pink-600">
                     <div class="flex justify-between items-start mb-3">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-400 rounded-full flex items-center justify-center text-white font-black shadow-md">${p.avatar}</div>
+                            ${avatarDOM}
                             <div>
                                 <p class="font-black text-sm text-slate-800 dark:text-white">${p.author}</p>
                                 <p class="text-[10px] text-slate-500 dark:text-gray-400">${p.date}</p>
                             </div>
                         </div>
-                        <span class="text-[10px] font-black bg-pink-100 dark:bg-pink-900/40 text-pink-600 px-2 py-1 rounded-lg">${badge}</span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-black bg-pink-100 dark:bg-pink-900/40 text-pink-600 px-2 py-1 rounded-lg">${badge}</span>
+                            <div class="relative">
+                                <button onclick="togglePostMenu(${p.id})" class="text-slate-400 dark:text-gray-500 text-lg px-2 btn-press">⋮</button>
+                                <div id="postMenu-${p.id}" class="hidden absolute right-0 top-8 bg-white dark:bg-gray-800 shadow-xl rounded-xl p-1 z-50 text-xs w-28 border border-gray-100 dark:border-gray-700">
+                                    <button onclick="alert('${currentLang==='en'?'Report Submitted':'已提交檢舉'}'); togglePostMenu(${p.id});" class="w-full text-left p-2 text-red-500 font-bold">${reportTxt}</button>
+                                    <button onclick="alert('${currentLang==='en'?'User Blocked':'已封鎖此用戶'}'); togglePostMenu(${p.id});" class="w-full text-left p-2 text-slate-700 dark:text-gray-300 font-bold border-t border-gray-100 dark:border-gray-700">${blockTxt}</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <p class="text-sm font-bold text-slate-700 dark:text-gray-300 leading-relaxed">${p.text}</p>
                     ${mediaHTML}
+                    
                     <div class="mt-4 flex gap-4 pt-3 border-t border-gray-100 dark:border-gray-800">
-                        <button class="text-xs font-black text-slate-500 dark:text-gray-400 flex items-center gap-1 btn-press" onclick="likePost(${p.id})">❤️ ${p.likes} Likes</button>
-                        <button class="text-xs font-black text-slate-500 dark:text-gray-400 flex items-center gap-1 btn-press">💬 Comment</button>
+                        <button class="text-xs font-black text-pink-500 flex items-center gap-1 btn-press" onclick="likePost(${p.id})">${heartIcon} ${p.likes}</button>
+                    </div>
+                    
+                    <div class="mt-3">
+                        ${commentsHTML}
+                        <div class="mt-3 flex gap-2">
+                            <input type="text" id="commentInput-${p.id}" class="comment-input w-full p-3 text-xs font-bold bg-gray-50 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-xl text-slate-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500" placeholder="${placeholderText}">
+                            <button onclick="addComment(${p.id})" class="btn-comment px-4 py-2 bg-slate-800 dark:bg-slate-700 text-white rounded-xl text-xs font-black btn-press shadow-sm">${btnText}</button>
+                        </div>
                     </div>
                 </div>`;
             }).join('');
@@ -1340,7 +1476,33 @@
 
         function likePost(id) {
             let post = communityPosts.find(p => p.id === id);
-            if(post) { post.likes++; NetAPI.save(KEYS.posts, communityPosts); renderFeed(); }
+            if(post) { 
+                const index = socialProfile.likedPosts.indexOf(id);
+                if(index > -1) {
+                    socialProfile.likedPosts.splice(index, 1);
+                    post.likes = Math.max(0, post.likes - 1);
+                } else {
+                    socialProfile.likedPosts.push(id);
+                    post.likes++;
+                }
+                NetAPI.save(KEYS.posts, communityPosts); 
+                NetAPI.save(KEYS.profile, socialProfile);
+                renderFeed(); 
+            }
+        }
+
+        function addComment(id) {
+            let input = document.getElementById(`commentInput-${id}`);
+            let text = input.value.trim();
+            if(!text) return;
+
+            let post = communityPosts.find(p => p.id === id);
+            if(post) {
+                if(!post.comments) post.comments = [];
+                post.comments.push({ author: socialProfile.name, text: text });
+                NetAPI.save(KEYS.posts, communityPosts);
+                renderFeed();
+            }
         }
 
         // ================= 系統與主題初始化 =================
